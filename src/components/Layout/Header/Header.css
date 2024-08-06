@@ -1,0 +1,9 @@
+.header-wrapper {
+    display: flex;
+    font-size: 28px;
+}
+
+.header-wrapper a {
+    color: #fff;
+
+}
