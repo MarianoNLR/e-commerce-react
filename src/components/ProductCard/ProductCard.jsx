@@ -32,7 +32,7 @@ export function ProductCard (props) {
 }
 
 ProductCard.propTypes = {
-    productId: PropTypes.number,
+    productId: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
