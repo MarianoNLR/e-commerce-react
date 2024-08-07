@@ -30,19 +30,47 @@ export function ProductView () {
         return formatted
     }
 
+    const handleAddToCart = (e) => {
+        e.preventDefault()
+        api.post('/cart', {
+            data: {
+                productId: productId,
+                quantity: 1
+            }
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         <>
             <main>
                 { !loadingProduct ? (
-                    <div className="product-wrapper">
-                        <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
-                        <div className="product-details">
-                            <h1>{productData.name}</h1>
-                            <h2>{formatPrice(productData.price)}</h2>
-                            <h3>{productData.quantity}</h3>
-                            <button className="add-to-cart-button">Agregar al Carrito</button>
+                    <>
+                        <div className="product-wrapper">
+                            <div className="product-wrapper-row">
+                                <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
+                                <div className="product-details">
+                                    <h1>{productData.name}</h1>
+                                    <h2>{formatPrice(productData.price)}</h2>
+                                    <h3>{productData.quantity}</h3>
+                                    <button className="add-to-cart-button" onClick={(e) => handleAddToCart(e)}>Agregar al Carrito</button>
+                                </div>
+                            </div>
+                            <div className="product-wrapper-row">
+                                <div className="product-description-wrapper">
+                                    <h2 className="product-description-title">Detalles del Producto</h2>
+                                    <p className="product-description">{productData.description}</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        
+                        
+                    </>
                 ) 
                 : 
                 (null)
