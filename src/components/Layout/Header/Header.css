@@ -1,6 +1,7 @@
 .header-wrapper {
     display: flex;
     font-size: 28px;
+    margin-bottom: 2rem;
 }
 
 .header-wrapper a {

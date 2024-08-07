@@ -1,9 +1,12 @@
 import './Header.css'
+import { Link } from 'react-router-dom'
+
 export function Header () {
+
     return (
         <>
             <div className="header-wrapper">
-                <a href="#">Logo</a>
+                <Link to='/'>Logo</Link>
             </div>
         </>
     )
