@@ -1,0 +1,44 @@
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-wrapper {
+    display: flex;
+    gap: 1rem;
+    width: 80%;
+}
+
+img {
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.product-details h1 {
+    flex: 2;
+}
+
+.product-details h2::before {
+    content: 'Precio: ';
+}
+
+.product-details h3::before {
+    content: 'En Stock: ';
+}
+
+.product-details h3::after {
+    content: ' Unidades';
+    color: rgb(161, 161, 161);
+}
+
+.add-to-cart-button {
+    flex: 2;
+}
