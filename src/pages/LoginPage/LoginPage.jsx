@@ -1,11 +1,13 @@
 import { useState } from "react"
 import axios from "axios"
 import { useAuth } from "../../components/AuthProvider.jsx"
+import { useNavigate } from "react-router-dom"
 
 export function LoginPage () {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const { login } = useAuth()
+    const navigate = useNavigate()
     const onChangeUsername = (e) => {
         setUsername(e.target.value)
     }
@@ -22,6 +24,7 @@ export function LoginPage () {
         try {
             await login({username, password})
             console.log('Sesion Iniciada! Supuestamente.')
+            navigate('/')
         } catch (error) {
             console.error('Error: ', error)
         }
