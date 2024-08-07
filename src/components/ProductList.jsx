@@ -9,7 +9,7 @@ export function ProductList ({products}) {
                     <h3>Not elements found.</h3>
                     :
                     products.products.map((item, index) => (
-                        <ProductCard key={index} index={item.index} name={item.name} price={item.price} quantity={item.quantity}></ProductCard>
+                        <ProductCard key={index} index={item.index} name={item.name} price={item.price} quantity={item.quantity} imageURL={item.imageURL}></ProductCard>
                     ))
                 }
 
