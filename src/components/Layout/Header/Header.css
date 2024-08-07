@@ -2,9 +2,16 @@
     display: flex;
     font-size: 28px;
     margin-bottom: 2rem;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header-wrapper a {
     color: #fff;
+}
 
+.cart-image {
+    width: 40px;
+    height: 40px;
+    color: white;
 }

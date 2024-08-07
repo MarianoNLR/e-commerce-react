@@ -7,8 +7,15 @@ main {
 
 .product-wrapper {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     width: 80%;
+}
+
+.product-wrapper-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
 }
 
 img {
@@ -41,4 +48,18 @@ img {
 
 .add-to-cart-button {
     flex: 2;
+}
+
+.product-description-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.product-description {
+    text-align: start;
+}
+
+.product-description-title {
+    text-align: start;
 }
