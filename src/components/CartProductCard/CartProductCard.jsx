@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import './CartProductCard.css'
+import { Link } from 'react-router-dom'
 
 export function CartProductCard (props) {
 
@@ -20,7 +21,7 @@ export function CartProductCard (props) {
                 <div className="product-cart-details-wrapper">
                     <div className='product-cart-details-column product-column'>
                         <h3 className="product-cart-details-column-title">Producto</h3>
-                        <h3 className="product-cart-column-data">{props.name}</h3>
+                        <Link to={`/products/${props.productId}`}><h3 className="product-cart-column-data">{props.name}</h3></Link>
                     </div>
                     <div className='product-cart-details-column'>
                         <p className="product-cart-details-column-title">Precio</p>
@@ -42,6 +43,7 @@ export function CartProductCard (props) {
 }
 
 CartProductCard.propTypes = {
+    productId: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
