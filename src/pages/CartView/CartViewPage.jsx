@@ -36,7 +36,7 @@ export function CartViewPage () {
                 <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 <div className="cart-details-wrapper">
                     {cart.items.map((item, index) => (
-                            <CartProductCard key={index} name={item.product.name} price={item.product.price} quantity={item.quantity} imageURL={item.product.imageURL}></CartProductCard>
+                            <CartProductCard key={index} productId={item.product.id} name={item.product.name} price={item.product.price} quantity={item.quantity} imageURL={item.product.imageURL}></CartProductCard>
                     ))}
                 </div>
             </main>
