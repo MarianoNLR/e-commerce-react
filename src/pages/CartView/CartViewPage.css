@@ -1,0 +1,8 @@
+.cart-details-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-wrapper-title{
+    margin-bottom: 20px;
+}
