@@ -21,10 +21,11 @@ export const CartProvider = ({ children }) => {
                 setLoadingCartCount(false)
             })
             .catch(err => {
+                setLoadingCartCount(false)
                 console.error(err)
             }) 
         }
-        
+        setLoadingCartCount(false)
     }, [user])
 
     return (
