@@ -15,8 +15,8 @@ function App() {
       <CartProvider>
           <Layout>
             <Routes>
-              <Route index path='/login' element={<LoginPage />} />
-              <Route path='/' element={<HomePage />}></Route> 
+              <Route path='/login' element={<LoginPage />} />
+              <Route index path='/' element={<HomePage />}></Route> 
               <Route path='/products/:productId' element={<ProductView/>}></Route>
               <Route path='/cart/:userId' element={<CartViewPage />}></Route>
             </Routes>
