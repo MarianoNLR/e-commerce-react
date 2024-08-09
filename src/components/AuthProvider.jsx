@@ -15,7 +15,19 @@ export const AuthProvider = ({ children }) => {
             }
             setLoadingUser(false)
         }
-        fetchUser()
+
+        const checkCookieAndFetchUser = () => {
+            const cookieName = "access_token"
+            const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith(`${cookieName}=`))
+            
+            if (cookieExists) {
+                fetchUser()
+            } else {
+                setLoadingUser(false)
+            }
+        };
+    
+        checkCookieAndFetchUser();
     }, [])
 
     const login = async (credentials) => {
