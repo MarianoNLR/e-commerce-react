@@ -6,3 +6,31 @@
 .cart-wrapper-title{
     margin-bottom: 20px;
 }
+
+@media (max-width: 660px) {
+    .product-cart-wrapper {
+        flex-direction: column;
+        max-height: fit-content;
+    }
+
+    .product-cart-details-wrapper {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .product-column {
+        max-width: 100%;
+    }
+
+    .product-cart-controllers-wrapper {
+        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .product-cart-wrapper img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
