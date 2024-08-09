@@ -25,7 +25,8 @@ export function Header () {
                 </div>
                 :
                 <div className="header-wrapper">
-                    <Link to='/'>Logo</Link>
+                    <Link to='/' className='header-logo'>Logo</Link>
+                    <Link to='/login' className='header-login-link'>Inciar Sesión</Link>
                 </div>
             }
             

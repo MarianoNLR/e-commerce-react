@@ -36,3 +36,9 @@
     text-align: center;
     line-height: 20px;
 }
+
+.header-login-link {
+    text-align: center;
+    line-height: 25px;
+    font-size: 25px;
+}
