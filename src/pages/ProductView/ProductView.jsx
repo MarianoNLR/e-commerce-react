@@ -8,7 +8,7 @@ export function ProductView () {
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     useEffect(() => {
-        api.get(`/products/${productId}`)
+        api.get(`/products/product/${productId}`)
         .then(res => {
             setProductData(res.data.product)
             setLoadingProduct(false)
