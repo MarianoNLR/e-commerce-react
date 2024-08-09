@@ -5,17 +5,39 @@
 }
 
 .product-card-wrapper {
-    border: 1px solid white;
-    width: 300px;
-    padding: 0 0 1rem 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
 }
 
 .product-image-wrapper img{
-    object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
+    object-fit: cover;
+    height: auto;
+    width: 100%;
+    transition: height .3s linear;
 }
 
 .view-more-button {
     background-color: white;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.product-title {
+    width: 200px;
+    min-height: 50px;
+    max-height: 50px;
+    overflow: hidden;
+    display: -webkit-box; 
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; 
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    white-space: normal; 
 }
