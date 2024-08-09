@@ -1,0 +1,36 @@
+.form-wrapper {
+    display: flex;
+    width: 400px;
+    overflow-x: hidden;
+}
+
+.login-active .login-form {
+    animation: swipeRight 1s forwards;
+}
+
+.register-active .signup-form {
+    animation: swipeLeft 1s forwards;
+}
+
+@keyframes swipeLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes swipeRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+

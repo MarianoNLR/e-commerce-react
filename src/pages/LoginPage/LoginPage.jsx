@@ -1,44 +1,21 @@
 import { useState } from "react"
-import axios from "axios"
-import { useAuth } from "../../components/AuthProvider.jsx"
-import { useNavigate } from "react-router-dom"
-
+import { LoginForm } from "../../components/LoginForm/LoginForm.jsx"
+import { SignUpForm } from "../../components/SignUpForm/SignUpForm.jsx"
+import './LoginPage.css'
 export function LoginPage () {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const { login } = useAuth()
-    const navigate = useNavigate()
-    const onChangeUsername = (e) => {
-        setUsername(e.target.value)
-    }
-
-    const onChangePassword = (e) => {
-        setPassword(e.target.value)
-    }
-
-    const handleSubmitLogin = async (e) => {
-        e.preventDefault()
-        console.log(username)
-        console.log(password)
-        
-        try {
-            await login({username, password})
-            console.log('Sesion Iniciada! Supuestamente.')
-            navigate('/')
-        } catch (error) {
-            console.error('Error: ', error)
-        }
-        
-    }
+    const [showLoginForm, setShowLoginForm] = useState(true)
 
     return (
         <>
-            <h1>Login Page</h1>
-            <form onSubmit={handleSubmitLogin} className="form">
-                <input type="text" name="username" id="username" onChange={(e) => onChangeUsername(e)}/>
-                <input type="password" name="password" id="password" onChange={(e) => onChangePassword(e)} />
-                <input type="submit" value="Login" />
-            </form>
+            <main>
+                <div className={`form-wrapper ${showLoginForm ? 'login-active' : 'register-active'}`}>
+                    {showLoginForm ? 
+                    <LoginForm setShowLoginForm={setShowLoginForm}></LoginForm>
+                    : 
+                    <SignUpForm setShowLoginForm={setShowLoginForm}></SignUpForm>
+                    }
+                </div>
+            </main>
         </>
     )
 }
