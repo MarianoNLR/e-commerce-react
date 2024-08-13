@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCart } from '../../components/CartProvider.jsx'
 import api from "../../api.js";
 import './ProductView.css'
 
@@ -7,6 +8,7 @@ export function ProductView () {
     const {productId} = useParams()
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
+    const { setCartCount } = useCart()
     useEffect(() => {
         api.get(`/products/product/${productId}`)
         .then(res => {
@@ -40,6 +42,7 @@ export function ProductView () {
         })
         .then(res => {
             console.log(res)
+            setCartCount(prev => prev + 1)
         })
         .catch(err => {
             console.log(err)
