@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
         if (user?.id) {
             api.get(`/cart/${user.id}`)
             .then(res => {
-                setCartCount(res.data.cart.items)
+                setCartCount(res.data.cart.items.length)
                 setLoadingCartCount(false)
             })
             .catch(err => {
