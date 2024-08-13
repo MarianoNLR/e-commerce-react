@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import './CartProductCard.css'
 import { Link } from 'react-router-dom'
+import api from '../../api.js'
 
 export function CartProductCard (props) {
 
@@ -13,6 +14,8 @@ export function CartProductCard (props) {
 
         return formatted
     }
+
+
 
     return (
         <>
@@ -34,7 +37,7 @@ export function CartProductCard (props) {
                 </div>
                 <div className='product-cart-details-column'>
                     <div className="product-cart-controllers-wrapper">
-                        <button>Eliminar</button>
+                        <button onClick={(e) => props.handleDeleteItem(e, props.productId)}>Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -47,5 +50,6 @@ CartProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
-    imageURL: PropTypes.string
+    imageURL: PropTypes.string,
+    handleDeleteItem: PropTypes.func
 }
