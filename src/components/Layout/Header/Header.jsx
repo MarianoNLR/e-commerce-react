@@ -20,7 +20,7 @@ export function Header () {
                     <div className='cart-icon-wrapper'>
                         <Link to={`/cart/${user.id}`}><img className='cart-image' src={cartIcon} alt="" />
                         </Link>
-                        <span className='cart-products-number'>{cartCount.length}</span>
+                        <span className='cart-products-number'>{cartCount}</span>
                     </div>
                 </div>
                 :
