@@ -24,8 +24,6 @@ export function HomePage () {
     return (
         <>
             <main>
-                <h1>Home Page</h1>
-                {user && <p>Welcome {user.username}</p>}
                 <FilterPanel></FilterPanel>
                 {loadingProducts ? (<h2>Loading...</h2>) 
                 : 
