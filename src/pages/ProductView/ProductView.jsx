@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import { useCart } from '../../components/CartProvider.jsx'
 import api from "../../api.js";
 import './ProductView.css'
+import { QuantityInput } from "../../components/QuantityInput/QuantityInput.jsx";
 
 export function ProductView () {
     const {productId} = useParams()
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
+    const [quantity, setQuantity] = useState(1)
     const { setCartCount } = useCart()
     useEffect(() => {
         api.get(`/products/product/${productId}`)
@@ -37,7 +39,7 @@ export function ProductView () {
         api.post('/cart', {
             data: {
                 productId: productId,
-                quantity: 1
+                quantity: quantity
             }
         })
         .then(res => {
@@ -61,6 +63,7 @@ export function ProductView () {
                                     <h1>{productData.name}</h1>
                                     <h2>{formatPrice(productData.price)}</h2>
                                     <h3>{productData.quantity}</h3>
+                                    <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
                                     <button className="add-to-cart-button" onClick={(e) => handleAddToCart(e)}>Agregar al Carrito</button>
                                 </div>
                             </div>
