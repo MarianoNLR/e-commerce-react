@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './QuantityInput.css'
 
 export function QuantityInput ({ quantity, setQuantity, stock }) {
     
@@ -22,9 +23,12 @@ export function QuantityInput ({ quantity, setQuantity, stock }) {
     return (
         <>
             <div className="quantity-input-wrapper">
+                <span className="quantity-title">Cantidad: </span> 
+                <div className="quantity-input-controls-wrapper">
                 <input type="button" className="quantity-input subtract" value="-" onClick={(e) => handleSubQuantity(e)} />
                 <span className="quantity-output">{quantity}</span>
                 <input type="button" className="quantity-input add" value="+" onClick={(e) => handleAddQuantity(e)}/>
+                </div>
             </div>
         </>
     )
