@@ -1,0 +1,13 @@
+.cart-total_price-wrapper {
+    display: flex;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 660px) {
+    .cart-total_price-wrapper {
+        flex-direction: column;
+    }
+}
