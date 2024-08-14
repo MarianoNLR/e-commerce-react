@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from 'prop-types'
 import './QuantityInput.css'
 
 export function QuantityInput ({ quantity, setQuantity, stock }) {
@@ -32,4 +33,10 @@ export function QuantityInput ({ quantity, setQuantity, stock }) {
             </div>
         </>
     )
+}
+
+QuantityInput.propTypes = {
+    quantity: PropTypes.number,
+    setQuantity: PropTypes.func,
+    stock: PropTypes.number
 }
