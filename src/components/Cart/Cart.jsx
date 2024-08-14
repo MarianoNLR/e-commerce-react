@@ -15,7 +15,17 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
         .catch(err => {
             console.error(err)
         })
-    }, [userId, loadingCart, cart])
+    }, [userId, loadingCart])
+
+    const formatPrice = (price) => {
+        if (!price) {
+            return
+        }
+
+        const formatted = price.toLocaleString('es-AR', {style: 'currency', currency: 'ARS'})
+
+        return formatted
+    }
 
     const handleDeleteItem = (e, product) => {
         e.preventDefault()
@@ -39,7 +49,7 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
         <>
             <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 <div className="cart-details-wrapper">
-                    {cart.map((item, index) => (
+                    {cart.items.map((item, index) => (
                             <CartProductCard 
                             key={index} 
                             productId={item.product.id} 
@@ -51,12 +61,15 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
                             </CartProductCard>
                     ))}
                 </div>
+                <div className="cart-total_price-wrapper">
+                    {cart.totalPrice > 0 ? <p className="cart-total_price">Precio Total: <span>{formatPrice(cart.totalPrice)}</span></p> : null}
+                </div>
         </>
     )
 }
 
 Cart.propTypes = {
-    cart: PropTypes.array,
+    cart: PropTypes.object,
     setCart: PropTypes.func,
     setCartCount: PropTypes.func,
     userId: PropTypes.string
