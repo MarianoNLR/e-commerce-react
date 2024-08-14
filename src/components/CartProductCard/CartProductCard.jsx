@@ -9,6 +9,10 @@ export function CartProductCard (props) {
     }
 
     const formatPrice = (price) => {
+        if (!price) {
+            return
+        }
+
         const formatted = price.toLocaleString('es-AR', {style: 'currency', currency: 'ARS'})
 
         return formatted
