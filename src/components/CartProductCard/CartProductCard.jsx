@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import './CartProductCard.css'
 import { Link } from 'react-router-dom'
-import api from '../../api.js'
 
 export function CartProductCard (props) {
 
@@ -14,8 +13,6 @@ export function CartProductCard (props) {
 
         return formatted
     }
-
-
 
     return (
         <>
