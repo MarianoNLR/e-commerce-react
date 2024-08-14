@@ -4,6 +4,7 @@ import api from "../../api.js"
 import { ProductList } from "../../components/ProductList/ProductList.jsx"
 import { FilterPanel } from "../../components/FilterPanel/FilterPanel.jsx"
 import './HomePage.css'
+import { SearchBar } from "../../components/SearchBar/SearchBar.jsx"
 
 export function HomePage () {
     const { user, loadingUser } = useAuth()
@@ -24,6 +25,7 @@ export function HomePage () {
     return (
         <>
             <main>
+                <SearchBar></SearchBar>
                 <FilterPanel></FilterPanel>
                 {loadingProducts ? (<h2>Loading...</h2>) 
                 : 
