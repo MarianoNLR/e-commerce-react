@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import api from '../../api.js'
 import './CategoryProducts.css'
 import { ProductList } from '../../components/ProductList/ProductList.jsx'
+import { FilterPanel } from '../../components/FilterPanel/FilterPanel.jsx'
 
 export function CategoryProducts () {
     const {categoryId} = useParams()
@@ -24,7 +25,7 @@ export function CategoryProducts () {
         <>
             <main>
                 {console.log(products)}
-                <h1>Productos por categoria</h1>
+                <FilterPanel></FilterPanel>
                 <ProductList products={products}></ProductList>
             </main>
         </>
