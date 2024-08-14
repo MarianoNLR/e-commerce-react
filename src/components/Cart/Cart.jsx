@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import api from "../../api.js"
 import {CartProductCard} from '../CartProductCard/CartProductCard.jsx'
 import PropTypes from 'prop-types'
+import './Cart.css'
 
 export function Cart ({cart, setCart, setCartCount, userId}) {
     const [loadingCart, setLoadingCart] = useState(true)
@@ -61,9 +62,12 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
                             </CartProductCard>
                     ))}
                 </div>
+                {cart.totalPrice > 0 ?
                 <div className="cart-total_price-wrapper">
-                    {cart.totalPrice > 0 ? <p className="cart-total_price">Precio Total: <span>{formatPrice(cart.totalPrice)}</span></p> : null}
+                    <p>Precio Total:</p><span className="cart-total_price">{formatPrice(cart.totalPrice)}</span>
                 </div>
+                : null
+                }
         </>
     )
 }
