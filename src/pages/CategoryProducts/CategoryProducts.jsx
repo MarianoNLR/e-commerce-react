@@ -4,6 +4,7 @@ import api from '../../api.js'
 import './CategoryProducts.css'
 import { ProductList } from '../../components/ProductList/ProductList.jsx'
 import { FilterPanel } from '../../components/FilterPanel/FilterPanel.jsx'
+import { SearchBar } from '../../components/SearchBar/SearchBar.jsx'
 
 export function CategoryProducts () {
     const {categoryId} = useParams()
@@ -24,7 +25,7 @@ export function CategoryProducts () {
     return (
         <>
             <main>
-                {console.log(products)}
+                <SearchBar></SearchBar>
                 <FilterPanel></FilterPanel>
                 <ProductList products={products}></ProductList>
             </main>
