@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
             }) 
         }
         setLoadingCartCount(false)
-    }, [user])
+    }, [user, cartCount])
 
     return (
         <CartContext.Provider value={{cartCount, setCartCount, loadingCartCount}}>
