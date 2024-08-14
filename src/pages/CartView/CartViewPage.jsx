@@ -6,7 +6,7 @@ import './CartViewPage.css'
 import { Cart } from "../../components/Cart/Cart.jsx"
 export function CartViewPage () {
     const { userId } = useParams()
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useState(null)
     const {user, loadingUser} = useAuth()
     const {setCartCount} = useCart()
     //TODO make a different component for cart
@@ -18,7 +18,7 @@ export function CartViewPage () {
     return (
         <>
             <main>
-                <Cart cart={cart.items} setCart={setCart} setCartCount={setCartCount} userId={userId}></Cart>
+                <Cart cart={cart} setCart={setCart} setCartCount={setCartCount} userId={userId}></Cart>
             </main>
         </>
     )
