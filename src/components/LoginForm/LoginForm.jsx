@@ -32,15 +32,14 @@ export function LoginForm (props) {
             setFormMessage('Debes ingresar una contraseña!')
             return
         }
-        console.log(username)
-        console.log(password)
         
         try {
             await login({username, password})
-            console.log('Sesion Iniciada! Supuestamente.')
             navigate('/')
         } catch (error) {
-            console.error('Error: ', error)
+            if (error?.response.status === 401) {
+                setFormMessage('Nombre de usuario o contraseña incorrecto.')
+            }
         }
         
     }
