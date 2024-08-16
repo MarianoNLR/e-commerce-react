@@ -1,6 +1,14 @@
 .product-list-wrapper {
     width: 80%;
+    min-height: 300px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
+}
+
+.not-elements-found-text {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

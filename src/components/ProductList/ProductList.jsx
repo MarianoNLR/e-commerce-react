@@ -7,7 +7,7 @@ export function ProductList ({products}) {
         <>
             <div className="product-list-wrapper">
                 {products.products.length === 0 ? 
-                    <h3>Not elements found.</h3>
+                    <h3 className="not-elements-found-text">No hay Productos Disponibles</h3>
                     :
                     products.products.map((item, index) => (
                         <ProductCard key={index} productId={item.id} index={item.index} name={item.name} price={item.price} quantity={item.quantity} imageURL={item.imageURL}></ProductCard>
