@@ -3,10 +3,12 @@ import { useAuth } from "../../components/AuthProvider.jsx"
 import PropTypes from 'prop-types'
 import { useNavigate } from "react-router-dom"
 import './LoginForm.css'
+import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage.jsx"
 
 export function LoginForm (props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [formMessage, setFormMessage] = useState("")
     const { login } = useAuth()
     const navigate = useNavigate()
     
@@ -20,6 +22,16 @@ export function LoginForm (props) {
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault()
+
+        if (username === '') {
+            setFormMessage('Debes ingresar un nombre de usuario!')
+            return
+        }
+
+        if (password === '') {
+            setFormMessage('Debes ingresar una contraseña!')
+            return
+        }
         console.log(username)
         console.log(password)
         
@@ -39,6 +51,7 @@ export function LoginForm (props) {
                 <input type="text" name="username" id="username" placeholder="Usuario" onChange={(e) => onChangeUsername(e)}/>
                 <input type="password" name="password" id="password" placeholder="Contraseña" onChange={(e) => onChangePassword(e)} />
                 <input type="submit" value="Inciar Sesion" />
+                <FormErrorMessage message={formMessage}></FormErrorMessage>
                 <a href="#">Olvidaste tu contraseña?</a>
                 <div className="link-register-wrapper">
                     <p>No tienes una cuenta aún?</p>
