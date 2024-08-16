@@ -5,7 +5,7 @@ import './Footer.css'
 
 export function Footer () {
     return (
-      <>
+      <footer>
         <div className="footer-wrapper">
           <div className='footer-social-wrapper'>
             <ul className='social-list'>
@@ -24,6 +24,9 @@ export function Footer () {
           </div>
         <span>Designed and Developed by Mariano Lotero Rolón</span>
         </div>
-      </>
+        <div className='footer-info-wrapper'>
+            Esta pagina web fue realizada como parte de un proyecto personal.
+        </div>
+      </footer>
     )
   }
