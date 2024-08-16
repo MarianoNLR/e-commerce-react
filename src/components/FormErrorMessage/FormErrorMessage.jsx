@@ -15,3 +15,7 @@ export function FormErrorMessage (props) {
         </>
     )
 }
+
+FormErrorMessage.propTypes = {
+    message: PropTypes.string
+}
