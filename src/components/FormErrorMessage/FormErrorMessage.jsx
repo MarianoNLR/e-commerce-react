@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types'
+import './FormErrorMessage.css'
+
 export function FormErrorMessage (props) {
 
     if (props.message === '') {
