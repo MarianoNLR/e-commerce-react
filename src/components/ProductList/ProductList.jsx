@@ -1,8 +1,14 @@
 import { ProductCard } from "../ProductCard/ProductCard.jsx";
+import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types'
 import './ProductList.css'
 
-export function ProductList ({products}) {
+export function ProductList ({products, loadingProducts}) {
+
+    if (loadingProducts) {
+        return <CircularProgress></CircularProgress>
+    }
+
     return (
         <>
             <div className="product-list-wrapper">

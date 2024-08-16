@@ -4,6 +4,7 @@ import {CartProductCard} from '../CartProductCard/CartProductCard.jsx'
 import PropTypes from 'prop-types'
 import './Cart.css'
 import { Link } from "react-router-dom"
+import CircularProgress from '@mui/material/CircularProgress';
 
 export function Cart ({cart, setCart, setCartCount, userId}) {
     const [loadingCart, setLoadingCart] = useState(true)
@@ -16,7 +17,7 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
         })
         .catch(err => {
             console.error(err)
-        })
+        })  
     }, [userId, loadingCart])
 
     const formatPrice = (price) => {
@@ -44,12 +45,11 @@ export function Cart ({cart, setCart, setCartCount, userId}) {
     }
 
     if (loadingCart) {
-        return <></>
+        return <CircularProgress></CircularProgress>
     }
 
     return (
         <>
-            <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 {cart.items.length <= 0 && 
                 <div className="empty-cart-text">
                     <h3>Tu carrito de compra se encuentra vacío.</h3>

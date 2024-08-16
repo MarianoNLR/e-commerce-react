@@ -18,6 +18,7 @@ export function CartViewPage () {
     return (
         <>
             <main>
+                <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 <Cart cart={cart} setCart={setCart} setCartCount={setCartCount} userId={userId}></Cart>
             </main>
         </>

@@ -9,9 +9,9 @@ import { SearchBar } from "../../components/SearchBar/SearchBar.jsx"
 export function HomePage () {
     const { user, loadingUser } = useAuth()
     const [ loadingProducts, setLoadingProducts ] = useState(true)
-    const [products, setProducts ] = useState([])
+    const [products, setProducts ] = useState(null)
     useEffect(() => {
-        api.get('/products/')
+            api.get('/products/')
         .then(res => {
             setProducts(res.data)
             setLoadingProducts(false)
@@ -27,10 +27,7 @@ export function HomePage () {
             <main>
                 <SearchBar></SearchBar>
                 <FilterPanel></FilterPanel>
-                {loadingProducts ? (<h2>Loading...</h2>) 
-                : 
-                <ProductList products={products}></ProductList>
-                }
+                <ProductList products={products} loadingProducts={loadingProducts}></ProductList>
             </main>
         </>
     )
