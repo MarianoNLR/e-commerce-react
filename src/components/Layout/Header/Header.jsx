@@ -12,19 +12,18 @@ export function Header () {
     }
 
     return (
-        <>
-            {user ? 
-                <div className="header-wrapper">
+        <header className='header'>
+            {user ?
+                <div className="header-main-wrapper">
                     <Link to='/'>Logo</Link>
                     <CartHeader></CartHeader>
-                </div>
+                </div>   
                 :
-                <div className="header-wrapper">
+                <div className="header-main-wrapper">
                     <Link to='/' className='header-logo'>Logo</Link>
                     <Link to='/login' className='header-login-link'>Inciar Sesión</Link>
                 </div>
             }
-            
-        </>
+        </header>
     )
 }

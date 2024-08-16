@@ -1,12 +1,15 @@
-.header-wrapper {
+.header {
+    margin-bottom: 2rem;
+}
+
+.header-main-wrapper {
     display: flex;
     font-size: 28px;
-    margin-bottom: 2rem;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-wrapper a {
+.header-main-wrapper a {
     color: #fff;
 }
 
