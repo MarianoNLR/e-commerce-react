@@ -36,6 +36,16 @@
     font-size: 1.5rem;
 }
 
+.add {
+    border-radius: 0 10px 10px 0;
+    min-width: 40px;
+}
+
+.subtract {
+    border-radius: 10px 0 0 10px;
+    min-width: 40px;
+}
+
 .quantity-input:hover {
     background-color: rgb(201, 201, 201);
 }
