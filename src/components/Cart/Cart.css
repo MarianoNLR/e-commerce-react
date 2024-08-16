@@ -6,6 +6,10 @@
     margin-top: 1rem;
 }
 
+.empty-cart-text {
+    
+}
+
 @media (max-width: 660px) {
     .cart-total_price-wrapper {
         flex-direction: column;
