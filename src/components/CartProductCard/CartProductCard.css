@@ -58,7 +58,7 @@
     text-decoration: underline;
 }
 
-@media (max-width: 660px) {
+@media (max-width: 800px) {
     .product-cart-wrapper {
         flex-direction: column;
         max-height: fit-content;
