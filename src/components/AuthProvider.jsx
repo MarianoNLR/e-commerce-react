@@ -31,12 +31,12 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     const login = async (credentials) => {
+        // eslint-disable-next-line no-useless-catch
         try {
             const user = await authenticateUser(credentials)
             setUser(user)
-            console.log(user)
+            return user
         } catch (error) {
-            console.error('Error in Login: ', error)
             throw error
         }
     }
