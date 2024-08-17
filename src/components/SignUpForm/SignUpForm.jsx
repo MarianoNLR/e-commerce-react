@@ -2,12 +2,15 @@ import { useState } from "react"
 import PropTypes from 'prop-types'
 import './SignUpForm.css'
 import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage"
+import { useNavigate } from "react-router-dom"
+import api from "../../api.js"
 
 export function SignUpForm (props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [formMessage, setFormMessage] = useState("")
+    const navigate = useNavigate()
     const onChangeUsername = (e) => {
         setUsername(e.target.value)
     }
@@ -44,8 +47,13 @@ export function SignUpForm (props) {
         
         try {
             //await login({username, password})
+            api.post('/users/register', {
+                username,
+                password,
+                confirmPassword
+            })
             console.log('Sesion Iniciada! Supuestamente.')
-            //navigate('/')
+            navigate(0)
         } catch (error) {
             console.error('Error: ', error)
         }
