@@ -63,3 +63,15 @@ img {
 .product-description-title {
     text-align: start;
 }
+
+@media (max-width: 960px) { 
+    .product-wrapper-row {
+        flex-direction: column;
+    }
+
+    .product-image {
+        max-width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+    }
+}
