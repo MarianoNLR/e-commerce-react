@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../components/AuthProvider.jsx"
 export function LoginPage () {
     const [showLoginForm, setShowLoginForm] = useState(true)
-    const user = useAuth()
+    const { user } = useAuth()
     const navigate = useNavigate()
-
     useEffect(() => {
         if (user) {
           navigate('/')
@@ -17,7 +16,7 @@ export function LoginPage () {
 
     return (
         <>
-            <main>
+            <main>  
                 <div className={`form-wrapper ${showLoginForm ? 'login-active' : 'register-active'}`}>
                     {showLoginForm ? 
                     <LoginForm setShowLoginForm={setShowLoginForm}></LoginForm>
