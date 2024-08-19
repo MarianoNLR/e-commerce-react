@@ -47,3 +47,11 @@
     line-height: 25px;
     font-size: 25px;
 }
+
+.user-options-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}

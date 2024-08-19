@@ -4,7 +4,7 @@ import { useAuth } from '../../AuthProvider.jsx'
 import { useCart } from '../../CartProvider.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 export function Header () {
-    const {user, loadingUser} = useAuth()
+    const {user, loadingUser, logout} = useAuth()
     const localStorageUser = JSON.parse(window.localStorage.getItem('user'))
     const { cartCount, loadingCartCount } = useCart()
 
@@ -17,7 +17,10 @@ export function Header () {
             {localStorageUser ?
                 <div className="header-main-wrapper">
                     <Link to='/'>Logo</Link>
-                    <CartHeader></CartHeader>
+                    <div className="user-options-wrapper">
+                        <CartHeader></CartHeader>
+                        <Link onClick={logout}>Cerrar sesion</Link>
+                    </div>
                 </div>   
                 :
                 <div className="header-main-wrapper">
