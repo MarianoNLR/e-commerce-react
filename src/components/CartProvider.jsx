@@ -9,13 +9,15 @@ export const useCart = () => {
 }
 
 export const CartProvider = ({ children }) => {
-    const {user} = useAuth()
+    //const {user} = useAuth()
+    const user = JSON.parse(window.localStorage.getItem('user'))
     const [cartCount, setCartCount] = useState([])
     const [loadingCartCount, setLoadingCartCount] = useState(true)
 
     useEffect(() => {
-        if (user?.id) {
-            api.get(`/cart/${user.id}`)
+        
+        if (user?.user.id) {
+            api.get(`/cart/${user.user.id}`)
             .then(res => {
                 setCartCount(res.data.cart.items.length)
                 setLoadingCartCount(false)

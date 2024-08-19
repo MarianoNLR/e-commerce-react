@@ -5,6 +5,7 @@ import { useCart } from '../../CartProvider.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 export function Header () {
     const {user, loadingUser} = useAuth()
+    const localStorageUser = JSON.parse(window.localStorage.getItem('user'))
     const { cartCount, loadingCartCount } = useCart()
 
     if (loadingUser || loadingCartCount) {
@@ -13,7 +14,7 @@ export function Header () {
 
     return (
         <header className='header'>
-            {user ?
+            {localStorageUser ?
                 <div className="header-main-wrapper">
                     <Link to='/'>Logo</Link>
                     <CartHeader></CartHeader>

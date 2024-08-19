@@ -18,9 +18,10 @@ export const AuthProvider = ({ children }) => {
 
         const checkCookieAndFetchUser = () => {
             const cookieName = "access_token"
+            const localStorageUser = window.localStorage.getItem('user')
             const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith(`${cookieName}=`))
             
-            if (cookieExists) {
+            if (cookieExists || localStorageUser) {
                 fetchUser()
             } else {
                 setLoadingUser(false)
@@ -33,9 +34,11 @@ export const AuthProvider = ({ children }) => {
     const login = async (credentials) => {
         // eslint-disable-next-line no-useless-catch
         try {
-            const user = await authenticateUser(credentials)
-            setUser(user)
-            return user
+            const data = await authenticateUser(credentials)
+            console.log(data)
+            setUser(data.user)
+            window.localStorage.setItem('user', JSON.stringify(data))
+            return data
         } catch (error) {
             throw error
         }
@@ -45,6 +48,7 @@ export const AuthProvider = ({ children }) => {
         try {
             await logoutUser()
             setUser(null)
+            window.localStorage.removeItem('user')
         } catch (error) {
             console.error('Error: ', error)
         }

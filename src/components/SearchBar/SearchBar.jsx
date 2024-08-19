@@ -8,7 +8,6 @@ export function SearchBar () {
 
     const handleSearchInputChange = (e) => {
         setSearchInput(e.target.value)
-        console.log(e.target.value)
     }
 
     const handleSearchClick = () => {

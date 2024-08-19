@@ -43,7 +43,6 @@ export function ProductView () {
             }
         })
         .then(res => {
-            console.log(res)
             setCartCount(prev => prev + 1)
         })
         .catch(err => {

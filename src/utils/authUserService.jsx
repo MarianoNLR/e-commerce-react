@@ -3,7 +3,8 @@ import api from '../api.js'
 export const authenticateUser = async (credentials) => {
     try {
         const res = await api.post('/users/login', credentials)
-        return res.data.user
+        console.log(res)
+        return res.data
     } catch (error) {
         console.error('Authentication failed: ', error)
         throw error
@@ -22,7 +23,8 @@ export const getUserFromToken = async () => {
 
 export const logoutUser = async () => {
     try {
-        await api.post('users/logout')
+        //await api.post('users/logout')
+        window.localStorage.removeItem('user')
     } catch (error) {
         console.error('We could not close your session.')
     }
