@@ -23,8 +23,7 @@ export const getUserFromToken = async () => {
 
 export const logoutUser = async () => {
     try {
-        //await api.post('users/logout')
-        window.localStorage.removeItem('user')
+        return await api.post('users/logout')
     } catch (error) {
         console.error('We could not close your session.')
     }
