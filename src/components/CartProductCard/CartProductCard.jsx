@@ -21,7 +21,7 @@ export function CartProductCard (props) {
     return (
         <>
             <div className="product-cart-wrapper">
-                <img src={`http://localhost:3000/uploads/${props.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
+                <img src={`https://e-commerce-api-gpfg.onrender.com/uploads/${props.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
                 <div className="product-cart-details-wrapper">
                     <div className='product-cart-details-column product-column'>
                         <h3 className="product-cart-details-column-title">Producto</h3>

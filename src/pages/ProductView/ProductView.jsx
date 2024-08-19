@@ -57,7 +57,7 @@ export function ProductView () {
                     <>
                         <div className="product-wrapper">
                             <div className="product-wrapper-row">
-                                <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
+                                <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
                                 <div className="product-details">
                                     <h1>{productData.name}</h1>
                                     <h2>{formatPrice(productData.price)}</h2>
