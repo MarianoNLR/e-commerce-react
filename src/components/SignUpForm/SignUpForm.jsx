@@ -4,8 +4,14 @@ import './SignUpForm.css'
 import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage"
 import { useNavigate } from "react-router-dom"
 import api from "../../api.js"
+import { useForm } from "react-hook-form"
 
 export function SignUpForm (props) {
+    const {register, 
+        handleSubmit,
+        formState: {errors},
+        watch
+       } = useForm() 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -23,49 +29,103 @@ export function SignUpForm (props) {
         setConfirmPassword(e.target.value)
     }
 
-    const handleSubmitLogin = async (e) => {
-        e.preventDefault()
-        if (username === '') {
-            setFormMessage('Debes ingresar un nombre de usuario!')
-            return
-        }
+    // const handleSubmitLogin = async (e) => {
+    //     e.preventDefault()
+    //     if (username === '') {
+    //         setFormMessage('Debes ingresar un nombre de usuario!')
+    //         return
+    //     }
 
-        if (password === '') {
-            setFormMessage('Debes ingresar una contraseña!')
-            return
-        }
+    //     if (password === '') {
+    //         setFormMessage('Debes ingresar una contraseña!')
+    //         return
+    //     }
 
-        if (confirmPassword === '') {
-            setFormMessage('Debes confirmar la contraseña!')
-            return
-        }
+    //     if (confirmPassword === '') {
+    //         setFormMessage('Debes confirmar la contraseña!')
+    //         return
+    //     }
 
-        if (password !== confirmPassword) {
-            setFormMessage('Las contraseña deben coincidir!')
-            return
-        }
+    //     if (password !== confirmPassword) {
+    //         setFormMessage('Las contraseña deben coincidir!')
+    //         return
+    //     }
         
+    //     try {
+    //         //await login({username, password})
+    //         api.post('/users/register', {
+    //             username,
+    //             password,
+    //             confirmPassword
+    //         })
+    //         console.log('Sesion Iniciada! Supuestamente.')
+    //         navigate(0)
+    //     } catch (error) {
+    //         console.error('Error: ', error)
+    //     }
+        
+    // }
+
+    const onSubmit = handleSubmit((data) => {
         try {
-            //await login({username, password})
             api.post('/users/register', {
-                username,
-                password,
-                confirmPassword
-            })
-            console.log('Sesion Iniciada! Supuestamente.')
-            navigate(0)
+                data
+            }).then(res => {
+                navigate(0)
+            }).catch(err => console.error(err))
+            
         } catch (error) {
             console.error('Error: ', error)
         }
-        
-    }
+    })
     return (
         <>
-            <form onSubmit={handleSubmitLogin} className="signup-form">
+            <form onSubmit={onSubmit} className="signup-form">
                 <h2>Registro</h2>
-                <input type="text" name="username" id="username" placeholder="Usuario" onChange={(e) => onChangeUsername(e)}/>
-                <input type="password" name="password" id="password" placeholder="Contraseña" onChange={(e) => onChangePassword(e)} />
-                <input type="password" name="confirmPassword" id="confirm-password" placeholder="Confirmar Contraseña" onChange={(e) => onChangeConfirmPassword(e)} />
+                <div className="input-group">
+                <input type="text" name="username" id="username" placeholder="Usuario" 
+                {...register("username", {
+                    required: {
+                        value: true,
+                        message: "Usuario es requerido."
+                    },
+                    minLength: {
+                        value: 2,
+                        message: "Usuario deber tener al menos 2 caracteres."
+                    }
+                })} />
+                {errors.username && <span className="span-form-error">{errors.username.message}</span>}
+                </div>
+                <div className="input-group">
+                <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
+                    required: {
+                        value: true,
+                        message: "La contraseña es requerida"
+                    },
+                    minLength: {
+                        value: 6,
+                        message: "La contraseña debe tener al menos 6 caracteres."
+                    }
+                })}/>
+                {errors.password && <span className="span-form-error">{errors.password.message}</span>}
+                </div>
+
+                <div className="input-group">
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Contraseña" {...register("confirmPassword", {
+                    required: {
+                        value: true,
+                        message: "La contraseña es requerida"
+                    },
+                    validate: (value) => {
+                        if (value === watch('password')) {
+                            return true
+                        } else {
+                            return "Las contraseñas deben coincidir."
+                        }
+                    }
+                })}/>
+                {errors.confirmPassword && <span className="span-form-error">{errors.confirmPassword.message}</span>}
+                </div>
                 <FormErrorMessage message={formMessage}></FormErrorMessage>
                 <input type="submit" value="Registrarme" />
                 <div className="link-register-wrapper">

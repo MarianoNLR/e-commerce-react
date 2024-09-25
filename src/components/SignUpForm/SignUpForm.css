@@ -27,3 +27,13 @@ input[type='submit'] {
 .signup-form a {
     color: #000000;
 }
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.span-form-error {
+    color: red;
+    font-weight: 600;
+}
