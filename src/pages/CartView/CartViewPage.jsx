@@ -4,6 +4,7 @@ import { useCart } from '../../components/CartProvider.jsx'
 import { useParams } from "react-router-dom"
 import './CartViewPage.css'
 import { Cart } from "../../components/Cart/Cart.jsx"
+import { MercadoPagoButton } from "../../components/MercadoPagoButton.jsx"
 export function CartViewPage () {
     const { userId } = useParams()
     const [cart, setCart] = useState(null)
@@ -20,6 +21,7 @@ export function CartViewPage () {
             <main>
                 <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 <Cart cart={cart} setCart={setCart} setCartCount={setCartCount} userId={userId}></Cart>
+                <MercadoPagoButton></MercadoPagoButton>
             </main>
         </>
     )
