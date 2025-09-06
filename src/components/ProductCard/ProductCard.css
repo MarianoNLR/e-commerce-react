@@ -17,6 +17,7 @@
     height: auto;
     width: 100%;
     transition: height .3s linear;
+    min-height: 250px;
 }
 
 .view-more-button {
@@ -40,4 +41,8 @@
     line-clamp: 2;
     text-overflow: ellipsis;
     white-space: normal; 
+}
+
+.out-of-stock-message {
+    color: rgb(255, 146, 146);
 }

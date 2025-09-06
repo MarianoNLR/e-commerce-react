@@ -23,7 +23,12 @@ export function ProductCard (props) {
                         {props.name}
                     </h3>
                     <p>{formatPrice(props.price)}</p>
-                    <span>En Stock: {props.quantity}</span>
+                    {props.quantity <= 0 ? 
+                        <span className='out-of-stock-message'>Sin Stock</span>
+                        :
+                        <span>En Stock: {props.quantity}</span>
+                        }
+                    
                     <Link to={`/products/product/${props.productId}`}><button className='view-more-button'>Ver Más</button></Link>
                 </div>
                 

@@ -52,7 +52,8 @@ export function LoginForm (props) {
     const onSubmit = handleSubmit(async (data) => {
         try {
             await login(data)
-            navigate('/')
+            const redirectTo = props.location?.state?.from || '/';
+            navigate(redirectTo)
         } catch (error) {
             if (error?.response.status === 401) {
                 setFormMessage('Nombre de usuario o contraseña incorrecto.')
@@ -104,5 +105,6 @@ export function LoginForm (props) {
 
 
 LoginForm.propTypes = {
-    setShowLoginForm: PropTypes.func
+    setShowLoginForm: PropTypes.func,
+    location: PropTypes.object
 }

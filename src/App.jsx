@@ -9,6 +9,7 @@ import { CartViewPage } from './pages/CartView/CartViewPage.jsx'
 import { CartProvider } from './components/CartProvider.jsx'
 import { CategoryProducts } from './pages/CategoryProducts/CategoryProducts.jsx'
 import { SearchProduct } from './pages/SearchProduct/SearchProduct.jsx'
+import { AddProductPage } from './pages/AddProductPage/AddProductPage.jsx'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path='/products/search/' element={<SearchProduct/>}></Route>
               <Route path='/cart/:userId' element={<CartViewPage />}></Route>
               <Route path='products/:categoryId' element={< CategoryProducts/>}></Route>
+              <Route path='/add-product' element={<AddProductPage />} />
             </Routes>
           </Layout>
         </CartProvider>

@@ -9,7 +9,7 @@ export function CartViewPage () {
     const { userId } = useParams()
     const [cart, setCart] = useState(null)
     const {user, loadingUser} = useAuth()
-    const {setCartCount} = useCart()
+    const {cartCount, setCartCount} = useCart()
     //TODO make a different component for cart
     
     if (loadingUser || !user) {
@@ -21,7 +21,7 @@ export function CartViewPage () {
             <main>
                 <h1 className="cart-wrapper-title">Carrito de Compra</h1>
                 <Cart cart={cart} setCart={setCart} setCartCount={setCartCount} userId={userId}></Cart>
-                <MercadoPagoButton></MercadoPagoButton>
+                {cartCount > 0 && <MercadoPagoButton></MercadoPagoButton>}
             </main>
         </>
     )

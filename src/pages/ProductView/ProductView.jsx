@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from '../../components/CartProvider.jsx'
+import { useNavigate } from "react-router-dom";
 import api from "../../api.js";
 import './ProductView.css'
 import { QuantityInput } from "../../components/QuantityInput/QuantityInput.jsx";
+import { useAuth } from "../../components/AuthProvider.jsx";
 
 export function ProductView () {
+    const {user} = useAuth() || {};
     const {productId} = useParams()
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
     const { setCartCount } = useCart()
+    const navigate = useNavigate()
+    
     useEffect(() => {
         api.get(`/products/product/${productId}`)
         .then(res => {
@@ -36,6 +41,11 @@ export function ProductView () {
 
     const handleAddToCart = (e) => {
         e.preventDefault()
+        if (!user) {
+            // Redirect to login or show a message
+            navigate('/login', {state: {from: location.pathname}})
+            return
+        }
         api.post('/cart', {
             data: {
                 productId: productId,
@@ -61,9 +71,15 @@ export function ProductView () {
                                 <div className="product-details">
                                     <h1>{productData.name}</h1>
                                     <h2>{formatPrice(productData.price)}</h2>
-                                    <h3>{productData.quantity}</h3>
-                                    <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                    <button className="add-to-cart-button" onClick={(e) => handleAddToCart(e)}>Agregar al Carrito</button>
+                                    {productData.quantity <= 0 ? 
+                                        <h3 className="out-of-stock-message">Producto sin stock</h3>
+                                        :
+                                        <>
+                                            <h3 className="product-stock">{productData.quantity}</h3>
+                                            <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
+                                            <button className="add-to-cart-button" onClick={(e) => handleAddToCart(e)}>Agregar al Carrito</button>
+                                        </>
+                                    }
                                 </div>
                             </div>
                             <div className="product-wrapper-row">

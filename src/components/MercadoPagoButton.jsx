@@ -6,7 +6,7 @@ export function MercadoPagoButton(props) {
     const [preferenceId, setPreferenceId] = useState(null)
     const [loadingPreference, setLoadingPreference] = useState(true)
     useEffect(() => {
-        initMercadoPago('TEST-9e04c2d4-566e-4a70-8a4b-d4899aaa910f');
+        initMercadoPago('APP_USR-4265d0aa-e20a-42a9-b687-30be71fa5be3');
             api.post('/checkout')
             .then(res => {
                 console.log(res.data.result.id)

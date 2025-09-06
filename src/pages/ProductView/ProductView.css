@@ -37,11 +37,11 @@ img {
     content: 'Precio: ';
 }
 
-.product-details h3::before {
+.product-details .product-stock::before {
     content: 'En Stock: ';
 }
 
-.product-details h3::after {
+.product-details .product-stock::after {
     content: ' Unidades';
     color: rgb(161, 161, 161);
 }
