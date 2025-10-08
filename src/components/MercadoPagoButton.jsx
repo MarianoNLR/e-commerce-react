@@ -1,6 +1,7 @@
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useEffect, useState } from 'react';
 import api from '../api.js';
+import { CircularProgress } from '@mui/material';
 
 export function MercadoPagoButton(props) {
     const [preferenceId, setPreferenceId] = useState(null)
@@ -19,7 +20,7 @@ export function MercadoPagoButton(props) {
     }, [])
 
     if (loadingPreference) {
-        return <>Loading...</>
+        return <CircularProgress />;
     }
 
     return (

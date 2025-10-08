@@ -13,7 +13,7 @@ export function ProductView () {
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
-    const { setCartCount } = useCart()
+    const { cart, setCart, loadingCart, handleAddToCart} = useCart()
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -39,26 +39,26 @@ export function ProductView () {
         return formatted
     }
 
-    const handleAddToCart = (e) => {
-        e.preventDefault()
-        if (!user) {
-            // Redirect to login or show a message
-            navigate('/login', {state: {from: location.pathname}})
-            return
-        }
-        api.post('/cart', {
-            data: {
-                productId: productId,
-                quantity: quantity
-            }
-        })
-        .then(res => {
-            setCartCount(prev => prev + 1)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // const handleAddToCart = (e) => {
+    //     e.preventDefault()
+    //     if (!user) {
+    //         // Redirect to login or show a message
+    //         navigate('/login', {state: {from: location.pathname}})
+    //         return
+    //     }
+    //     api.post('/cart', {
+    //         data: {
+    //             productId: productId,
+    //             quantity: quantity
+    //         }
+    //     })
+    //     .then(res => {
+    //         setCartCount(prev => prev + 1)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
     return (
         <>
@@ -78,7 +78,7 @@ export function ProductView () {
                                         <>
                                             <h3 className="product-stock">{productData.quantity}</h3>
                                             <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                            <button className="add-to-cart-button" onClick={(e) => handleAddToCart(e)}>Agregar al Carrito</button>
+                                            <button className="add-to-cart-button" onClick={() => handleAddToCart(productId, quantity)}>Agregar al Carrito</button>
                                         </>
                                     }
                                 </div>

@@ -1,0 +1,38 @@
+.payment-method-card-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: .5rem;
+    width: 80%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method-card-container:hover {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    background-color: #818181b7;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    color: #007bff;
+    padding: 1rem;
+    max-width: 20%;
+}
+
+.icon-wrapper img {
+    width: 48px;
+    height: 48px;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    text-align: start;
+    justify-content: center;
+}

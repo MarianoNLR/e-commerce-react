@@ -1,4 +1,4 @@
-import { AddProductForm } from "../../components/AddProductForm/AddProductForm";
+import { AddProductForm } from "../../../components/AddProductForm/AddProductForm";
 
 export function AddProductPage() {
   return (

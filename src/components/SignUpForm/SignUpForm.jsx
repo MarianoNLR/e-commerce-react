@@ -111,7 +111,7 @@ export function SignUpForm (props) {
                 </div>
 
                 <div className="input-group">
-                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Contraseña" {...register("confirmPassword", {
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Contraseña" {...register("confirmPassword", {
                     required: {
                         value: true,
                         message: "La contraseña es requerida"

@@ -9,29 +9,45 @@ export const useCart = () => {
 }
 
 export const CartProvider = ({ children }) => {
-    //const {user} = useAuth()
-    const user = JSON.parse(window.localStorage.getItem('user'))
-    const [cartCount, setCartCount] = useState([])
-    const [loadingCartCount, setLoadingCartCount] = useState(true)
+    const { user } = useAuth()
+    //const user = JSON.parse(window.localStorage.getItem('user'))
+    //const [cartCount, setCartCount] = useState([])
+    const [cart, setCart] = useState(null)
+    const [loadingCart, setLoadingCart] = useState(true)
 
     useEffect(() => {
         
-        if (user?.user.id) {
-            api.get(`/cart/${user.user.id}`)
+        if (user?.id) {
+            api.get(`/cart/${user.id}`)
             .then(res => {
-                setCartCount(res.data.cart.items.length)
-                setLoadingCartCount(false)
+                //setCartCount(res.data.cart.items.length)
+                setCart({items: res.data.cart.items, total: res.data.cart.total, userId: user.id})
+                setLoadingCart(false)
             })
             .catch(err => {
-                setLoadingCartCount(false)
+                setLoadingCart(false)
                 console.error(err)
             }) 
         }
-        setLoadingCartCount(false)
-    }, [user, cartCount])
+        setLoadingCart(false)
+    }, [user?.id])
+
+    const handleAddToCart = async (productId, quantity) => {
+        // Lógica para agregar el ítem al backend
+        const res = await api.post('/cart', { data: { productId, quantity } });
+        // Actualiza el estado del carrito con la respuesta
+        setCart(res.data.cart);
+    }
+
+    const handleRemoveFromCart = async (productId) => { 
+        // Lógica para eliminar el ítem del backend
+        const res = await api.patch(`/cart/item/${productId}`);
+        // Actualiza el estado del carrito con la respuesta
+        setCart(res.data.cart);
+    }
 
     return (
-        <CartContext.Provider value={{cartCount, setCartCount, loadingCartCount}}>
+        <CartContext.Provider value={{cart, setCart, loadingCart, handleAddToCart, handleRemoveFromCart}}>
             {children}
         </CartContext.Provider>
     )

@@ -47,7 +47,7 @@ export function AddProductForm() {
     console.log(watch("productName")); // watch input value by passing the name of it
 
     return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="add-product-form">
         <div className="form-group">
             <div className="input-wrapper">
                 <label htmlFor="productName">Product Name</label>

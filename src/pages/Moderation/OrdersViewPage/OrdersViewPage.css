@@ -1,0 +1,41 @@
+.orders-view-page-main h1 {
+    margin-bottom: 1rem;
+}
+
+.orders-table {
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 0 0;
+    margin-bottom: 10px;
+    padding: 1rem;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+.order-row {
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order-row td {
+    padding: 20px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-row:hover {
+    background-color: #424242;
+}
+
+.load-more-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin: 0 auto;
+}
