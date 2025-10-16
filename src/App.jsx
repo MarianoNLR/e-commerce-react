@@ -15,8 +15,9 @@ import { CheckoutConfirmationPage } from './pages/Checkout/CheckoutConfirmationP
 import { PaymentMethodSelectionPage } from './pages/Checkout/PaymentMethodSelectionPage.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 import { OrdersViewPage } from './pages/Moderation/OrdersViewPage/OrdersViewPage.jsx'
-
+import { UpdateProductPage } from './pages/Moderation/UpdateProductPage/UpdateProductPage.jsx'
 function App() {
+
   return (
     <>
     <AuthProvider>
@@ -57,6 +58,12 @@ function App() {
               <Route path='/checkout/confirmation' element={
                 <ProtectedRoute>
                   <CheckoutConfirmationPage />
+                </ProtectedRoute>
+              } />
+
+              <Route path='/moderation/update_product/:productId' element={
+                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                  <UpdateProductPage />
                 </ProtectedRoute>
               } />
             </Routes>
