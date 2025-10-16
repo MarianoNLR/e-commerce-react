@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import CircularProgress from '@mui/material/CircularProgress';
 import { useCart } from "../CartProvider.jsx"
 
-export function Cart () {
+export function Cart (props) {
     //const [loadingCart, setLoadingCart] = useState(true)
     const {cart, loadingCart, handleRemoveFromCart} = useCart()
     
@@ -69,6 +69,7 @@ export function Cart () {
                             quantity={item.quantity} 
                             imageURL={item.product.imageURL} 
                             handleRemoveFromCart={handleRemoveFromCart}
+                            setToastVisible={props.setToastVisible}
                             >
                             </CartProductCard>
                     ))}
