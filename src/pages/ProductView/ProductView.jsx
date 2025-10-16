@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from '../../components/CartProvider.jsx'
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import api from "../../api.js";
 import './ProductView.css'
 import { QuantityInput } from "../../components/QuantityInput/QuantityInput.jsx";
 import { useAuth } from "../../components/AuthProvider.jsx";
+import { SimpleToastAlert } from '../../components/SimpleToastAlert/SimpleToastAlert.jsx'
 
 export function ProductView () {
     const {user} = useAuth() || {};
@@ -13,8 +14,10 @@ export function ProductView () {
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
-    const { cart, setCart, loadingCart, handleAddToCart} = useCart()
+    const { cart, setCart, loadingCart, handleAddToCart, toastAlert, hideToast } = useCart()
+    const [toastVisible, setToastVisible] = useState(false)
     const navigate = useNavigate()
+    const toastTimer = useRef(null);
     
     useEffect(() => {
         api.get(`/products/product/${productId}`)
@@ -60,11 +63,36 @@ export function ProductView () {
     //     })
     // }
 
+    const handleShowToast = () => {
+        
+        if (toastTimer.current) {
+            clearTimeout(toastTimer.current);
+            // Force to remount the toast component
+            setToastVisible(false);
+        }
+
+        // Force to remount the toast component
+        setTimeout(() => setToastVisible(true), 5);
+
+        toastTimer.current = setTimeout(() => {
+            setToastVisible(false);
+            toastTimer.current = null;
+        }, 3000);
+    }
+
     return (
         <>
             <main>
                 { !loadingProduct ? (
                     <>
+                        {toastVisible && 
+                            <SimpleToastAlert 
+                                message={toastAlert.message}
+                                variant={toastAlert.variant}
+                                onClose={setToastVisible}
+                                toastVisible={toastVisible}
+                            />
+                        }
                         <div className="product-wrapper">
                             <div className="product-wrapper-row">
                                 {/* <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
@@ -78,7 +106,7 @@ export function ProductView () {
                                         <>
                                             <h3 className="product-stock">{productData.quantity}</h3>
                                             <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                            <button className="add-to-cart-button" onClick={() => handleAddToCart(productId, quantity)}>Agregar al Carrito</button>
+                                            <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity); handleShowToast();}}>Agregar al Carrito</button>
                                         </>
                                     }
                                 </div>
