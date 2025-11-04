@@ -1,0 +1,111 @@
+.edit-stock-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.edit-stock-modal-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 8px;
+    width: 400px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.edit-stock-close-modal-button-container {
+    position: absolute;
+    align-self: flex-end;
+    margin-bottom: 1rem;
+    top: 10px;
+    right: 15px;;
+}
+
+.edit-stock-close-modal-button-container button {
+    padding: 0;
+    background-color: transparent;
+    color: #ddd;
+    padding: 0.5rem;
+    transition: none;
+}
+
+.edit-stock-close-modal-button-container button:hover {
+    cursor: pointer;
+    color: #fff;
+    border: none;
+}
+
+.edit-stock-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.edit-stock-form-input-group {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.edit-stock-form-input-group label {
+    font-weight: 900;
+}
+
+.edit-stock-form-input-group input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+}
+
+.edit-stock-form-input-group button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.button-submit {
+    background-color: #28a745;
+}
+
+.button-submit:hover {
+    background-color: #218838;
+}
+
+.button-cancel {
+    background-color: #dc3545;
+}
+
+.button-cancel:hover {
+    background-color: #c82333;
+}
+
+.edit-stock-modal-product-name {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
