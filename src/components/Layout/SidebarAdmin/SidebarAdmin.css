@@ -1,0 +1,25 @@
+.admin-layout-sidebar-container {
+    color: white;
+    border-right: none;
+    background-color: transparent;
+    border-radius: 1px;
+}
+
+.admin-panel-sidebar-collapse-button {
+    color: white;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    gap: 2rem;
+}
+
+.sidebar-option-button {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar-option-button a:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
