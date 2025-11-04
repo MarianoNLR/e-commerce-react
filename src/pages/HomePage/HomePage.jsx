@@ -26,7 +26,7 @@ export function HomePage () {
         <>
             <SearchBar></SearchBar>
             <FilterPanel></FilterPanel>
-            <ProductList products={products} loadingProducts={loadingProducts}></ProductList>
+            <ProductList products={products} setProducts={setProducts} loadingProducts={loadingProducts}></ProductList>
         </>
     )
 }
