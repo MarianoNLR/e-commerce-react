@@ -61,12 +61,12 @@ export function OrdersViewPage () {
     }
 
     if (loadingOrders) {
-        return <p>Loading orders...</p>;
+        return <main className="orders-view-page-main">Cargando órdenes...</main>;
     }
 
     return (
         <main className="orders-view-page-main">
-            <h1>Orders View Page</h1>
+            <h1>Lista de Pedidos</h1>
             <table className="orders-table">
                 <thead>
                     <tr>

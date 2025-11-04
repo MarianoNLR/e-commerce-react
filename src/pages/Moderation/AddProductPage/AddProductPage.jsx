@@ -4,7 +4,7 @@ export function AddProductPage() {
   return (
     <main>
         <div>
-            <h1>Add Product</h1>
+            <h1>Agregar Producto</h1>
             <AddProductForm></AddProductForm>
         </div>
     </main>

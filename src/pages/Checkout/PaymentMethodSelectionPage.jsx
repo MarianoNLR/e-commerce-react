@@ -53,27 +53,25 @@ export function PaymentMethodSelectionPage() {
     }
     return (
         <>
-            <main className='payment-method-selection-page'>
-                <h1 className='container'>Payment Method Selection Page</h1>
-                <PaymentMethodCard 
-                icon={"https://img.icons8.com/?size=256&id=nTLVtpxsNPaz&format=png"}
-                title={"Mercado Pago"}
-                description={"Paga con Mercado Pago, la plataforma de pagos más grande de Latinoamérica."}
-                onSelect={() => handlePaymentMethodSelect('mercado_pago')} 
-                />
-                <PaymentMethodCard 
-                icon={"https://cdn-icons-png.flaticon.com/512/888/888870.png"}
-                title={"PayPal"}
-                description={"Paga de forma segura con tu cuenta de PayPal."}
-                onSelect={() => handlePaymentMethodSelect('paypal')} 
-                />
-                <PaymentMethodCard 
-                icon={"https://cdn-icons-png.flaticon.com/512/888/888870.png"}
-                title={"Transferencia Bancaria"}
-                description={"Realiza tu pago mediante transferencia bancaria."}
-                onSelect={() => handlePaymentMethodSelect('transferencia_bancaria')} />
-                <div>Selected Payment Method: {paymentMethod}</div>
-            </main>
+            <h1 className='container'>Payment Method Selection Page</h1>
+            <PaymentMethodCard 
+            icon={"https://img.icons8.com/?size=256&id=nTLVtpxsNPaz&format=png"}
+            title={"Mercado Pago"}
+            description={"Paga con Mercado Pago, la plataforma de pagos más grande de Latinoamérica."}
+            onSelect={() => handlePaymentMethodSelect('mercado_pago')} 
+            />
+            <PaymentMethodCard 
+            icon={"https://cdn-icons-png.flaticon.com/512/888/888870.png"}
+            title={"PayPal"}
+            description={"Paga de forma segura con tu cuenta de PayPal."}
+            onSelect={() => handlePaymentMethodSelect('paypal')} 
+            />
+            <PaymentMethodCard 
+            icon={"https://cdn-icons-png.flaticon.com/512/888/888870.png"}
+            title={"Transferencia Bancaria"}
+            description={"Realiza tu pago mediante transferencia bancaria."}
+            onSelect={() => handlePaymentMethodSelect('transferencia_bancaria')} />
+            <div>Selected Payment Method: {paymentMethod}</div>
         </>
     )
 }

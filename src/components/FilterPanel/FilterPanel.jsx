@@ -36,8 +36,9 @@ export function FilterPanel () {
     return (
         <>
             <div className='filters-options-wrapper'>
+                <FilterPanelOption key={0} categoryId={''} name={'Todas'}></FilterPanelOption>
                 {categories.map((item, index) => (
-                    <FilterPanelOption key={index} categoryId={item.id} name={item.name}></FilterPanelOption>
+                    <FilterPanelOption key={index+1} categoryId={item.id} name={item.name}></FilterPanelOption>
                 ))}
                 
             </div>

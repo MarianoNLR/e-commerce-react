@@ -16,6 +16,7 @@ import { PaymentMethodSelectionPage } from './pages/Checkout/PaymentMethodSelect
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 import { OrdersViewPage } from './pages/Moderation/OrdersViewPage/OrdersViewPage.jsx'
 import { UpdateProductPage } from './pages/Moderation/UpdateProductPage/UpdateProductPage.jsx'
+import { StockPage } from './pages/Moderation/StockPage/StockPage.jsx'
 function App() {
 
   return (
@@ -42,6 +43,11 @@ function App() {
               <Route path='/moderation/orders' element={
                 <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
                   <OrdersViewPage />
+                </ProtectedRoute>
+              } />
+              <Route path='/moderation/stock' element={
+                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                  <StockPage />
                 </ProtectedRoute>
               } />
               

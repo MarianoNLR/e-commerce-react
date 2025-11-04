@@ -21,19 +21,17 @@ export function CartViewPage () {
 
     return (
         <>
-            <main>
-                {toastVisible && (
-                    <SimpleToastAlert
-                        message={toastAlert.message}
-                        variant={toastAlert.variant}
-                        onClose={setToastVisible}
-                    />
-                )}
-                <h1 className="cart-wrapper-title">Carrito de Compra</h1>
-                <Cart userId={userId} setToastVisible={setToastVisible}></Cart>
-                {cart?.items?.length > 0 && <Link to="/checkout/customer">Ir a Checkout</Link>}
-                {/* {cart?.items?.length > 0 && <MercadoPagoButton></MercadoPagoButton>} */}
-            </main>
+            {toastVisible && (
+                <SimpleToastAlert
+                    message={toastAlert.message}
+                    variant={toastAlert.variant}
+                    onClose={setToastVisible}
+                />
+            )}
+            <h1 className="cart-wrapper-title">Carrito de Compra</h1>
+            <Cart userId={userId} setToastVisible={setToastVisible}></Cart>
+            {cart?.items?.length > 0 && <Link to="/checkout/customer">Ir a Checkout</Link>}
+            {/* {cart?.items?.length > 0 && <MercadoPagoButton></MercadoPagoButton>} */}
         </>
     )
 }

@@ -82,50 +82,48 @@ export function ProductView () {
 
     return (
         <>
-            <main>
-                { !loadingProduct ? (
-                    <>
-                        {toastVisible && 
-                            <SimpleToastAlert 
-                                message={toastAlert.message}
-                                variant={toastAlert.variant}
-                                onClose={setToastVisible}
-                                toastVisible={toastVisible}
-                            />
-                        }
-                        <div className="product-wrapper">
-                            <div className="product-wrapper-row">
-                                {/* <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
-                                <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
-                                <div className="product-details">
-                                    <h1>{productData.name}</h1>
-                                    <h2>{formatPrice(productData.price)}</h2>
-                                    {productData.quantity <= 0 ? 
-                                        <h3 className="out-of-stock-message">Producto sin stock</h3>
-                                        :
-                                        <>
-                                            <h3 className="product-stock">{productData.quantity}</h3>
-                                            <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                            <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity); handleShowToast();}}>Agregar al Carrito</button>
-                                        </>
-                                    }
-                                </div>
-                            </div>
-                            <div className="product-wrapper-row">
-                                <div className="product-description-wrapper">
-                                    <h2 className="product-description-title">Detalles del Producto</h2>
-                                    <p className="product-description">{productData.description}</p>
-                                </div>
+            { !loadingProduct ? (
+                <>
+                    {toastVisible && 
+                        <SimpleToastAlert 
+                            message={toastAlert.message}
+                            variant={toastAlert.variant}
+                            onClose={setToastVisible}
+                            toastVisible={toastVisible}
+                        />
+                    }
+                    <div className="product-wrapper">
+                        <div className="product-wrapper-row">
+                            {/* <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
+                            <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
+                            <div className="product-details">
+                                <h1>{productData.name}</h1>
+                                <h2>{formatPrice(productData.price)}</h2>
+                                {productData.quantity <= 0 ? 
+                                    <h3 className="out-of-stock-message">Producto sin stock</h3>
+                                    :
+                                    <>
+                                        <h3 className="product-stock">{productData.quantity}</h3>
+                                        <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
+                                        <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity); handleShowToast();}}>Agregar al Carrito</button>
+                                    </>
+                                }
                             </div>
                         </div>
-                        
-                        
-                    </>
-                ) 
-                : 
-                (null)
-                }
-            </main>
+                        <div className="product-wrapper-row">
+                            <div className="product-description-wrapper">
+                                <h2 className="product-description-title">Detalles del Producto</h2>
+                                <p className="product-description">{productData.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </>
+            ) 
+            : 
+            (null)
+            }
         </>
     )
     

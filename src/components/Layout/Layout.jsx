@@ -1,12 +1,23 @@
 import {Footer} from './Footer/Footer.jsx'
 import {Header} from './Header/Header.jsx'
+import { useAuth } from '../AuthProvider.jsx'
+import { SidebarAdmin } from './SidebarAdmin/SidebarAdmin.jsx'
 import PropTypes from 'prop-types'
 
 export default function Layout(props) {
+  const { user } = useAuth();
+
   return (
     <>
       <Header></Header>
-      {props.children}
+      <div className='flex flex-1'>
+        {user?.role.includes('admin') && 
+          <SidebarAdmin></SidebarAdmin>
+        }
+        <main className='flex-1'>
+          {props.children}
+        </main>
+      </div>
       <Footer></Footer>
     </>
   )

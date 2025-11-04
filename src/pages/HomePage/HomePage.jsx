@@ -24,11 +24,9 @@ export function HomePage () {
 
     return (
         <>
-            <main>
-                <SearchBar></SearchBar>
-                <FilterPanel></FilterPanel>
-                <ProductList products={products} loadingProducts={loadingProducts}></ProductList>
-            </main>
+            <SearchBar></SearchBar>
+            <FilterPanel></FilterPanel>
+            <ProductList products={products} loadingProducts={loadingProducts}></ProductList>
         </>
     )
 }

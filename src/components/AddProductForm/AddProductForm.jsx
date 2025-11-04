@@ -50,53 +50,53 @@ export function AddProductForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="add-product-form">
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productName">Product Name</label>
-                <input type="text" {...register("productName", { required: true })} placeholder="Product Name"/>
+                <label htmlFor="productName">Nombre del Producto</label>
+                <input type="text" {...register("productName", { required: true })} placeholder="Nombre del Producto"/>
             </div>
-            {errors.productName && <span>This field is required</span>}
+            {errors.productName && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productPrice">Product Price</label>
-                <input type="number" {...register("productPrice", { required: true })} placeholder="Product Price"/>
+                <label htmlFor="productPrice">Precio del Producto</label>
+                <input type="number" {...register("productPrice", { required: true })} placeholder="Precio del Producto"/>
             </div>
-            {errors.productPrice && <span>This field is required</span>}
+            {errors.productPrice && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productStock">Product Stock</label>
-                <input type="number" {...register("productStock", { required: true })} placeholder="Product Stock"/>
+                <label htmlFor="productStock">Stock del Producto</label>
+                <input type="number" {...register("productStock", { required: true })} placeholder="Stock del Producto"/>
             </div>
-            {errors.productStock && <span>This field is required</span>}
+            {errors.productStock && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productCategoryId">Product Category</label>
+                <label htmlFor="productCategoryId">Categoría del Producto</label>
                 <select {...register("productCategoryId", { required: true })}>
-                    <option value="">Select a category</option>
+                    <option value="">Seleccionar una categoría</option>
                     {categories.map((category) => (
                         <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                 </select>
             </div>
-            {errors.productCategoryId && <span>This field is required</span>}
+            {errors.productCategoryId && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productDescription">Product Description</label>
-                <input type="text" {...register("productDescription", { required: true })} placeholder="Product Description"/>
+                <label htmlFor="productDescription">Descripción del Producto</label>
+                <input type="text" {...register("productDescription", { required: true })} placeholder="Descripción del Producto"/>
             </div>
-            {errors.productDescription && <span>This field is required</span>}
+            {errors.productDescription && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
-                <label htmlFor="productImage">Product Image</label>
+                <label htmlFor="productImage">Imagen del Producto</label>
                 <input type="file" name="file" {...register("file", { required: false })} />
             </div>
-            {/* {errors.productImage && <span>This field is required</span>} */}
+            {/* {errors.productImage && <span>Este campo es obligatorio</span>} */}
         </div>
         <div className="form-group">
-            <input type="submit" value="Add Product" />
+            <input type="submit" value="Agregar Producto" />
         </div>
     </form>
     );

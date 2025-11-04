@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export function FilterPanelOption (props) {
     return (
         <>
-            <Link to={`/products/${props.categoryId}`}>
+            <Link to={props.categoryId ? `/products/${props.categoryId}` : '/'}>
                 <div className='option-wrapper'>
                     <p className='option'>{props.name}</p>
                 </div>
