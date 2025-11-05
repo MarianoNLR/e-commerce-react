@@ -31,8 +31,8 @@ export function ProductSortCriteria ({ products, setProducts }) {
         <div className='product-sort-criteria-wrapper'>
             <label className='product-sort-criteria-label'>Ordenar por:</label>
             <select value={selectSortOption} name="order-criteria" onChange={(e) => handleSortChange(e.target.value)} className="product-sort-criteria-select">
-                <option value="price-asc">Precio (Ascendente)</option>
-                <option selected value="price-desc">Precio (Descendente)</option>
+                <option selected value="price-desc">Mayor Precio</option>
+                <option value="price-asc">Menor Precio</option>
                 <option value="name-asc">Nombre (A-Z)</option>
                 <option value="name-desc">Nombre (Z-A)</option>
             </select>
