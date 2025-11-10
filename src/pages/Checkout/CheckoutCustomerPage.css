@@ -67,3 +67,8 @@
     text-align: start;
     margin-bottom: 8px;
 }
+
+.form-textarea-additional_info {
+    resize: none;
+    min-height: 80px;
+}
