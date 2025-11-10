@@ -17,6 +17,8 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 import { OrdersViewPage } from './pages/Moderation/OrdersViewPage/OrdersViewPage.jsx'
 import { UpdateProductPage } from './pages/Moderation/UpdateProductPage/UpdateProductPage.jsx'
 import { StockPage } from './pages/Moderation/StockPage/StockPage.jsx'
+import { OrderDetailsView } from './pages/Moderation/OrderDetailsView/OrderDetailsView.jsx'
+import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.jsx'
 function App() {
 
   return (
@@ -26,6 +28,7 @@ function App() {
           <Layout>
             <Routes>
               <Route path='/login' element={<LoginPage />} />
+              <Route path='/auth/google/success' element={<AuthGoogleSuccessPage />} />
               <Route index path='/' element={<HomePage />}></Route> 
               <Route path='/products/product/:productId' element={<ProductView/>}></Route>
               <Route path='/products/search/' element={<SearchProduct/>}></Route>
@@ -43,6 +46,11 @@ function App() {
               <Route path='/moderation/orders' element={
                 <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
                   <OrdersViewPage />
+                </ProtectedRoute>
+              } />
+              <Route path='/moderation/orders/:orderId' element={
+                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                  <OrderDetailsView />
                 </ProtectedRoute>
               } />
               <Route path='/moderation/stock' element={
