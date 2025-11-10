@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import api from '../../../api.js';
 import './OrdersViewPage.css';
+import { useNavigate } from 'react-router-dom';
 
 export function OrdersViewPage () {
     const [data, setData] = useState([]);
     const [loadingOrders, setLoadingOrders] = useState(true);
     const [page, setPage] = useState(0);
+    const navigate = useNavigate();
 
     const fetchOrders = async () => {
         // Lógica para obtener las órdenes desde la API
@@ -55,9 +57,10 @@ export function OrdersViewPage () {
         });
     }
 
-    const handleViewMore = (orderId) => {
+    const handleViewMore = (order) => {
         // Lógica para ver más detalles de la orden
-        console.log('Ver más detalles de la orden:', orderId);
+        console.log('Ver más detalles de la orden:', order.id);
+        navigate(`/moderation/orders/${order.id}`, { state: { order } });
     }
 
     if (loadingOrders) {
@@ -80,7 +83,7 @@ export function OrdersViewPage () {
                 </thead>
                 <tbody>
                     {data.orders?.map(order => (
-                        <tr onClick={() => handleViewMore(order.id)} key={order.id} className="order-row">
+                        <tr key={order.id} className="order-row">
                             <td className="order-id">{order.id}</td>
                             <td className="order-products-count">{order.products.length} productos</td>
                             <td className="order-total">{formatPrice(order.total)}</td>
@@ -89,7 +92,7 @@ export function OrdersViewPage () {
                             <td className="order-actions">
                                 <button 
                                     className="order-view-more-btn"
-                                    onClick={() => handleViewMore(order.id)}
+                                    onClick={() => handleViewMore(order)}
                                 >
                                     Ver más
                                 </button>
