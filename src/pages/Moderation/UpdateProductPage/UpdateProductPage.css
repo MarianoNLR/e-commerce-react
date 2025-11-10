@@ -17,6 +17,17 @@
     border-radius: 8px;
 }
 
+.update-product-form button[type="submit"] {
+    margin-top: 1rem;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .update-product-input-group {
     display: flex;
     flex-direction: column;

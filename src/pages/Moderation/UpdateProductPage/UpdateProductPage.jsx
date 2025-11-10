@@ -88,12 +88,12 @@ export function UpdateProductPage() {
                             {errors.description && <span>Este campo es obligatorio</span>}
                         </div>
                         
-                        <div className='update-product-input-group'>
-                            <label htmlFor="image">Imagen</label>
+                        {/* <div className='update-product-input-group'>
+                            <label htmlFor="image">Imagen</label> */}
                             {/* Vista personalizada para imagen actual */}
-                            <input type="file" {...register("image", { required: false })} />
+                            {/* <input type="file" {...register("image", { required: false })} />
                             {errors.image && <span>Este campo es obligatorio</span>}
-                        </div>
+                        </div> */}
                         
                         <div className='update-product-input-group'>
                             <label htmlFor="category">Categoría</label>
