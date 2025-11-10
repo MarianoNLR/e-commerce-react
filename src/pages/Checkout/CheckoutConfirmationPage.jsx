@@ -60,7 +60,7 @@ export function CheckoutConfirmationPage() {
                     <p className='order-summary-group-value'>{customerData?.postal_code}</p>
                 </div>
             </div>
-            {cart?.items?.length > 0 && <div className='payment-button-container'><MercadoPagoButton></MercadoPagoButton></div>}
+            {cart?.items?.length > 0 && <div className='payment-button-container'><MercadoPagoButton shipping_info={customerData}></MercadoPagoButton></div>}
         </>
     )
 }
