@@ -5,7 +5,7 @@ import { useCart } from '../../CartProvider.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 export function Header () {
     const {user, loadingUser, logout} = useAuth()
-    const localStorageUser = JSON.parse(window.localStorage.getItem('user'))
+    const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
     const { cartCount, loadingCartCount } = useCart()
     const navigate = useNavigate()
     if (loadingUser || loadingCartCount) {

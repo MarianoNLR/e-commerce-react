@@ -19,7 +19,7 @@ export function CartHeader () {
     
     return (
         <div className='cart-icon-wrapper'>
-            <Link to={`/cart/${localStorageUser.user.id}`}><img className='cart-image' src={cartIcon} alt="" />
+            <Link to={`/cart/${user?.id}`}><img className='cart-image' src={cartIcon} alt="" />
             </Link>
             <span className='cart-products-number'>{cart?.items.length || 0}</span>
         </div>

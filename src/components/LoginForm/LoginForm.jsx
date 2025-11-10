@@ -94,6 +94,11 @@ export function LoginForm (props) {
                 <input type="submit" value="Inciar Sesion" />
                 <FormErrorMessage message={formMessage}></FormErrorMessage>
                 <a href="#">Olvidaste tu contraseña?</a>
+                <div className="gmail-login">
+                    <a href="http://localhost:3000/users/google">
+                        <button type="button">Iniciar sesión con Google</button>
+                    </a>
+                </div>
                 <div className="link-register-wrapper">
                     <p>No tienes una cuenta aún?</p>
                     <a href="#" onClick={() => props.setShowLoginForm(false)}>Registrarme</a>

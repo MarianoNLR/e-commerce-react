@@ -7,18 +7,20 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loadingUser, setLoadingUser] = useState(true)
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const user = await getUserFromToken()
-            if (user) {
-                setUser(user)
-            }
-            setLoadingUser(false)
+    const fetchUser = async () => {
+        const user = await getUserFromToken()
+        if (user) {
+            setUser(user)
         }
+        setLoadingUser(false)
+        }
+
+    useEffect(() => {
+        fetchUser()
 
         const checkCookieAndFetchUser = () => {
             const cookieName = "access_token"
-            const localStorageUser = window.localStorage.getItem('user')
+            const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
             const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith(`${cookieName}=`))
             
             if (cookieExists || localStorageUser) {
@@ -36,8 +38,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await authenticateUser(credentials)
             console.log(data)
-            setUser(data.user)
-            window.localStorage.setItem('user', JSON.stringify(data))
+            // setUser(data.user)
+            fetchUser()
+            window.localStorage.setItem('access_token', JSON.stringify(data))
             return data
         } catch (error) {
             throw error
@@ -48,7 +51,7 @@ export const AuthProvider = ({ children }) => {
         try {
             await logoutUser()
             setUser(null)
-            window.localStorage.removeItem('user')
+            window.localStorage.removeItem('access_token')
         } catch (error) {
             console.error('Error: ', error)
         }
