@@ -3,8 +3,8 @@ import api from '../api.js'
 export const authenticateUser = async (credentials) => {
     try {
         const res = await api.post('/users/login', credentials)
-        console.log(res)
-        return res.data
+        console.log("Auth user: ", res)
+        return res
     } catch (error) {
         console.error('Authentication failed: ', error)
         throw error
