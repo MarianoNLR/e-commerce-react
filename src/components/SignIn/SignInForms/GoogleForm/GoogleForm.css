@@ -1,0 +1,28 @@
+.complete-google-signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.input-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+}
+
+.is_required::after {
+    content: " *";
+    color: rgb(0, 0, 0);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+}
