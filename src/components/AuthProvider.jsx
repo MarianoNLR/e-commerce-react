@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         }
 
     useEffect(() => {
-        fetchUser()
+        // fetchUser()
 
         const checkCookieAndFetchUser = () => {
             const cookieName = "access_token"
@@ -36,12 +36,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (credentials) => {
         // eslint-disable-next-line no-useless-catch
         try {
-            const data = await authenticateUser(credentials)
-            console.log(data)
+            const res = await authenticateUser(credentials)
+            console.log("Averga: ", res)
             // setUser(data.user)
             fetchUser()
-            window.localStorage.setItem('access_token', JSON.stringify(data))
-            return data
+            window.localStorage.setItem('access_token', JSON.stringify(res.data.token))
+            return res
         } catch (error) {
             throw error
         }
