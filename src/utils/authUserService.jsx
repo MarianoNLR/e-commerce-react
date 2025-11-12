@@ -14,7 +14,8 @@ export const authenticateUser = async (credentials) => {
 export const getUserFromToken = async () => {
     try {
         const res = await api.get('/users/me')
-        return res.data.user
+        console.log('User fetched from token: ', res)
+        return res
     } catch (error) {
         console.error('An error has ocurred while obtaining your token: ', error)
         return null
