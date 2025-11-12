@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../AuthProvider.jsx'
 import { useCart } from '../../CartProvider.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
+import { useAuthModal } from '../../../context/AuthModalContext.jsx'
 export function Header () {
+    const { openModal } = useAuthModal()
     const {user, loadingUser, logout} = useAuth()
     const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
     const { cartCount, loadingCartCount } = useCart()
@@ -15,7 +17,7 @@ export function Header () {
     const handleLogout = async () => {
         await logout().then(res => {
             console.log(res)
-            navigate('/login')
+            navigate('/')
         })
         .catch(error => {
             console.error(error)
@@ -35,7 +37,7 @@ export function Header () {
                 :
                 <div className="header-main-wrapper">
                     <Link to='/' className='header-logo'>Logo</Link>
-                    <Link to='/login' className='header-login-link'>Inciar Sesión</Link>
+                    <Link to='#' onClick={openModal} className='header-login-link'>Iniciar Sesión</Link>
                 </div>
             }
         </header>
