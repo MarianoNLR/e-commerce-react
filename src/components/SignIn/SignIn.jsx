@@ -1,19 +1,19 @@
 import { useState } from "react"
 import {EmailForm } from "./SignInForms/EmailForm/EmailForm.jsx"
-import{ GoogleForm } from "./SignInForms/GoogleForm.jsx"
+import{ GoogleForm } from "./SignInForms/GoogleForm/GoogleForm.jsx"
 import axios from "axios"
 import './SignIn.css'
 import { useAuthModal } from "../../context/AuthModalContext.jsx"
+import { useAuth } from "../AuthProvider.jsx"
 
 export function SignIn (props) {
     const { closeModal } = useAuthModal()
     const [method, setMethod] = useState(null)
     const [googleTempData, setGoogleTempData] = useState(null)
-
+    const { fetchUser } = useAuth()
     const handleSelectMethod = async (selectedMethod) => {
         if (selectedMethod === "google") {
             try {
-                setMethod("google")
                 handleGoogleLogin()
             } catch (error) {
                 console.error("Error fetching Google OAuth URL:", error)
@@ -21,28 +21,30 @@ export function SignIn (props) {
         } else if (selectedMethod === "email") {
             setMethod("email")
         }
-        setMethod(selectedMethod)
     }
 
-        const handleGoogleLogin = () => {
+    const handleGoogleLogin = () => {
         const popup = window.open(
             'http://localhost:3000/users/google?state=signup',
             "googleLogin",
             "width=500,height=600"
         )
 
-        window.addEventListener('message', (event) => {
+        window.addEventListener('message', async (event) => {
             if (event.origin !== 'http://localhost:3000') {
                 return
             }
-            const { tempToken, email } = event.data;
-            if (tempToken) {
-                console.log('Received tempToken from Google OAuth:', tempToken);
-                // You can now use the tempToken as needed
+            const { token, email, isNewUser } = event.data;
+
+            if (isNewUser) {
+                setGoogleTempData({ token, email, isNewUser })
+                setMethod("google")
+            } else {
+                window.localStorage.setItem('access_token', JSON.stringify(token))
+                await fetchUser()
+                closeModal()
             }
-            props.setTempToken(tempToken);
-            props.setEmail(email);
-            popup.close();
+            popup.close()
         })
     }
 
