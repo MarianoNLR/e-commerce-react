@@ -19,71 +19,76 @@ import { UpdateProductPage } from './pages/Moderation/UpdateProductPage/UpdatePr
 import { StockPage } from './pages/Moderation/StockPage/StockPage.jsx'
 import { OrderDetailsView } from './pages/Moderation/OrderDetailsView/OrderDetailsView.jsx'
 import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.jsx'
+import { AuthModalProvider } from './context/AuthModalContext.jsx'
 function App() {
 
   return (
     <>
-    <AuthProvider>
-      <CartProvider>
-          <Layout>
-            <Routes>
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/auth/google/success' element={<AuthGoogleSuccessPage />} />
-              <Route index path='/' element={<HomePage />}></Route> 
-              <Route path='/products/product/:productId' element={<ProductView/>}></Route>
-              <Route path='/products/search/' element={<SearchProduct/>}></Route>
-              <Route path='/cart/:userId' element={
-                <ProtectedRoute>
-                  <CartViewPage />
-                </ProtectedRoute>
-              }></Route>
-              <Route path='/products/:categoryId' element={< CategoryProducts/>}></Route>
-              <Route path='/moderation/add_product' element={
-                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
-                  <AddProductPage />
-                </ProtectedRoute>
-              } />
-              <Route path='/moderation/orders' element={
-                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
-                  <OrdersViewPage />
-                </ProtectedRoute>
-              } />
-              <Route path='/moderation/orders/:orderId' element={
-                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
-                  <OrderDetailsView />
-                </ProtectedRoute>
-              } />
-              <Route path='/moderation/stock' element={
-                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
-                  <StockPage />
-                </ProtectedRoute>
-              } />
-              
-              <Route path='/checkout/customer' element={
-                <ProtectedRoute>
-                  <CheckoutCustomerPage />
-                </ProtectedRoute>
-              } />
-              <Route path='/checkout/payment_method_selection' element={
-                <ProtectedRoute>
-                  <PaymentMethodSelectionPage />
-                </ProtectedRoute>
-              } />
-              <Route path='/checkout/confirmation' element={
-                <ProtectedRoute>
-                  <CheckoutConfirmationPage />
-                </ProtectedRoute>
-              } />
+      
+        <AuthProvider>
+          <AuthModalProvider>
+            <CartProvider>
+                <Layout>
+                  <Routes>
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/auth/google/success' element={<AuthGoogleSuccessPage />} />
+                    <Route index path='/' element={<HomePage />}></Route> 
+                    <Route path='/products/product/:productId' element={<ProductView/>}></Route>
+                    <Route path='/products/search/' element={<SearchProduct/>}></Route>
+                    <Route path='/cart/:userId' element={
+                      <ProtectedRoute>
+                        <CartViewPage />
+                      </ProtectedRoute>
+                    }></Route>
+                    <Route path='/products/:categoryId' element={< CategoryProducts/>}></Route>
+                    <Route path='/moderation/add_product' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <AddProductPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/moderation/orders' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <OrdersViewPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/moderation/orders/:orderId' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <OrderDetailsView />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/moderation/stock' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <StockPage />
+                      </ProtectedRoute>
+                    } />
+                    
+                    <Route path='/checkout/customer' element={
+                      <ProtectedRoute>
+                        <CheckoutCustomerPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/checkout/payment_method_selection' element={
+                      <ProtectedRoute>
+                        <PaymentMethodSelectionPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/checkout/confirmation' element={
+                      <ProtectedRoute>
+                        <CheckoutConfirmationPage />
+                      </ProtectedRoute>
+                    } />
 
-              <Route path='/moderation/update_product/:productId' element={
-                <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
-                  <UpdateProductPage />
-                </ProtectedRoute>
-              } />
-            </Routes>
-          </Layout>
-        </CartProvider>
-      </AuthProvider>
+                    <Route path='/moderation/update_product/:productId' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <UpdateProductPage />
+                      </ProtectedRoute>
+                    } />
+                  </Routes>
+                </Layout>
+              </CartProvider>
+            </AuthModalProvider>
+          </AuthProvider>
+       
     </>
   )
 }
