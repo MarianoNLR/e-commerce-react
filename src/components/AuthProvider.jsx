@@ -8,16 +8,15 @@ export const AuthProvider = ({ children }) => {
     const [loadingUser, setLoadingUser] = useState(true)
 
     const fetchUser = async () => {
-        const user = await getUserFromToken()
-        if (user) {
-            setUser(user)
+        const res = await getUserFromToken()
+        if (res && res.data.user) {
+            setUser(res.data.user)
         }
         setLoadingUser(false)
         }
 
     useEffect(() => {
         // fetchUser()
-
         const checkCookieAndFetchUser = () => {
             const cookieName = "access_token"
             const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
@@ -37,8 +36,6 @@ export const AuthProvider = ({ children }) => {
         // eslint-disable-next-line no-useless-catch
         try {
             const res = await authenticateUser(credentials)
-            console.log("Averga: ", res)
-            // setUser(data.user)
             fetchUser()
             window.localStorage.setItem('access_token', JSON.stringify(res.data.token))
             return res
@@ -58,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, loadingUser, login, logout}}>
+        <AuthContext.Provider value={{user, fetchUser, loadingUser, login, logout}}>
             {children}
         </AuthContext.Provider>
     )
