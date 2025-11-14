@@ -4,18 +4,27 @@ import PropTypes from 'prop-types';
 import './OrderDetailsView.css';
 import { useLocation, useParams } from 'react-router-dom';
 import api from '../../../api.js';
+import { UpdateStatusModal } from './UpdateStatusModal.jsx';
 
 
 export function OrderDetailsView({ order }) {
-    const { id } = useParams();
+    const { orderId } = useParams();
     const location = useLocation();
     const [orderData, setOrderData] = useState(location.state?.order || null);
     const [loadingOrder, setLoadingOrder] = useState(!order);
+    const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
+    const orderPossibleStatus = {
+        pending: "Pendiente",
+        paid: "Pagado",
+        shipped: "Enviado",
+        delivered: "Entregado",
+        cancelled: "Cancelado"
+    }
 
     useEffect(() => {
         console.log(Boolean(orderData));
         if (!order) {
-            api.get(`/orders/${id}`)
+            api.get(`/orders/${orderId}`)
             .then(res => {
                 setOrderData(res.data);
                 setLoadingOrder(false);
@@ -25,7 +34,7 @@ export function OrderDetailsView({ order }) {
                 setLoadingOrder(false);
             });
         }
-    }, [id]);
+    }, [orderId]);
 
     if (loadingOrder) {
         return <div>Loading...</div>;
@@ -36,23 +45,31 @@ export function OrderDetailsView({ order }) {
             {!loadingOrder && 
                 
                 <>
-                    <p className='order-p'><strong>Order ID:</strong> {orderData.id}</p>
-                    <p className='order-p'><strong>Customer Name:</strong> {orderData.user.username}</p>
+                    <p className='order-p'><strong>Orden ID:</strong> {orderData.id}</p>
+                    <p className='order-p'><strong>Nombre del Cliente:</strong> {orderData.user.name}</p>
                     
                    
                     <div className='order-details-products-container'>
-                        <h2>Products:</h2>
+                        <h2>Productos:</h2>
                         <ul className='order-details-products-list'>
                             {orderData.products.map((productDetails) => (
                                 <li key={productDetails.product.id}>
-                                    {productDetails.product.name} x {productDetails.quantity} = ${productDetails.product.price}
+                                    {productDetails.product.name} x {productDetails.quantity} = ${productDetails.priceAtPurchase}
                                 </li>
                             ))}
                         </ul>
                     </div>
-                    <p className='order-p'><strong>Total Amount:</strong> ${orderData.total}</p>
-                    <p className='order-p'><strong>Created At:</strong> {new Date(orderData.createdAt).toLocaleString()}</p>
-                    <p className='order-p'><strong>Status:</strong> {orderData.status}</p>
+                    <p className='order-p'><strong>Total:</strong> ${orderData.total}</p>
+                    <p className='order-p'><strong>Fecha de pedido:</strong> {new Date(orderData.createdAt).toLocaleString()}</p>
+                    <div className='order-status-wrapper'>
+                        <p className='order-p'><strong>Estado:</strong> {orderPossibleStatus[orderData.status]}</p>
+                        <button onClick={() => setShowUpdateStatusModal(true)} type="button">Actualizar Estado</button>
+                        {showUpdateStatusModal && <UpdateStatusModal 
+                        orderPossibleStatus={orderPossibleStatus} 
+                        setOrderData={setOrderData} 
+                        orderData={orderData} 
+                        setShowUpdateStatusModal={setShowUpdateStatusModal} />}
+                    </div>
                 </>
                 }
             
@@ -64,7 +81,7 @@ export function OrderDetailsView({ order }) {
 
 OrderDetailsView.propTypes = {
     order: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        orderId: PropTypes.string.isRequired,
         user: PropTypes.shape({
             username: PropTypes.string.isRequired
         }).isRequired,

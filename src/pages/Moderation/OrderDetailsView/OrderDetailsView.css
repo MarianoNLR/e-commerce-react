@@ -43,3 +43,10 @@
     border-bottom: 1px solid #ccc;
     padding-bottom: 1rem;
 }
+
+.order-status-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
