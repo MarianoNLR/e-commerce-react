@@ -11,8 +11,7 @@ import { SimpleToastAlert } from '../../components/SimpleToastAlert/SimpleToastA
 export function CartViewPage () {
     const { userId } = useParams()
     const {user, loadingUser} = useAuth()
-    const {cart, toastAlert} = useCart()
-    const [toastVisible, setToastVisible] = useState(false)
+    const {cart, toastAlert, toastVisible, setToastVisible} = useCart()
     //TODO make a different component for cart
     
     if (loadingUser || !user) {
@@ -29,7 +28,7 @@ export function CartViewPage () {
                 />
             )}
             <h1 className="cart-wrapper-title">Carrito de Compra</h1>
-            <Cart userId={userId} setToastVisible={setToastVisible}></Cart>
+            <Cart userId={userId}></Cart>
             {cart?.items?.length > 0 && <Link to="/checkout/customer">Ir a Checkout</Link>}
             {/* {cart?.items?.length > 0 && <MercadoPagoButton></MercadoPagoButton>} */}
         </>
