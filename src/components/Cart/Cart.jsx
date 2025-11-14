@@ -69,7 +69,6 @@ export function Cart (props) {
                             quantity={item.quantity} 
                             imageURL={item.product.imageURL} 
                             handleRemoveFromCart={handleRemoveFromCart}
-                            setToastVisible={props.setToastVisible}
                             >
                             </CartProductCard>
                     ))}

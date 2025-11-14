@@ -14,8 +14,8 @@ export function ProductView () {
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
-    const { cart, setCart, loadingCart, handleAddToCart, toastAlert, hideToast } = useCart()
-    const [toastVisible, setToastVisible] = useState(false)
+    const { handleAddToCart, toastAlert, toastVisible, setToastVisible } = useCart()
+    // const [toastVisible, setToastVisible] = useState(false)
     const navigate = useNavigate()
     const toastTimer = useRef(null);
     
@@ -63,22 +63,22 @@ export function ProductView () {
     //     })
     // }
 
-    const handleShowToast = () => {
+    // const handleShowToast = () => {
         
-        if (toastTimer.current) {
-            clearTimeout(toastTimer.current);
-            // Force to remount the toast component
-            setToastVisible(false);
-        }
+    //     if (toastTimer.current) {
+    //         clearTimeout(toastTimer.current);
+    //         // Force to remount the toast component
+    //         setToastVisible(false);
+    //     }
 
-        // Force to remount the toast component
-        setTimeout(() => setToastVisible(true), 5);
+    //     // Force to remount the toast component
+    //     setTimeout(() => setToastVisible(true), 5);
 
-        toastTimer.current = setTimeout(() => {
-            setToastVisible(false);
-            toastTimer.current = null;
-        }, 3000);
-    }
+    //     toastTimer.current = setTimeout(() => {
+    //         setToastVisible(false);
+    //         toastTimer.current = null;
+    //     }, 3000);
+    // }
 
     return (
         <>
@@ -105,7 +105,7 @@ export function ProductView () {
                                     <>
                                         <h3 className="product-stock">{productData.quantity}</h3>
                                         <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                        <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity); handleShowToast();}}>Agregar al Carrito</button>
+                                        <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity)}}>Agregar al Carrito</button>
                                     </>
                                 }
                             </div>

@@ -39,7 +39,7 @@ export function CartProductCard (props) {
                 </div>
                 <div className='product-cart-details-column'>
                     <div className="product-cart-controllers-wrapper">
-                        <button onClick={() => {handleRemoveFromCart(props.productId), props.setToastVisible(true)}}>Eliminar</button>
+                        <button onClick={() => {handleRemoveFromCart(props.productId)}}>Eliminar</button>
                     </div>
                 </div>
             </div>

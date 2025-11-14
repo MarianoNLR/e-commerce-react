@@ -1,7 +1,9 @@
-import React, {createContext, useState, useContext, useEffect } from "react";
+import React, {createContext, useState, useContext, useEffect, useRef } from "react";
 import api from "../api.js";
 import { useAuth } from "./AuthProvider.jsx";
 import { set } from "react-hook-form";
+import { useAuthModal } from '../context/AuthModalContext.jsx';
+import { SimpleToastAlert } from './SimpleToastAlert/SimpleToastAlert.jsx';
 
 const CartContext = createContext()
 
@@ -16,6 +18,9 @@ export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState({items: [], total: 0, userId: null})
     const [loadingCart, setLoadingCart] = useState(true)
     const [toastAlert, setToastAlert] = useState({message: '', variant: 'default'})
+    const [toastVisible, setToastVisible] = useState(false)
+    const { openModal, closeModal } = useAuthModal();
+    const toastTimer = useRef(null);
 
     useEffect(() => {
         
@@ -36,18 +41,41 @@ export const CartProvider = ({ children }) => {
 
     const handleAddToCart = async (productId, quantity) => {
         // Lógica para agregar el ítem al backend
+        if (!window.localStorage.getItem('access_token')) {
+            openModal();
+            return;
+        }
         try {
             const res = await api.post('/cart', { data: { productId, quantity } });
             // Actualiza el estado del carrito con la respuesta
             // hideToast();
             setCart(res.data.cart);
             setToastAlert({message: 'Producto agregado al carrito', variant: 'success'})
+            handleShowToast();
         } catch (error) {
             console.error("Error adding to cart:", error);
             // hideToast();
             setToastAlert({message: 'Error al agregar el producto al carrito', variant: 'error'})
+            handleShowToast();
         }
         
+    }
+
+    const handleShowToast = () => {
+        
+        if (toastTimer.current) {
+            clearTimeout(toastTimer.current);
+            // Force to remount the toast component
+            setToastVisible(false);
+        }
+
+        // Force to remount the toast component
+        setTimeout(() => setToastVisible(true), 5);
+
+        toastTimer.current = setTimeout(() => {
+            setToastVisible(false);
+            toastTimer.current = null;
+        }, 3000);
     }
 
     // const hideToast = () => {
@@ -61,6 +89,7 @@ export const CartProvider = ({ children }) => {
         // hideToast();
         setCart(res.data.cart);
         setToastAlert({message: 'Producto eliminado del carrito', variant: 'success'})
+        handleShowToast();
     }
 
     return (
@@ -70,7 +99,10 @@ export const CartProvider = ({ children }) => {
             loadingCart, 
             handleAddToCart, 
             handleRemoveFromCart, 
-            toastAlert 
+            toastAlert,
+            toastVisible, 
+            setToastVisible,
+            handleShowToast,
             // hideToast
             }}>
             {children}
