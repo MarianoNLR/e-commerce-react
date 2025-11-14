@@ -9,3 +9,4 @@ Currently, two official plugins are available:
 
 # TODO
 Redirect if visitor wants to add a product and is not logged in
+Update product functionality
