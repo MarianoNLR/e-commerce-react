@@ -1,0 +1,64 @@
+/* Update status modal styles */
+.update-status-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-status-modal-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.update-status-modal-container h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+.update-status-modal-container select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.update-status-modal-container select option {
+    padding: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.update-status-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.update-status-modal-buttons .btn-save {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update-status-modal-buttons .btn-cancel {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
