@@ -1,11 +1,13 @@
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../AuthProvider.jsx'
-import { useCart } from '../../CartProvider.jsx'
+import { useAuth } from '../../../hooks/useAuth.jsx'
+import { useCart } from '../../../hooks/useCart.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
-import { useAuthModal } from '../../../context/AuthModalContext.jsx'
+import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
+
+// @refresh
 export function Header () {
-    const { openModal } = useAuthModal()
+    const { openModal } = useAuthModal() ?? {}
     const {user, loadingUser, logout} = useAuth()
     const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
     const { cartCount, loadingCartCount } = useCart()

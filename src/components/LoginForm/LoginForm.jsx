@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useAuth } from "../../components/AuthProvider.jsx"
+import { useAuth } from "../../hooks/useAuth.jsx"
 import PropTypes from 'prop-types'
 import { useNavigate } from "react-router-dom"
 import './LoginForm.css'
@@ -65,18 +65,18 @@ export function LoginForm (props) {
             <form onSubmit={onSubmit} className="login-form">
                 <h2>Inicio de Sesión</h2>
                 <div className="input-group">
-                <input type="text" name="username" id="username" placeholder="Usuario" 
-                {...register("username", {
+                <input type="email" name="email" id="email" placeholder="Example@gmail.com" 
+                {...register("email", {
                     required: {
                         value: true,
-                        message: "Usuario es requerido."
+                        message: "Email es requerido."
                     },
                     minLength: {
                         value: 2,
-                        message: "Usuario deber tener al menos 2 caracteres."
+                        message: "Email ingresado no es válido."
                     }
                 })} />
-                {errors.username && <span className="span-form-error">{errors.username.message}</span>}
+                {errors.email && <span className="span-form-error">{errors.email.message}</span>}
                 </div>
                 <div className="input-group">
                 <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
@@ -95,7 +95,7 @@ export function LoginForm (props) {
                 <FormErrorMessage message={formMessage}></FormErrorMessage>
                 <a href="#">Olvidaste tu contraseña?</a>
                 <div className="gmail-login">
-                    <a href="http://localhost:3000/users/google">
+                    <a href="http://localhost:3000/users/google?state=login">
                         <button type="button">Iniciar sesión con Google</button>
                     </a>
                 </div>

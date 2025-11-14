@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import './Cart.css'
 import { Link } from "react-router-dom"
 import CircularProgress from '@mui/material/CircularProgress';
-import { useCart } from "../CartProvider.jsx"
+import { useCart } from "../../hooks/useCart.jsx"
 
 export function Cart (props) {
     //const [loadingCart, setLoadingCart] = useState(true)

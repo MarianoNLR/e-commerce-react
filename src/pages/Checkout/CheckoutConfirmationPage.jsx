@@ -1,6 +1,6 @@
 import './CheckoutConfirmationPage.css'
 import { useLocation } from 'react-router-dom'
-import { useCart } from '../../components/CartProvider.jsx'
+import { useCart } from '../../hooks/useCart.jsx'
 import { MercadoPagoButton } from "../../components/MercadoPagoButton.jsx"
 import CircularProgress from '@mui/material/CircularProgress';
 

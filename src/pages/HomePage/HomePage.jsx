@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAuth } from "../../components/AuthProvider.jsx"
+import { useAuth } from "../../hooks/useAuth.jsx"
 import api from "../../api.js"
 import { ProductList } from "../../components/ProductList/ProductList.jsx"
 import { FilterPanel } from "../../components/FilterPanel/FilterPanel.jsx"

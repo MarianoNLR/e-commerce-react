@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { useAuth } from "../AuthProvider.jsx"
-import { useCart } from "../CartProvider.jsx"
+import { useAuth } from "../../hooks/useAuth.jsx"
+import { useCart } from "../../hooks/useCart.jsx"
 import cartIcon from '../../assets/cart-icon/icons8-cart-50.png'
 import { useEffect } from "react"
 export function CartHeader () {

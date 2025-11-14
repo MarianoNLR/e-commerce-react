@@ -26,3 +26,18 @@
     border-bottom: 1px solid gray;
     box-sizing: border-box;
 }
+
+.complete-google-signup-form button{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.complete-google-signup-form button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,61 @@
+.signup-email-form, .complete-signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.label-email {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    align-self: flex-start;
+    padding: 0 0.5rem;
+}
+
+.input-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-bottom: 2px solid #007bff;
+}
+
+.is_required::after {
+    content: " *";
+    color: rgb(0, 0, 0);
+}
+
+.complete-signup-form-submit-btn, .signup-email-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.complete-signup-form-submit-btn:hover, .signup-email-form button:hover {
+    background-color: #0056b3;
+}

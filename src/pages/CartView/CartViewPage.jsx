@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useAuth } from '../../components/AuthProvider.jsx'
-import { useCart } from '../../components/CartProvider.jsx'
+import { useAuth } from '../../hooks/useAuth.jsx'
+import { useCart } from '../../hooks/useCart.jsx'
 import { useParams } from "react-router-dom"
 import './CartViewPage.css'
 import { Cart } from "../../components/Cart/Cart.jsx"

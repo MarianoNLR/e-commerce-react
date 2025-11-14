@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form"
 import api from "../../../../api.js"
 import './EmailForm.css'
 import { useState } from "react"
-import { useAuth } from "../../../AuthProvider.jsx"
+import { useAuth } from "../../../../hooks/useAuth.jsx"
 import { useNavigate } from "react-router-dom"
-import { useAuthModal } from "../../../../context/AuthModalContext.jsx"
+import { useAuthModal } from "../../../../hooks/useAuthModal.jsx"
 
 export function EmailForm (props) {
-    const [step, setStep] = useState('email')
+    const [step, setStep] = useState("email")
     const [emailAlreadyUsed, setEmailAlreadyUsed] = useState(null)
     const { login } = useAuth()
     const { closeModal } = useAuthModal()
@@ -19,7 +19,7 @@ export function EmailForm (props) {
             watch,
     } = useForm() 
 
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = handleSubmit( async (data) => {
 
         if (step === 'email') {
             api.post('/users/email-check', {email: data.email})
@@ -82,9 +82,10 @@ export function EmailForm (props) {
         <> 
             {step === 'email' && (
                 <form onSubmit={handleSubmit(onSubmit)} className="signup-email-form">
-                    <h2>Continua con tu correo</h2>
+                    <h2>Continua con tu correo:</h2>
                     <div className="input-group">
-                        <input type="email" name="email" id="" placeholder="example@example.com" {...register("email", {
+                        <label className="label-email is_required" htmlFor="">Email</label>
+                        <input className="email-input" type="email" name="email" id="" placeholder="example@example.com" {...register("email", {
                             required: {
                                 value: true,
                                 message: "Email es requerido."
@@ -101,10 +102,10 @@ export function EmailForm (props) {
             )}
             {step === 'password' && (
                 <>
-                    <form className="signup-form">
+                    <form className="signup-email-form">
                         <h2>Inicia Sesión</h2>
                         <div className="input-group">
-                            <label htmlFor="">Email</label>
+                            <label className="is_required" htmlFor="">Email</label>
                             <input type="email" name="email" placeholder="Correo electrónico" {...register('email', {
                                 required: {
                                     value: true,
@@ -117,7 +118,7 @@ export function EmailForm (props) {
                             })} />
                         </div>
                         <div className="input-group">
-                            <label htmlFor="">Contraseña</label>
+                            <label className="is_required" htmlFor="">Contraseña</label>
                             <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
                                 required: {
                                     value: true,
@@ -135,23 +136,25 @@ export function EmailForm (props) {
                 </>
             )}
             {step === 'register' && (
-                                    <form onSubmit={onSubmit} className="signup-form">
+                                    <form onSubmit={onSubmit} className="complete-signup-form">
                         <h2>Completa tus Datos</h2>
                         <div className="input-group">
-                        <input type="text" name="name" id="name" placeholder="Nombre" 
-                        {...register("name", {
-                            required: {
-                                value: true,
-                                message: "Nombre es requerido."
-                            },
-                            minLength: {
-                                value: 2,
-                                message: "Nombre debe tener al menos 2 caracteres."
-                            }
-                        })} />
+                            <label className="is_required" htmlFor="name">Nombre</label>
+                            <input type="text" name="name" id="name" placeholder="Nombre" 
+                            {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: "Nombre es requerido."
+                                },
+                                minLength: {
+                                    value: 2,
+                                    message: "Nombre debe tener al menos 2 caracteres."
+                                }
+                            })} />
                         {errors.name && <span className="span-form-error">{errors.name.message}</span>}
                         </div>
                         <div className="input-group">
+                            <label className="is_required" htmlFor="lastName">Apellido</label>
                             <input type="text" name="lastName" id="lastName" placeholder="Apellido" 
                             {...register("lastName", {
                                 required: {
@@ -166,6 +169,7 @@ export function EmailForm (props) {
                             {errors.lastName && <span className="span-form-error">{errors.lastName.message}</span>}
                         </div>
                         <div className="input-group">
+                            <label className="is_required" htmlFor="email">Email</label>
                             <input type="email" name="email" id="email" placeholder="example@example.com" 
                             {...register("email", {
                                 required: {
@@ -180,20 +184,22 @@ export function EmailForm (props) {
                             {errors.email && <span className="span-form-error">{errors.email.message}</span>}
                         </div>
                         <div className="input-group">
-                        <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
-                            required: {
-                                value: true,
-                                message: "La contraseña es requerida"
-                            },
-                            minLength: {
-                                value: 4,
-                                message: "La contraseña debe tener al menos 4caracteres."
+                            <label className="is_required" htmlFor="password">Contraseña</label>
+                            <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "La contraseña es requerida"
+                                },
+                                minLength: {
+                                    value: 4,
+                                    message: "La contraseña debe tener al menos 4 caracteres."
                             }
                         })}/>
                         {errors.password && <span className="span-form-error">{errors.password.message}</span>}
                         </div>
         
                         <div className="input-group">
+                            <label className="is_required" htmlFor="confirmPassword">Confirmar Contraseña</label>
                         <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Contraseña" {...register("confirmPassword", {
                             required: {
                                 value: true,
@@ -209,7 +215,7 @@ export function EmailForm (props) {
                         })}/>
                         {errors.confirmPassword && <span className="span-form-error">{errors.confirmPassword.message}</span>}
                         </div>
-                        <input type="submit" value="Registrarme" />
+                        <input className="complete-signup-form-submit-btn" type="submit" value="Registrarme" />
                     </form>
             )}
             

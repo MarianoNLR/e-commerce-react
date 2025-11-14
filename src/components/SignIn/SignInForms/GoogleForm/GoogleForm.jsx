@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 import api from '../../../../api.js'
 import './GoogleForm.css'
-import { useAuthModal } from '../../../../context/AuthModalContext.jsx'
-import { useAuth } from '../../../AuthProvider.jsx'
+import { useAuthModal } from '../../../../hooks/useAuthModal.jsx'
+import { useAuth } from '../../../../hooks/useAuth.jsx'
 
 export function GoogleForm (props) {
     const { register,
@@ -42,7 +42,7 @@ export function GoogleForm (props) {
                     <input type="text" placeholder='Ingrese su apellido' {...register('lastName', { required: true, minLength: 2 })} />
                     {errors.lastName && <span>This field is required</span>}
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit">Registrarme</button>
             </form>
         </>
     )

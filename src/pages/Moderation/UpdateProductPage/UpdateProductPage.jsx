@@ -2,7 +2,7 @@ import './UpdateProductPage.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../../api.js';
-import { useAuth } from '../../../components/AuthProvider.jsx';
+import { useAuth } from '../../../hooks/useAuth.jsx';
 import { SimpleToastAlert } from '../../../components/SimpleToastAlert/SimpleToastAlert.jsx';
 import { useForm } from 'react-hook-form';
 

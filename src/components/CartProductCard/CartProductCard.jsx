@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import './CartProductCard.css'
 import { Link } from 'react-router-dom'
-import { useCart } from '../CartProvider'
+import { useCart } from '../../hooks/useCart.jsx'
 
 export function CartProductCard (props) {
     const {cart, setCart, handleRemoveFromCart} = useCart()

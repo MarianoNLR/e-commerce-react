@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useCart } from '../../components/CartProvider.jsx'
+import { useCart } from '../../hooks/useCart.jsx';
 import { useNavigate } from "react-router-dom";
 import api from "../../api.js";
 import './ProductView.css'
 import { QuantityInput } from "../../components/QuantityInput/QuantityInput.jsx";
-import { useAuth } from "../../components/AuthProvider.jsx";
+import { useAuth } from "../../hooks/useAuth.jsx";
 import { SimpleToastAlert } from '../../components/SimpleToastAlert/SimpleToastAlert.jsx'
 
 export function ProductView () {

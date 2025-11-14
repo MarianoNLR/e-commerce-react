@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import { LoginPage } from './pages/LoginPage/LoginPage.jsx'
-import { AuthProvider } from './components/AuthProvider.jsx'
+import { AuthProvider } from './providers/AuthProvider.jsx'
 import './App.css'
 import { HomePage } from '../src/pages/HomePage/HomePage.jsx'
 import Layout from './components/Layout/Layout.jsx'
 import { ProductView } from './pages/ProductView/ProductView.jsx'
 import { CartViewPage } from './pages/CartView/CartViewPage.jsx'
-import { CartProvider } from './components/CartProvider.jsx'
+import { CartProvider } from './providers/CartProvider.jsx'
 import { CategoryProducts } from './pages/CategoryProducts/CategoryProducts.jsx'
 import { SearchProduct } from './pages/SearchProduct/SearchProduct.jsx'
 import { AddProductPage } from './pages/Moderation/AddProductPage/AddProductPage.jsx'
@@ -19,12 +19,11 @@ import { UpdateProductPage } from './pages/Moderation/UpdateProductPage/UpdatePr
 import { StockPage } from './pages/Moderation/StockPage/StockPage.jsx'
 import { OrderDetailsView } from './pages/Moderation/OrderDetailsView/OrderDetailsView.jsx'
 import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.jsx'
-import { AuthModalProvider } from './context/AuthModalContext.jsx'
+import { AuthModalProvider } from './providers/AuthModalProvider.jsx'
 function App() {
 
   return (
-    <>
-      
+    <> 
         <AuthProvider>
           <AuthModalProvider>
             <CartProvider>

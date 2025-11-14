@@ -1,6 +1,6 @@
 import {Footer} from './Footer/Footer.jsx'
 import {Header} from './Header/Header.jsx'
-import { useAuth } from '../AuthProvider.jsx'
+import { useAuth } from '../../hooks/useAuth.jsx'
 import { SidebarAdmin } from './SidebarAdmin/SidebarAdmin.jsx'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'

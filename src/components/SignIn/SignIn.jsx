@@ -3,8 +3,8 @@ import {EmailForm } from "./SignInForms/EmailForm/EmailForm.jsx"
 import{ GoogleForm } from "./SignInForms/GoogleForm/GoogleForm.jsx"
 import axios from "axios"
 import './SignIn.css'
-import { useAuthModal } from "../../context/AuthModalContext.jsx"
-import { useAuth } from "../AuthProvider.jsx"
+import { useAuthModal } from "../../hooks/useAuthModal.jsx"
+import { useAuth } from "../../hooks/useAuth.jsx"
 
 export function SignIn (props) {
     const { closeModal } = useAuthModal()

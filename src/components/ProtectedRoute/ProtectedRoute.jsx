@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../AuthProvider.jsx';
+import { useAuth } from '../../hooks/useAuth.jsx';
 import { propTypes } from 'prop-types';
 
 export function ProtectedRoute({ children, isAllowedRoles = null }) {
