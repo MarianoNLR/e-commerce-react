@@ -58,7 +58,7 @@ export function UpdateProductPage() {
     };
 
     return (
-        <main className='update-product-page-main'>
+        <>
             <h1>Actualización de Producto</h1>
                 {/* {(loadingProduct || loadingCategories) ? (
                     <p>Cargando...</p>
@@ -110,6 +110,6 @@ export function UpdateProductPage() {
                         <button type="submit">Actualizar</button>
                     </form>
                 {/* )} */}
-        </main>
+        </>
     );
 }
