@@ -1,7 +1,11 @@
 .header {
+    height: 80px;
+    position: fixed;
+    width: 80%;
     margin-bottom: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    background-color: #111;
 }
 
 .header-main-wrapper {
@@ -9,6 +13,7 @@
     font-size: 28px;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .header-main-wrapper a {
@@ -45,7 +50,7 @@
 .header-login-link {
     text-align: center;
     line-height: 25px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .user-options-wrapper {
