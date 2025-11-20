@@ -1,13 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { ImageUpload } from "../ImageUpload/ImageUpload.jsx";
 import api from "../../api";
 import "./AddProductForm.css";
 export function AddProductForm() {
-    const {register, handleSubmit, watch ,formState: { errors }} = useForm();
+    const {register, handleSubmit, setValue, watch ,formState: { errors }} = useForm({
+        defaultValues: {
+            images: []
+        }
+    });
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError ] = useState(null);
-
+    const images = watch("images");
     const onSubmit = async (data) => {
         console.log(data)
         try {
@@ -28,21 +33,21 @@ export function AddProductForm() {
     };
 
     useEffect(() => {
-    const fetchCategories = async  () => {
-        await api.get('/category')
-        .then(res => {
-            setCategories(res.data.categories)
-            setLoading(false)
-        })
-        .catch(err => {
-            console.error(err)
-            setError(err)
-            setLoading(false)
-        })
-    }
+        const fetchCategories = () => {
+            api.get('/category')
+            .then(res => {
+                setCategories(res.data.categories)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err)
+                setError(err)
+                setLoading(false)
+            })
+        }
 
     fetchCategories()
-}, [])
+    }, [])
 
     console.log(watch("productName")); // watch input value by passing the name of it
 
@@ -89,11 +94,10 @@ export function AddProductForm() {
             {errors.productDescription && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productImage">Imagen del Producto</label>
-                <input type="file" name="file" {...register("file", { required: false })} />
+            <div className="input-wrapper image-group">
+                <label>Imágenes del Producto</label>
+                <ImageUpload setValue={setValue} images={images} />
             </div>
-            {/* {errors.productImage && <span>Este campo es obligatorio</span>} */}
         </div>
         <div className="form-group">
             <input type="submit" value="Agregar Producto" />
