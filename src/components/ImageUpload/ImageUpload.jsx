@@ -3,11 +3,15 @@ import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
 import "./ImageUpload.css";
 
-export function ImageUpload({images, setValue}) {
+export function ImageUpload({images, onChange}) {
     useEffect(() => {
         return () => {
             // Limpiar URLs de vista previa al desmontar el componente
-            images.forEach(img => URL.revokeObjectURL(img.preview));
+            images.forEach(img => {
+                if (img.preview && !img.exists) {
+                    URL.revokeObjectURL(img.preview);
+                }
+            });
         };
     });
 
@@ -19,9 +23,10 @@ export function ImageUpload({images, setValue}) {
         }
         const newImages = acceptedFiles.map(file => ({
             file,
-            preview: URL.createObjectURL(file)
+            preview: URL.createObjectURL(file),
+            exists: false
         }));
-        setValue("images", [...images, ...newImages]);
+        onChange([...images, ...newImages]);
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -32,14 +37,6 @@ export function ImageUpload({images, setValue}) {
         multiple: true,
         maxSize: 5242880 // 5MB
     });
-
-    // Eliminar imagen
-    const removeImage = (index) => {
-        const newImages = [...images];
-        URL.revokeObjectURL(newImages[index].preview); // Limpiar memoria
-        newImages.splice(index, 1);
-        setValue("images", newImages);
-    };
 
     return (
         <>
@@ -54,32 +51,11 @@ export function ImageUpload({images, setValue}) {
                     <p>Arrastra imágenes aquí o haz click para seleccionar</p>
                 )}
             </div>
-            {/* Preview de imágenes */}
-            {images.length > 0 && (
-                <div className="images-preview-container">
-                    {images.map((image, index) => (
-                        <div key={index} className="image-preview-wrapper">
-                            <img 
-                                src={image.preview} 
-                                alt={`Preview ${index}`}
-                                className="image-preview"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => removeImage(index)}
-                                className="remove-image-btn"
-                            >
-                                ✕
-                            </button>
-                        </div>
-                    ))}
-                </div>   
-            )}
         </>
     )
 }
 
 ImageUpload.propTypes = {
     images: PropTypes.array.isRequired,
-    setValue: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
 };
