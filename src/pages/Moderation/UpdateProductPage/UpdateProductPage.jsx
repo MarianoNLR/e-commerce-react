@@ -4,7 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../../api.js';
 import { useAuth } from '../../../hooks/useAuth.jsx';
 import { SimpleToastAlert } from '../../../components/SimpleToastAlert/SimpleToastAlert.jsx';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import {ImageUpload} from '../../../components/ImageUpload/ImageUpload.jsx';
+import { PreviewImages } from '../../../components/PreviewImages/PreviewImages.jsx';
 
 export function UpdateProductPage() {
     const { productId } = useParams();
@@ -15,7 +17,8 @@ export function UpdateProductPage() {
     const {register, 
         handleSubmit,
         formState: {errors},
-        reset
+        reset,
+        control
        } = useForm() 
     const { user } = useAuth() || {};
     const [formData, setFormData] = useState(null);
@@ -28,6 +31,11 @@ export function UpdateProductPage() {
         ])
         .then(([productRes, categoryRes]) => {
             setProductData(productRes.data.product);
+            const preloadedImages = (productRes.data.product.imageURL || []).map(url => ({
+                file: null,
+                preview: `http://localhost:3000/uploads/${url}`,
+                exists: true
+            }));
             setCategories(categoryRes.data.categories);
             setLoadingProduct(false);
             setLoadingCategories(false);
@@ -36,7 +44,8 @@ export function UpdateProductPage() {
                 price: productRes.data.product.price,
                 quantity: productRes.data.product.quantity,
                 description: productRes.data.product.description,
-                category: productRes.data.product.categoryId
+                category: productRes.data.product.categoryId,
+                images: preloadedImages
             });
         })
         .catch(err => console.error(err));
@@ -87,14 +96,7 @@ export function UpdateProductPage() {
                             <textarea {...register("description", { required: true })} />
                             {errors.description && <span>Este campo es obligatorio</span>}
                         </div>
-                        
-                        {/* <div className='update-product-input-group'>
-                            <label htmlFor="image">Imagen</label> */}
-                            {/* Vista personalizada para imagen actual */}
-                            {/* <input type="file" {...register("image", { required: false })} />
-                            {errors.image && <span>Este campo es obligatorio</span>}
-                        </div> */}
-                        
+
                         <div className='update-product-input-group'>
                             <label htmlFor="category">Categoría</label>
                             {/* Cargar categorias de la bd */}
@@ -106,6 +108,25 @@ export function UpdateProductPage() {
                             </select>
                             {errors.category && <span>Este campo es obligatorio</span>}
                         </div>
+                        
+                        <div className='update-product-input-group'>
+                            <label htmlFor="image">Imagen</label>
+                            <Controller
+                                name="images"
+                                control={control}
+                                rules={{ required: true }}
+                                defaultValue={[]}
+                                render={({ field }) => (
+                                    <>
+                                        <ImageUpload images={field.value || []} onChange={field.onChange} />
+                                        <PreviewImages images={field.value || []} onRemove={field.onChange} />
+                                        {errors.images && <span>Este campo es obligatorio</span>}
+                                    </>
+                                )}
+                            />
+                        </div>
+                        
+                        
                         
                         <button type="submit">Actualizar</button>
                     </form>
