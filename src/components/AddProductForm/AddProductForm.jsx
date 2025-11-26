@@ -1,18 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { ImageUpload } from "../ImageUpload/ImageUpload.jsx";
+import { PreviewImages } from "../PreviewImages/PreviewImages.jsx";
 import api from "../../api";
 import "./AddProductForm.css";
 export function AddProductForm() {
-    const {register, handleSubmit, setValue, watch ,formState: { errors }} = useForm({
-        defaultValues: {
-            images: []
-        }
-    });
+    const {register, handleSubmit, watch, control, formState: { errors }} = useForm();
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError ] = useState(null);
-    const images = watch("images");
     const onSubmit = async (data) => {
         console.log(data)
         try {
@@ -22,12 +18,10 @@ export function AddProductForm() {
             formData.append('quantity', data.productStock);
             formData.append('categoryId', data.productCategoryId);
             formData.append('description', data.productDescription);
-            formData.append('file', data.file[0]);
-
+            data.images.forEach(image => formData.append('images', image.file));
             await api.post('/products', formData)
-            console.log("Producto agregado con exito")
         } catch (error) {
-            console.log("ERROR LOADING PRODUCT")
+            console.log("ERROR LOADING PRODUCT", error)
         }
         
     };
@@ -96,7 +90,19 @@ export function AddProductForm() {
         <div className="form-group">
             <div className="input-wrapper image-group">
                 <label>Imágenes del Producto</label>
-                <ImageUpload setValue={setValue} images={images} />
+               <Controller
+                    name="images"
+                    control={control}
+                    rules={{ required: true }}
+                    defaultValue={[]}
+                    render={({ field }) => (
+                        <>
+                            <ImageUpload images={field.value || []} onChange={field.onChange} />
+                            <PreviewImages images={field.value || []} onRemove={field.onChange} />
+                            {errors.images && <span>Este campo es obligatorio</span>}
+                        </>
+                    )}
+                />
             </div>
         </div>
         <div className="form-group">
