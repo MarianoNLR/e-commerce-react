@@ -6,6 +6,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     background-color: #111;
+    z-index: 1000;
 }
 
 .header-main-wrapper {
