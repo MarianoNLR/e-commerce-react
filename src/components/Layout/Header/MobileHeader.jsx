@@ -35,6 +35,7 @@ export function MobileHeader() {
                                 <Link to={'/moderation/add_product'}>Agregar producto</Link>
                                 <Link to={'/moderation/orders'}>Ordenes</Link>
                                 <Link to={"/moderation/stock"} >Ver Stock</Link>
+                                <Link to={"/moderation/products"} >Ver Productos</Link>
                             </>
                         }
                         {user ? 
