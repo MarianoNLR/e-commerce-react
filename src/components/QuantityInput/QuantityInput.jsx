@@ -24,7 +24,6 @@ export function QuantityInput ({ quantity, setQuantity, stock }) {
     return (
         <>
             <div className="quantity-input-wrapper">
-                <span className="quantity-title">Cantidad: </span> 
                 <div className="quantity-input-controls-wrapper">
                 <input type="button" className="quantity-input subtract" value="-" onClick={(e) => handleSubQuantity(e)} />
                 <span className="quantity-output">{quantity}</span>
