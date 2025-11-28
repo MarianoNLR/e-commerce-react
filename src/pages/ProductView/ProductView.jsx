@@ -15,6 +15,7 @@ export function ProductView () {
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
     const { handleAddToCart, toastAlert, toastVisible, setToastVisible } = useCart()
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     // const [toastVisible, setToastVisible] = useState(false)
     const navigate = useNavigate()
     const toastTimer = useRef(null);
@@ -80,6 +81,18 @@ export function ProductView () {
     //     }, 3000);
     // }
 
+    const handlePrevImage = () => {
+        setCurrentImageIndex((prev) => 
+            prev === 0 ? productData.imagesURLs.length - 1 : prev - 1
+        );
+    };
+
+    const handleNextImage = () => {
+        setCurrentImageIndex((prev) => 
+            prev === productData.imagesURLs.length - 1 ? 0 : prev + 1
+        );
+    };
+
     return (
         <>
             { !loadingProduct ? (
@@ -95,19 +108,85 @@ export function ProductView () {
                     <div className="product-wrapper">
                         <div className="product-wrapper-row">
                             {/* <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
-                            <img className="product-image" src={`http://localhost:3000/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
-                            <div className="product-details">
-                                <h1>{productData.name}</h1>
-                                <h2>{formatPrice(productData.price)}</h2>
-                                {productData.quantity <= 0 ? 
-                                    <h3 className="out-of-stock-message">Producto sin stock</h3>
-                                    :
-                                    <>
-                                        <h3 className="product-stock">{productData.quantity}</h3>
-                                        <QuantityInput quantity={quantity} setQuantity={setQuantity} stock={productData.quantity}></QuantityInput>
-                                        <button className="add-to-cart-button" onClick={() => {handleAddToCart(productId, quantity)}}>Agregar al Carrito</button>
-                                    </>
+
+                            <div className="product-image-carousel">
+                                {productData.imagesURLs.length > 1 && 
+                                    <button 
+                                    className="carousel-button prev" 
+                                    onClick={handlePrevImage}
+                                    disabled={productData.imagesURLs.length <= 1}
+                                >
+                                    &#8249;
+                                </button>
                                 }
+                                
+                                <img 
+                                    className="product-image" 
+                                    src={`http://localhost:3000/uploads/${productData.imagesURLs[currentImageIndex]}`} 
+                                    alt={`Imagen del producto ${currentImageIndex + 1}`} 
+                                    onError={handleImageError}
+                                />
+                                {productData.imagesURLs.length > 1 && 
+                                    <button 
+                                    className="carousel-button next" 
+                                    onClick={handleNextImage}
+                                    disabled={productData.imagesURLs.length <= 1}
+                                    >
+                                        &#8250;
+                                    </button>
+                                }
+                                {productData.imagesURLs.length > 1 &&
+                                <div className="carousel-indicators">
+                                    {productData.imagesURLs.map((_, index) => (
+                                        <span 
+                                            key={index}
+                                            className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                                            onClick={() => setCurrentImageIndex(index)}
+                                        />
+                                    ))}
+                                </div>
+                                }
+                            </div>
+                            <div className="product-details">
+                                <div className="product-details-header">
+                                    <h1 className="product-name">{productData.name}</h1>
+                                </div>
+                                
+                                <div className="product-price-section">
+                                    <h2 className="product-price">{formatPrice(productData.price)}</h2>
+                                    {productData.quantity > 0 && (
+                                        <p className="product-stock-info">
+                                            <span className="stock-icon">✓</span>
+                                            Stock disponible:<strong>{productData.quantity}</strong>unidades
+                                        </p>
+                                    )}
+                                </div>
+
+                                {productData.quantity <= 0 ? (
+                                    <div className="purchase-section">
+                                        <div className="out-of-stock-container">
+                                            <h3 className="out-of-stock-message">⚠️ Producto sin stock</h3>   
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="purchase-section">
+                                        <div className="quantity-section">
+                                            <label className="quantity-label">Cantidad:</label>
+                                            <QuantityInput 
+                                                quantity={quantity} 
+                                                setQuantity={setQuantity} 
+                                                stock={productData.quantity}
+                                            />
+                                        </div>
+                                        
+                                        <button 
+                                            className="add-to-cart-button" 
+                                            onClick={() => {handleAddToCart(productId, quantity)}}
+                                        >
+                                            Agregar al carrito
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="product-wrapper-row">
