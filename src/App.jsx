@@ -20,6 +20,7 @@ import { StockPage } from './pages/Moderation/StockPage/StockPage.jsx'
 import { OrderDetailsView } from './pages/Moderation/OrderDetailsView/OrderDetailsView.jsx'
 import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.jsx'
 import { AuthModalProvider } from './providers/AuthModalProvider.jsx'
+import { ProductsModerationPage } from './pages/Moderation/ProductsModerationPage/ProductsModerationPage.jsx'
 function App() {
 
   return (
@@ -45,6 +46,11 @@ function App() {
                         <AddProductPage />
                       </ProtectedRoute>
                     } />
+                    <Route path='/moderation/products' element={
+                      <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
+                        <ProductsModerationPage />
+                      </ProtectedRoute>
+                    }></Route>
                     <Route path='/moderation/orders' element={
                       <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
                         <OrdersViewPage />
