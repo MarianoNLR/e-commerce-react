@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../api.js'
 import styles from './ProductsModerationPage.module.css';
+import { EditStockModal } from '../../../components/EditStockModal/EditStockModal.jsx';
 
 export function ProductsModerationPage() {
   const navigate = useNavigate();
@@ -31,6 +32,22 @@ export function ProductsModerationPage() {
     navigate(`/moderation/update_product/${productId}`);
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS'
+    }).format(price);
+  }
+
+  const handleStockEdit = (product) => {
+    setSelectedProduct(product);
+    setEditStockModalOpened(true);
+  }
+
+  const handleStockUpdated = (updatedProduct) => {
+    setProducts(prev => prev.map(prod => prod.id === updatedProduct.id ? updatedProduct : prod));
+  }
+
   if (loading) {
     return <div className={styles.loadingContainer}>Cargando productos...</div>;
   }
@@ -59,24 +76,6 @@ export function ProductsModerationPage() {
         </div>
 
         <div className={styles.filterButtons}>
-          {/* <button 
-            className={filterStatus === 'all' ? styles.active : ''} 
-            onClick={() => setFilterStatus('all')}
-          >
-            Todos ({products?.length})
-          </button>
-          <button 
-            className={filterStatus === 'active' ? styles.active : ''} 
-            onClick={() => setFilterStatus('active')}
-          >
-            Activos ({products?.filter(p => p.status === 'active').length})
-          </button>
-          <button 
-            className={filterStatus === 'inactive' ? styles.active : ''} 
-            onClick={() => setFilterStatus('inactive')}
-          >
-            Inactivos ({products?.filter(p => p.status === 'inactive').length})
-          </button> */}
         </div>
       </div>
 
