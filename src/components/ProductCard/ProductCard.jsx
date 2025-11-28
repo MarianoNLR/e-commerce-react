@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import './ProductCard.css'
+import styles from './ProductCard.module.css'
 import { Link } from 'react-router-dom'
 export function ProductCard (props) {
     const handleImageError = (e) => {
@@ -13,28 +13,33 @@ export function ProductCard (props) {
     }
 
     return (
-        <>
-            <div className="product-card-wrapper">
-                <div className='product-image-wrapper'>
+            <div className={styles.productCardWrapper}>
+                <div className={styles.productImageWrapper}>
                     {/* <img src={`https://e-commerce-api-gpfg.onrender.com/uploads/${props.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
-                    <img src={`http://localhost:3000/uploads/${props.imageURL}`} alt="Imagen del productos" onError={handleImageError}/>
+                    {props.imagesURLs && props.imagesURLs.length > 0 ? 
+                        <img src={`http://localhost:3000/uploads/${props.imagesURLs[0]}`} alt="Imagen del productos" onError={handleImageError}/>
+                        :
+                        <img src={`https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg`} alt="Imagen del productos" onError={handleImageError}/>
+                    }
+                    <div className={styles.stockMessageWrapper}>
+                        {props.quantity <= 0 ? 
+                            <span className={`${styles.stockMessage} ${styles.outOfStockMessage}`}>Sin Stock</span>
+                            :
+                            <span className={`${styles.stockMessage} ${styles.inStockMessage}`}>En Stock</span>
+                        }
+                    </div>
                 </div>
-                <div className="product-info">
-                    <h3 className="product-title">
+                <div className={styles.productInfo}>
+                    <h3 className={styles.productTitle}>
                         {props.name}
                     </h3>
                     <p>{formatPrice(props.price)}</p>
-                    {props.quantity <= 0 ? 
-                        <span className='out-of-stock-message'>Sin Stock</span>
-                        :
-                        <span>En Stock: {props.quantity}</span>
-                        }
+                    
                     
                     <Link to={`/products/product/${props.productId}`}><button className='view-more-button'>Ver Más</button></Link>
                 </div>
                 
             </div>
-        </>
     )
 }
 
@@ -43,5 +48,5 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
-    imageURL: PropTypes.string
+    imagesURLs: PropTypes.arrayOf(PropTypes.string)
 }
