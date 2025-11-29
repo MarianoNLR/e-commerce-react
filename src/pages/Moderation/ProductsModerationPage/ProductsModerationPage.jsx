@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../../api.js'
 import styles from './ProductsModerationPage.module.css';
 import { EditStockModal } from '../../../components/EditStockModal/EditStockModal.jsx';
+import { FaEdit, FaBox, FaEye } from 'react-icons/fa';
 
 export function ProductsModerationPage() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [editStockModalOpened, setEditStockModalOpened] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -20,6 +23,7 @@ export function ProductsModerationPage() {
       api.get('/products')
       .then(({data}) => {
         setProducts(data.products);
+        setFilteredProducts(data.products);
         setLoading(false);
       })
     } catch (error) {
@@ -59,7 +63,7 @@ export function ProductsModerationPage() {
     <div className={styles.productsModerationPage}>
       <div className={styles.pageHeader}>
         <h1>Gestión de Productos</h1>
-        <button className={styles.btnPrimary} onClick={() => navigate('/moderation/products/new')}>
+        <button className={styles.btnPrimary} onClick={() => navigate('/moderation/add_product')}>
           <span className={styles.icon}>+</span> Nuevo Producto
         </button>
       </div>
@@ -85,7 +89,7 @@ export function ProductsModerationPage() {
             <p>No se encontraron productos</p>
           </div>
         ) : (
-          products.map(product => (
+          filteredProducts.map(product => (
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
                 <img src={`http://localhost:3000/uploads/${product.imagesURLs[0]}`} alt={product.name} />
@@ -98,7 +102,7 @@ export function ProductsModerationPage() {
                 <div className={styles.productDetails}>
                   <div className={styles.detailItem}>
                     <span className={styles.label}>Precio:</span>
-                    <span className={`${styles.value} ${styles.price}`}>${product.price}</span>
+                    <span className={`${styles.value} ${styles.price}`}>{formatPrice(product.price)}</span>
                   </div>
                   <div className={styles.detailItem}>
                     <span className={styles.label}>Stock:</span>
@@ -106,26 +110,47 @@ export function ProductsModerationPage() {
                       {product.quantity} unidades
                     </span>
                   </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.label}>Categoria:</span>
+                    <span className={styles.value}>
+                      {product.categoryId.name}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <div className={styles.productActions}>
-                <button 
-                  className={styles.btnEdit} 
-                  onClick={() => handleEditProduct(product.id)}
-                >
-                  Editar
-                </button>
+                <div className={styles.productEditActions}>
+                  <button 
+                    className={styles.btnEdit} 
+                    onClick={() => handleEditProduct(product.id)}
+                  >
+                    <FaEdit /> Editar Producto
+                  </button>
+                  <button className={styles.btnEdit}
+                  onClick={() => handleStockEdit(product)}
+                  >
+                    <FaBox /> Editar Stock
+                  </button>
+                </div>
                 <button className={styles.btnView}
                   onClick={() => navigate(`/products/product/${product.id}`)}
                 >
-                  Ver detalles
+                  <FaEye /> Ver detalles
                 </button>
+                
               </div>
             </div>
           ))
         )}
       </div>
+      {editStockModalOpened && selectedProduct && (
+        <EditStockModal 
+        setEditStockModalOpened={setEditStockModalOpened} 
+        product={selectedProduct} 
+        onStockUpdated={handleStockUpdated} />
+      )}
     </div>
+    
   );
 }
