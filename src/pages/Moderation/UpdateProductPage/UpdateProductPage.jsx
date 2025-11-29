@@ -14,6 +14,7 @@ export function UpdateProductPage() {
     const [productData, setProductData] = useState(null);
     const [loadingProduct, setLoadingProduct] = useState(true);
     const [loadingCategories, setLoadingCategories] = useState(true);
+
     const {register, 
         handleSubmit,
         formState: {errors},
@@ -31,8 +32,8 @@ export function UpdateProductPage() {
         ])
         .then(([productRes, categoryRes]) => {
             setProductData(productRes.data.product);
-            const preloadedImages = (productRes.data.product.imageURL || []).map(url => ({
-                file: null,
+            const preloadedImages = (productRes.data.product.imagesURLs || []).map(url => ({
+                name: url,
                 preview: `http://localhost:3000/uploads/${url}`,
                 exists: true
             }));
@@ -52,17 +53,33 @@ export function UpdateProductPage() {
     }, [productId, reset]);
 
     const onSubmit = (data) => {
-    //     api.put(`/products/product/${productId}`, data, {
-    //         headers: {
-    //             Authorization: `Bearer ${user.token}`
-    //         }
-    //     })
-    //     .then(res => {
-    //         setToastAlert({ visible: true, message: 'Producto actualizado con éxito', type: 'success' });
-    //     })
-    //     .catch(err => {
-    //         setToastAlert({ visible: true, message: 'Error al actualizar el producto', type: 'error' });
-    //     });
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('price', data.price);
+        formData.append('quantity', data.quantity);
+        formData.append('description', data.description);
+        formData.append('category', data.category);
+        data.images.forEach((img) => {
+            if (img.exists) {
+                formData.append('imagesToKeep', img.name);
+            } else if (img.file) {
+                formData.append('newImages', img.file);
+            }
+        });
+        api.put(`/products/${productId}`, formData, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+        .then(res => {
+            console.log(res);
+            setToastAlert({ visible: true, message: 'Producto actualizado con éxito', type: 'success' });
+        })
+        .catch(err => {
+            console.log(err)
+            setToastAlert({ visible: true, message: 'Error al actualizar el producto', type: 'error' });
+        });
+    console.log('Submitted data:', data);
     return data;
     };
 
@@ -111,6 +128,7 @@ export function UpdateProductPage() {
                         
                         <div className='update-product-input-group'>
                             <label htmlFor="image">Imagen</label>
+                            {/* Image Upload Controller and Preview */}
                             <Controller
                                 name="images"
                                 control={control}
@@ -119,7 +137,7 @@ export function UpdateProductPage() {
                                 render={({ field }) => (
                                     <>
                                         <ImageUpload images={field.value || []} onChange={field.onChange} />
-                                        <PreviewImages images={field.value || []} onRemove={field.onChange} />
+                                        <PreviewImages images={field.value || []} onRemove={field.onChange}/>
                                         {errors.images && <span>Este campo es obligatorio</span>}
                                     </>
                                 )}
