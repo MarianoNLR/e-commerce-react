@@ -1,5 +1,5 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar"
-import { FaClipboardList, FaArrowLeft, FaArrowRight, FaPlus, FaBox, FaBoxes } from "react-icons/fa"
+import { FaClipboardList, FaArrowLeft, FaArrowRight, FaPlus, FaBox, FaBoxes, FaList } from "react-icons/fa"
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SidebarAdmin.css"
@@ -14,6 +14,7 @@ export function SidebarAdmin() {
                 <MenuItem className="sidebar-option-button" icon={<FaClipboardList />} component={<Link to="/moderation/orders" />}>Ver Órdenes</MenuItem>
                 <MenuItem className="sidebar-option-button" icon={<FaBox />} component={<Link to="/moderation/stock" />}>Ver Stock</MenuItem>
                 <MenuItem className="sidebar-option-button" icon={<FaBoxes />} component={<Link to="/moderation/products" />}>Ver Productos</MenuItem>
+                <MenuItem className="sidebar-option-button" icon={<FaList />} component={<Link to="/moderation/categories" />}>Ver Categorias</MenuItem>
             </Menu>
         </Sidebar>
     )
