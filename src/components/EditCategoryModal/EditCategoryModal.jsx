@@ -34,6 +34,7 @@ export function EditCategoryModal({ isOpen, onClose, category, onCategoryUpdated
                     categoryResponse = await api.get(`/category/${response.data.result.id}/?includeCount=true`);
                 }
             } else {
+                response = await api.put(`/category/${category.id}`, { name: data.name.trim() });
                 if (response.status === 200) {    
                     categoryResponse = await api.get(`/category/${response.data.result.id}/?includeCount=true`);
                 }

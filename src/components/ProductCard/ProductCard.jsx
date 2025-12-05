@@ -17,7 +17,7 @@ export function ProductCard (props) {
                 <div className={styles.productImageWrapper}>
                     {/* <img src={`https://e-commerce-api-gpfg.onrender.com/uploads/${props.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
                     {props.imagesURLs && props.imagesURLs.length > 0 ? 
-                        <img src={`http://localhost:3000/uploads/${props.imagesURLs[0]}`} alt="Imagen del productos" onError={handleImageError}/>
+                        <img src={`${props.imagesURLs[0]}`} alt="Imagen del productos" onError={handleImageError}/>
                         :
                         <img src={`https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg`} alt="Imagen del productos" onError={handleImageError}/>
                     }

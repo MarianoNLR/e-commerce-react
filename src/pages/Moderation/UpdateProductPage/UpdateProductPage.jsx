@@ -34,7 +34,7 @@ export function UpdateProductPage() {
             setProductData(productRes.data.product);
             const preloadedImages = (productRes.data.product.imagesURLs || []).map(url => ({
                 name: url,
-                preview: `http://localhost:3000/uploads/${url}`,
+                preview: `${url}`,
                 exists: true
             }));
             setCategories(categoryRes.data.categories);

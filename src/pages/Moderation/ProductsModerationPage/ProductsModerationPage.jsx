@@ -92,7 +92,7 @@ export function ProductsModerationPage() {
           filteredProducts.map(product => (
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
-                <img src={`http://localhost:3000/uploads/${product.imagesURLs[0]}`} alt={product.name} />
+                <img src={`${product.imagesURLs[0]}`} alt={product.name} />
               </div>
               
               <div className={styles.productInfo}>
