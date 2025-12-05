@@ -122,7 +122,7 @@ export function ProductView () {
                                 
                                 <img 
                                     className="product-image" 
-                                    src={`http://localhost:3000/uploads/${productData.imagesURLs[currentImageIndex]}`} 
+                                    src={`${productData.imagesURLs[currentImageIndex]}`} 
                                     alt={`Imagen del producto ${currentImageIndex + 1}`} 
                                     onError={handleImageError}
                                 />
