@@ -5,6 +5,7 @@
     gap: 12px;
     min-width: 500px;
     width: 100%;
+    padding: 1rem 5rem;
 }
 
 .form-group {
@@ -73,4 +74,19 @@
 .form-group span{
     text-align: end;
     color: rgb(255, 107, 107);
+}
+
+@media (max-width: 800px) {
+    .add-product-form {
+        min-width: auto;
+        padding: 1rem;
+    }
+    
+    .input-wrapper {
+        flex-direction: column;
+    }
+    
+    .form-group label {
+        flex: 0 0 auto;
+    }
 }
