@@ -21,7 +21,7 @@ export function CartHeader () {
         <div className='cart-icon-wrapper'>
             <Link to={`/cart/${user?.id}`}><img className='cart-image' src={cartIcon} alt="" />
             </Link>
-            <span className='cart-products-number'>{cart?.items.length || 0}</span>
+            <span className='cart-products-number'>{cart?.items?.length || 0}</span>
         </div>
     )
 }
