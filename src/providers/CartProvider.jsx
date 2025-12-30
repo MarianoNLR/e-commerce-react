@@ -22,6 +22,11 @@ export const CartProvider = ({ children }) => {
         if (user?.id) {
             api.get(`/cart/${user.id}`)
             .then(res => {
+                if (res.data.cart.items?.length === 0) {
+                    setCart({items: [], total: 0, userId: user.id})
+                    setLoadingCart(false)
+                    return
+                }
                 //setCartCount(res.data.cart.items.length)
                 setCart({items: res.data.cart.items, total: res.data.cart.total, userId: user.id})
                 setLoadingCart(false)
@@ -32,7 +37,7 @@ export const CartProvider = ({ children }) => {
             }) 
         }
         setLoadingCart(false)
-    }, [user?.id])
+    }, [user?.id, cart?.items?.length])
 
     
 
