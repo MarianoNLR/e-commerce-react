@@ -7,11 +7,11 @@ import api from '../../../api.js';
 import { UpdateStatusModal } from './UpdateStatusModal.jsx';
 
 
-export function OrderDetailsView({ order }) {
+export function OrderDetailsView() {
     const { orderId } = useParams();
     const location = useLocation();
     const [orderData, setOrderData] = useState(location.state?.order || null);
-    const [loadingOrder, setLoadingOrder] = useState(!order);
+    const [loadingOrder, setLoadingOrder] = useState(true);
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
     const orderPossibleStatus = {
         pending: "Pendiente",
@@ -22,8 +22,6 @@ export function OrderDetailsView({ order }) {
     }
 
     useEffect(() => {
-        console.log(Boolean(orderData));
-        if (!order) {
             api.get(`/orders/${orderId}`)
             .then(res => {
                 setOrderData(res.data);
@@ -32,8 +30,7 @@ export function OrderDetailsView({ order }) {
             .catch(err => {
                 console.error(err); 
                 setLoadingOrder(false);
-            });
-        }
+            }); 
     }, [orderId]);
 
     if (loadingOrder) {
@@ -79,20 +76,20 @@ export function OrderDetailsView({ order }) {
     )
 }
 
-OrderDetailsView.propTypes = {
-    order: PropTypes.shape({
-        orderId: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-            username: PropTypes.string.isRequired
-        }).isRequired,
-        total: PropTypes.number.isRequired,
-        status: PropTypes.string.isRequired,
-        products: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            price: PropTypes.number.isRequired,
-            quantity: PropTypes.number.isRequired
-        })).isRequired,
-        createdAt: PropTypes.string.isRequired
-    }).isRequired
-};
+// OrderDetailsView.propTypes = {
+//     order: PropTypes.shape({
+//         orderId: PropTypes.string.isRequired,
+//         user: PropTypes.shape({
+//             username: PropTypes.string.isRequired
+//         }).isRequired,
+//         total: PropTypes.number.isRequired,
+//         status: PropTypes.string.isRequired,
+//         products: PropTypes.arrayOf(PropTypes.shape({
+//             id: PropTypes.string.isRequired,
+//             name: PropTypes.string.isRequired,
+//             price: PropTypes.number.isRequired,
+//             quantity: PropTypes.number.isRequired
+//         })).isRequired,
+//         createdAt: PropTypes.string.isRequired
+//     }).isRequired
+// };
