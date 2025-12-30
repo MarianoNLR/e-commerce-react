@@ -2,11 +2,9 @@ import { AddProductForm } from "../../../components/AddProductForm/AddProductFor
 
 export function AddProductPage() {
   return (
-    <main>
-        <div>
-            <h1>Agregar Producto</h1>
-            <AddProductForm></AddProductForm>
-        </div>
-    </main>
+    <>
+          <h1>Agregar Producto</h1>
+          <AddProductForm></AddProductForm>
+    </>
   );
 }
