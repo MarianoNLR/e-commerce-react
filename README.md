@@ -1,13 +1,20 @@
-# React + Vite
+# 🛍️ E-commerce – Frontend
+### Interfaz de usuario para el sistema de e-commerce. Consume la API del backend y permite explorar productos y realizar compras.
+### Estado: En desarrollo. Algunas pantallas y flujos aún no están finalizados.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Funcionalidades
 
-Currently, two official plugins are available:
+- Listado de productos
+- Detalle de producto
+- Carrito de compras
+- Registro / login de usuarios
+- Checkout conectado a backend
+- Vista de Administrador
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧰 Tecnologías
 
-# TODO
-Redirect if visitor wants to add a product and is not logged in
-Update product functionality
-Colapsed Header
+- React + Vite
+- React Router
+- Context API
+- Axios
+
