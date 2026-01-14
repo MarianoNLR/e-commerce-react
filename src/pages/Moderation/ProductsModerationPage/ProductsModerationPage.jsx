@@ -32,6 +32,16 @@ export function ProductsModerationPage() {
     }
   };
 
+  // temporary client-side filtering
+  const filterProducts = (term) => {
+    setSearchTerm(term);
+    const lowercasedTerm = term.toLowerCase();
+    const filtered = products.filter(product =>
+      product.name.toLowerCase().includes(lowercasedTerm)
+    );
+    setFilteredProducts(filtered);
+  }
+
   const handleEditProduct = (productId) => {
     navigate(`/moderation/update_product/${productId}`);
   };
@@ -75,7 +85,7 @@ export function ProductsModerationPage() {
             type="text"
             placeholder="Buscar productos..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => filterProducts(e.target.value)}
           />
         </div>
 
