@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form"
 import api from "../../../../api.js"
 import './EmailForm.css'
 import { useState } from "react"
-import { useAuth } from "../../../../hooks/useAuth.jsx"
 import { useNavigate } from "react-router-dom"
 import { useAuthModal } from "../../../../hooks/useAuthModal.jsx"
+import { emailCheck } from "../../../../services/user.service.js"
+import { useAuth } from "../../../../hooks/useAuth.jsx"
 
 export function EmailForm (props) {
     const [step, setStep] = useState("email")
@@ -22,28 +23,36 @@ export function EmailForm (props) {
     const onSubmit = handleSubmit( async (data) => {
 
         if (step === 'email') {
-            api.post('/users/email-check', {email: data.email})
-            .then(res => {
+            try {
+                const res = await emailCheck(data.email)
+                console.log('email check response', res)
                 if (res.status === 200 && res.data.email) {
                     setEmailAlreadyUsed(res.data.email)
                     setStep('password')
                 } else {
                     setStep('register')
                 }
-            }).catch(err => console.error(err))
+            } catch (error) {
+                console.error('Error checking email:', error)
+            }
+            
+            // .then(res => {
+                
+            // })
+            // .catch(err => console.error(err))
         } else if (step === 'password') {
             login(data).then(res => {
                 console.log('login response', res)
                 if (res.status === 200 && res.data.token) {
                     closeModal()
+                    navigate(0)
                 }
             }).catch(err => console.error(err))
             
         } else if (step === 'register') {
-            try {
-                api.post('/users/register', 
-                data
-            ).then(async res => {
+                // Call auth service register function
+                register(data)
+                .then(async res => {
                 console.log('response', res)
                 // if (res.status === 200 && res.data.tempToken) {
                 //     console.log(res)
@@ -53,30 +62,14 @@ export function EmailForm (props) {
                     .then(res => {
                         if (res.status === 200 && res.data.token) {
                             closeModal()
+                            navigate(0)
                         }
                     })
                     
                 }
-                // navigate(0)
+                
             }).catch(err => console.error(err))
-            } catch (error) {
-                console.error('Error: ', error)
-            }
         }
-        // try {
-        //     api.post('/users/register', {
-        //         data
-        //     }).then(res => {
-        //         console.log('response', res)
-        //         if (res.status === 200 && res.data.tempToken) {
-        //             console.log(res)
-        //         }
-        //         // navigate(0)
-        //     }).catch(err => console.error(err))
-            
-        // } catch (error) {
-        //     console.error('Error: ', error)
-        // }
     })
     return (
         <> 
