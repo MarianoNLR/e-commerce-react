@@ -1,12 +1,11 @@
 import { useState } from "react"
 import {EmailForm } from "./SignInForms/EmailForm/EmailForm.jsx"
 import{ GoogleForm } from "./SignInForms/GoogleForm/GoogleForm.jsx"
-import axios from "axios"
 import './SignIn.css'
 import { useAuthModal } from "../../hooks/useAuthModal.jsx"
 import { useAuth } from "../../hooks/useAuth.jsx"
 
-export function SignIn (props) {
+export function SignIn () {
     const { closeModal } = useAuthModal()
     const [method, setMethod] = useState(null)
     const [googleTempData, setGoogleTempData] = useState(null)
@@ -25,13 +24,13 @@ export function SignIn (props) {
 
     const handleGoogleLogin = () => {
         const popup = window.open(
-            'http://localhost:3000/users/google?state=signup',
+            `${import.meta.env.VITE_API_URL}/auth/google?state=signup`,
             "googleLogin",
             "width=500,height=600"
         )
 
         window.addEventListener('message', async (event) => {
-            if (event.origin !== 'http://localhost:3000') {
+            if (event.origin !== import.meta.env.VITE_API_URL) {
                 return
             }
             const { token, email, isNewUser } = event.data;
