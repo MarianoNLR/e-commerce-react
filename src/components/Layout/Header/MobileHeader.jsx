@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './MobileHeader.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth.jsx'
 import { useCart } from '../../../hooks/useCart.jsx'
-import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
 
 export function MobileHeader() {
@@ -29,7 +28,7 @@ export function MobileHeader() {
             
                 {/* {menuOpen &&  */}
                     <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>
-                        {user && <Link to={'/cart'}>Carrito ({cart?.items?.length})</Link> }
+                        {user && <Link to={`/cart/${user.id}`}>Carrito ({cart?.items?.length})</Link> }
                         {user?.role.includes('admin') && 
                             <>
                                 <Link to={'/moderation/add_product'}>Agregar producto</Link>
