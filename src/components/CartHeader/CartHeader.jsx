@@ -5,7 +5,7 @@ import cartIcon from '../../assets/cart-icon/icons8-cart-50.png'
 import { useEffect } from "react"
 export function CartHeader () {
     const {user, loadingUser} = useAuth()
-    const localStorageUser = JSON.parse(window.localStorage.getItem('access_token'))
+    const localStorageUser = window.localStorage.getItem('access_token')
     const { cart, loadingCart} = useCart()
 
 

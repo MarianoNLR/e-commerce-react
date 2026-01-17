@@ -9,7 +9,7 @@ import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
 export function Header () {
     const { openModal } = useAuthModal() ?? {}
     const {user, loadingUser, logout} = useAuth()
-    const localStorageUser = window.localStorage.getItem('access_token') ? JSON.parse(window.localStorage.getItem('access_token')) : null
+    const localStorageUser = window.localStorage.getItem('access_token') ? window.localStorage.getItem('access_token') : null
     const { cartCount, loadingCartCount } = useCart()
     const navigate = useNavigate()
     if (loadingUser || loadingCartCount) {
