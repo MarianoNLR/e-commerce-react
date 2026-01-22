@@ -30,7 +30,7 @@ export function SignIn () {
         )
 
         window.addEventListener('message', async (event) => {
-            if (event.origin !== import.meta.env.VITE_API_URL) {
+            if (event.origin !== import.meta.env.VITE_API_BASE_URL) {
                 return
             }
             const { token, email, isNewUser } = event.data;
@@ -39,7 +39,7 @@ export function SignIn () {
                 setGoogleTempData({ token, email, isNewUser })
                 setMethod("google")
             } else {
-                window.localStorage.setItem('access_token', JSON.stringify(token))
+                window.localStorage.setItem('access_token', token)
                 await fetchUser()
                 closeModal()
             }
