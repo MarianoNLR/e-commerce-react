@@ -36,7 +36,7 @@ export function useAuthLogic() {
             const res = await authServiceLogin(credentials)
             console.log("Login response: ", res)
             fetchUser()
-            window.localStorage.setItem('access_token', res.data.token)
+            window.localStorage.setItem('access_token', res.data)
             return res
         } catch (error) {
             throw error
