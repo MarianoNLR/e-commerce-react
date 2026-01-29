@@ -3,6 +3,7 @@ import api from '../../../../api.js'
 import './GoogleForm.css'
 import { useAuthModal } from '../../../../hooks/useAuthModal.jsx'
 import { useAuth } from '../../../../hooks/useAuth.jsx'
+import { useNavigate } from 'react-router-dom'
 
 export function GoogleForm (props) {
     const { register,
@@ -13,14 +14,17 @@ export function GoogleForm (props) {
     
     const {closeModal} = useAuthModal()
     const { fetchUser } = useAuth()
+    const navigate = useNavigate()
     
     const onSubmit = (data) => {
-        api.post('/users/complete-google-signup', {...data, token: props.googleTempData.token})
-        .then(async res => {
+        api.post('/auth/google/complete', {...data, token: props.googleTempData.token})
+        .then(res => {
+            console.log("Google signup complete response: ", res)
             if (res.status === 201 && res.data.token) {
-                window.localStorage.setItem('access_token', JSON.stringify(res.data.token))
-                await fetchUser()
+                window.localStorage.setItem('access_token', res.data.token)
+                //await fetchUser()
                 closeModal()
+                navigate(0)
             }
         })
         .catch(err => {
