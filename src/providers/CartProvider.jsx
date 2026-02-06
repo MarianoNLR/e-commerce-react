@@ -1,13 +1,13 @@
 import React, {createContext, useState, useContext, useEffect, useRef } from "react";
 import api from "../api.js";
-import { useAuth } from "../hooks/useAuth.jsx";
+import { useAuthLogic } from "../hooks/useAuthLogic.jsx";
 import { set } from "react-hook-form";
 import { useAuthModal } from '../hooks/useAuthModal.jsx';
 import { SimpleToastAlert } from '../components/SimpleToastAlert/SimpleToastAlert.jsx';
 import { CartContext } from "../contexts/CartContext.jsx";
 
 export const CartProvider = ({ children }) => {
-    const { user } = useAuth()
+    const { user } = useAuthLogic()
     //const user = JSON.parse(window.localStorage.getItem('user'))
     //const [cartCount, setCartCount] = useState([])
     const [cart, setCart] = useState({items: [], total: 0, userId: null})
@@ -22,13 +22,14 @@ export const CartProvider = ({ children }) => {
         if (user?.id) {
             api.get(`/cart/${user.id}`)
             .then(res => {
-                if (res.data.cart.items?.length === 0) {
+                console.log(res)
+                if (res.data.items?.length === 0) {
                     setCart({items: [], total: 0, userId: user.id})
                     setLoadingCart(false)
                     return
                 }
                 //setCartCount(res.data.cart.items.length)
-                setCart({items: res.data.cart.items, total: res.data.cart.total, userId: user.id})
+                setCart({items: res.data.items, total: res.data.totalPrice, userId: user.id})
                 setLoadingCart(false)
             })
             .catch(err => {
@@ -48,7 +49,7 @@ export const CartProvider = ({ children }) => {
             return;
         }
         try {
-            const res = await api.post('/cart', { data: { productId, quantity } });
+            const res = await api.post('/cart', { productId, quantity: Number(quantity) });
             // Actualiza el estado del carrito con la respuesta
             // hideToast();
             setCart(res.data.cart);
