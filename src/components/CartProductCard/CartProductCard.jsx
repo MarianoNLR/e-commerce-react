@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import './CartProductCard.css'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart.jsx'
-import { purple } from '@mui/material/colors'
 
 export function CartProductCard (props) {
     const {cart, setCart, handleRemoveFromCart} = useCart()
