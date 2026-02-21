@@ -67,7 +67,7 @@ export function Cart (props) {
                             name={item.product.name} 
                             price={item.product.price} 
                             quantity={item.quantity} 
-                            imagesURLs={item.product.imagesURLs} 
+                            images={item.product.images} 
                             handleRemoveFromCart={handleRemoveFromCart}
                             >
                             </CartProductCard>

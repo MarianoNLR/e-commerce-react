@@ -26,7 +26,7 @@ export function ProductList ({products, setProducts, loadingProducts}) {
                                 name={item.name} 
                                 price={item.price} 
                                 quantity={item.quantity} 
-                                imagesURLs={item.imagesURLs}>
+                                imagesURLs={item.images}>
                                 </ProductCard>
                             ))}
                         </div>

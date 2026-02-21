@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import './CartProductCard.css'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart.jsx'
+import { purple } from '@mui/material/colors'
 
 export function CartProductCard (props) {
     const {cart, setCart, handleRemoveFromCart} = useCart()
@@ -22,7 +23,7 @@ export function CartProductCard (props) {
     return (
         <>
             <div className="product-cart-wrapper">
-                <img src={`${props.imagesURLs[0]}`} alt="Imagen del productos" onError={handleImageError}/>
+                <img src={`${props.images[0].secure_url}`} alt="Imagen del productos" onError={handleImageError}/>
                 <div className="product-cart-details-wrapper">
                     <div className='product-cart-details-column product-column'>
                         <h3 className="product-cart-details-column-title">Producto</h3>
@@ -52,6 +53,9 @@ CartProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
-    imageURL: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.shape({
+        public_id: PropTypes.string.isRequired,
+        secure_url: PropTypes.string.isRequired,
+    })),
     handleDeleteItem: PropTypes.func
 }

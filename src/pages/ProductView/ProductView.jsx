@@ -110,11 +110,11 @@ export function ProductView () {
                             {/* <img className="product-image" src={`https://e-commerce-api-gpfg.onrender.com/uploads/${productData.imageURL}`} alt="Imagen del productos" onError={handleImageError}/> */}
 
                             <div className="product-image-carousel">
-                                {productData.imagesURLs.length > 1 && 
+                                {productData.images.length > 1 && 
                                     <button 
                                     className="carousel-button prev" 
                                     onClick={handlePrevImage}
-                                    disabled={productData.imagesURLs.length <= 1}
+                                    disabled={productData.images.length <= 1}
                                 >
                                     &#8249;
                                 </button>
@@ -122,22 +122,22 @@ export function ProductView () {
                                 
                                 <img 
                                     className="product-image" 
-                                    src={`${productData.imagesURLs[currentImageIndex]}`} 
+                                    src={`${productData.images[currentImageIndex].secure_url}`} 
                                     alt={`Imagen del producto ${currentImageIndex + 1}`} 
                                     onError={handleImageError}
                                 />
-                                {productData.imagesURLs.length > 1 && 
+                                {productData.images.length > 1 && 
                                     <button 
                                     className="carousel-button next" 
                                     onClick={handleNextImage}
-                                    disabled={productData.imagesURLs.length <= 1}
+                                    disabled={productData.images.length <= 1}
                                     >
                                         &#8250;
                                     </button>
                                 }
-                                {productData.imagesURLs.length > 1 &&
+                                {productData.images.length > 1 &&
                                 <div className="carousel-indicators">
-                                    {productData.imagesURLs.map((_, index) => (
+                                    {productData.images.map((_, index) => (
                                         <span 
                                             key={index}
                                             className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
