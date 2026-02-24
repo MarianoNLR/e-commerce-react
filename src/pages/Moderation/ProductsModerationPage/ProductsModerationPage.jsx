@@ -102,7 +102,7 @@ export function ProductsModerationPage() {
           filteredProducts.map(product => (
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
-                <img src={`${product.imagesURLs[0]}`} alt={product.name} />
+                <img src={`${product.images[0].secure_url}`} alt={product.name} />
               </div>
               
               <div className={styles.productInfo}>
