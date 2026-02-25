@@ -32,9 +32,10 @@ export function UpdateProductPage() {
         ])
         .then(([productRes, categoryRes]) => {
             setProductData(productRes.data.product);
-            const preloadedImages = (productRes.data.product.imagesURLs || []).map(url => ({
-                name: url,
-                preview: `${url}`,
+            const preloadedImages = (productRes.data.product.images || []).map(img => ({
+                name: img.secure_url,
+                preview: `${img.secure_url}`,
+                public_id: img.public_id,
                 exists: true
             }));
             setCategories(categoryRes.data.categories);
@@ -61,15 +62,15 @@ export function UpdateProductPage() {
         formData.append('category', data.category);
         data.images.forEach((img) => {
             if (img.exists) {
-                formData.append('imagesToKeep', img.name);
+                formData.append('imagesToKeep', JSON.stringify({ public_id: img.public_id, secure_url: img.name }));
             } else if (img.file) {
                 formData.append('newImages', img.file);
             }
         });
         api.put(`/products/${productId}`, formData, {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
+            // headers: {
+            //     Authorization: `Bearer ${user.token}`
+            // }
         })
         .then(res => {
             console.log(res);
