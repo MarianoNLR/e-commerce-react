@@ -122,7 +122,7 @@ export function ProductView () {
                                 
                                 <img 
                                     className="product-image" 
-                                    src={`${productData.images[currentImageIndex].secure_url}`} 
+                                    src={`${productData.images[currentImageIndex]?.secure_url}`} 
                                     alt={`Imagen del producto ${currentImageIndex + 1}`} 
                                     onError={handleImageError}
                                 />

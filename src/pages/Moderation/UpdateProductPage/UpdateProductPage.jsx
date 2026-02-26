@@ -62,7 +62,7 @@ export function UpdateProductPage() {
         formData.append('category', data.category);
         data.images.forEach((img) => {
             if (img.exists) {
-                formData.append('imagesToKeep', JSON.stringify({ public_id: img.public_id, secure_url: img.name }));
+                formData.append('imagesToKeep', JSON.stringify([{ public_id: img.public_id }]));
             } else if (img.file) {
                 formData.append('newImages', img.file);
             }
@@ -133,7 +133,7 @@ export function UpdateProductPage() {
                             <Controller
                                 name="images"
                                 control={control}
-                                rules={{ required: true }}
+                                rules={{ required: false }}
                                 defaultValue={[]}
                                 render={({ field }) => (
                                     <>
