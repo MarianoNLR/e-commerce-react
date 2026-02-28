@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types';
 
-export function PreviewImages({ images, onRemove }) {
+export function PreviewImages({ images, onRemove, setImages, setImagesToDelete }) {
 
     // Delete image at index
     const removeImage = (index) => {
-        if (images[index].preview && !images[index].exists) {
-            URL.revokeObjectURL(images[index].preview); // Free memory if not existing on server
+        const imageToRemove = images[index]
+        if (imageToRemove.preview && !imageToRemove.exists) {
+            URL.revokeObjectURL(imageToRemove.preview); // Free memory if not existing on server
         }
+
         const newImages = [...images];
         newImages.splice(index, 1);
-        onRemove([...newImages]);
+        setImages(newImages);
+        // onRemove(newImages);
+
+        if (imageToRemove.exists) {
+            setImagesToDelete(prev => [...prev, imageToRemove.public_id]);
+        }
     };
 
     return (
@@ -40,5 +47,6 @@ export function PreviewImages({ images, onRemove }) {
 
 PreviewImages.propTypes = {
     images: PropTypes.array.isRequired,
-    onRemove: PropTypes.func.isRequired,
+    setImages: PropTypes.func.isRequired,
+    setImagesToDelete: PropTypes.func.isRequired,
 };

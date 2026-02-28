@@ -24,6 +24,7 @@ export function UpdateProductPage() {
     const { user } = useAuth() || {};
     const [formData, setFormData] = useState(null);
     const [toastAlert, setToastAlert] = useState({ visible: false, message: '', type: '' });
+    const [imagesToDelete, setImagesToDelete] = useState([]);
 
     useEffect(() => {
         Promise.all([
@@ -60,17 +61,12 @@ export function UpdateProductPage() {
         formData.append('quantity', data.quantity);
         formData.append('description', data.description);
         formData.append('category', data.category);
+        formData.append('imagesToDelete', JSON.stringify(imagesToDelete));
         data.images.forEach((img) => {
-            if (img.exists) {
-                formData.append('imagesToKeep', JSON.stringify([{ public_id: img.public_id }]));
-            } else if (img.file) {
+            if (!img.exists) {
                 formData.append('newImages', img.file);
-            }
-        });
+            }})
         api.put(`/products/${productId}`, formData, {
-            // headers: {
-            //     Authorization: `Bearer ${user.token}`
-            // }
         })
         .then(res => {
             console.log(res);
@@ -138,7 +134,7 @@ export function UpdateProductPage() {
                                 render={({ field }) => (
                                     <>
                                         <ImageUpload images={field.value || []} onChange={field.onChange} />
-                                        <PreviewImages images={field.value || []} onRemove={field.onChange}/>
+                                        <PreviewImages images={field.value || []} setImages={field.onChange} setImagesToDelete={setImagesToDelete} />
                                         {errors.images && <span>Este campo es obligatorio</span>}
                                     </>
                                 )}
