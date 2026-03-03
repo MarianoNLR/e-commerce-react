@@ -43,7 +43,7 @@ export function EmailForm (props) {
         } else if (step === 'password') {
             login(data).then(res => {
                 console.log('login response', res)
-                if (res.status === 200 && res.data.token) {
+                if (res.status === 200 && res.data) {
                     closeModal()
                     navigate(0)
                 }
