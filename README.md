@@ -3,7 +3,6 @@
 ### Estado: En desarrollo. Algunas pantallas y flujos aún no están finalizados.
 
 ### 🔴 Link: https://e-commerce-react-live-lgtvwr23d-marianonlrs-projects.vercel.app/
-### Estado: En Desarrollo. Algunas funcionalidades están incompletas o pendientes de revisión.
 
 ## 🚀 Funcionalidades
 
