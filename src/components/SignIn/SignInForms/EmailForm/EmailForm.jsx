@@ -60,7 +60,7 @@ export function EmailForm (props) {
                 if (res.status === 201) {
                     login({email: data.email, password: data.password})
                     .then(res => {
-                        if (res.status === 200 && res.data.token) {
+                        if (res.status === 200 && res.data) {
                             closeModal()
                             navigate(0)
                         }
