@@ -22,6 +22,8 @@ import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.
 import { AuthModalProvider } from './providers/AuthModalProvider.jsx'
 import { ProductsModerationPage } from './pages/Moderation/ProductsModerationPage/ProductsModerationPage.jsx'
 import { CategoriesPage } from './pages/Moderation/CategoriesPage/CategoriesPage.jsx'
+import { CheckoutSuccessPage } from './pages/Checkout/CheckoutSuccessPage.jsx'
+import { CheckoutFailurePage } from './pages/Checkout/CheckoutFailurePage.jsx'
 function App() {
 
   return (
@@ -88,7 +90,21 @@ function App() {
                         <CheckoutConfirmationPage />
                       </ProtectedRoute>
                     } />
-
+                    <Route path='/checkout/confirmation' element={
+                      <ProtectedRoute>
+                        <CheckoutConfirmationPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/checkout/success' element={
+                      <ProtectedRoute>
+                        <CheckoutSuccessPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/checkout/failure' element={
+                      <ProtectedRoute>
+                        <CheckoutFailurePage />
+                      </ProtectedRoute>
+                    } />
                     <Route path='/moderation/update_product/:productId' element={
                       <ProtectedRoute isAllowedRoles={['admin', 'moderator']}>
                         <UpdateProductPage />
