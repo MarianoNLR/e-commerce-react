@@ -49,9 +49,9 @@ export function OrderDetailsView() {
                     <div className='order-details-products-container'>
                         <h2>Productos:</h2>
                         <ul className='order-details-products-list'>
-                            {orderData.products.map((productDetails) => (
-                                <li key={productDetails.product.id}>
-                                    {productDetails.product.name} x {productDetails.quantity} = ${productDetails.priceAtPurchase}
+                            {orderData.items.map((productDetails, index) => (
+                                <li key={index}>
+                                    {productDetails.name} x {productDetails.quantity} = ${productDetails.priceAtPurchase}
                                 </li>
                             ))}
                         </ul>
