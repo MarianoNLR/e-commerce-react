@@ -29,7 +29,7 @@ export function CheckoutConfirmationPage() {
 
                 <div className='order-summary-group'>
                     <p className='order-summary-group-label'>Apellido: </p>
-                    <p className='order-summary-group-value'>{customerData?.last_name}</p>
+                    <p className='order-summary-group-value'>{customerData?.lastName}</p>
                 </div>
                 <div className='order-summary-group'>
                     <p className='order-summary-group-label'>Email: </p>
@@ -44,10 +44,6 @@ export function CheckoutConfirmationPage() {
                     <p className='order-summary-group-value'>{customerData?.address}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>País: </p>
-                    <p className='order-summary-group-value'>{customerData?.country}</p>
-                </div>
-                <div className='order-summary-group'>
                     <p className='order-summary-group-label'>Estado: </p>
                     <p className='order-summary-group-value'>{customerData?.state}</p>
                 </div>
@@ -57,7 +53,7 @@ export function CheckoutConfirmationPage() {
                 </div>
                 <div className='order-summary-group'>
                     <p className='order-summary-group-label'>Código Postal: </p>
-                    <p className='order-summary-group-value'>{customerData?.postal_code}</p>
+                    <p className='order-summary-group-value'>{customerData?.zip}</p>
                 </div>
             </div>
             {cart?.items?.length > 0 && <div className='payment-button-container'><MercadoPagoButton shipping_info={customerData}></MercadoPagoButton></div>}
