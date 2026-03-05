@@ -9,12 +9,17 @@ export function OrdersViewPage () {
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
 
-    const fetchOrders = async () => {
+    useEffect(() => {
+        const fetchOrders = async () => {
         // Lógica para obtener las órdenes desde la API
         api.get(`/orders?page=${page}`)
         .then(res => {
             console.log(res.data);
-            setData(res.data);
+            if (page === 0) {
+                setData(res.data);
+            } else {
+                setData(prev => ({...prev, orders: [...prev.orders, ...res.data.orders], hasMore: res.data.hasMore}));
+            }
             setLoadingOrders(false);
         })
         .catch(err => {
@@ -23,22 +28,8 @@ export function OrdersViewPage () {
         });
     }
 
-    const loadMoreOrders = async () => {
-        // Lógica para cargar más órdenes (paginación)
-        api.get(`/orders?page=${page + 1}`)
-        .then(res => {
-            console.log(res.data);
-            setData(prev => ({...prev, orders: [...prev.orders, ...res.data.orders], hasMore: res.data.hasMore}));
-            setPage(prev => prev + 1);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }
-
-    useEffect(() => {
-        fetchOrders();
-    }, []);
+    fetchOrders();
+    }, [page]);
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', {
@@ -82,10 +73,10 @@ export function OrdersViewPage () {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.orders?.map(order => (
-                        <tr key={order.id} className="order-row">
+                    {data.orders?.map((order, index) => (
+                        <tr key={index} className="order-row">
                             <td className="order-id">{order.id}</td>
-                            <td className="order-products-count">{order.products.length} productos</td>
+                            <td className="order-products-count">{order.items.length} productos</td>
                             <td className="order-total">{formatPrice(order.total)}</td>
                             <td className="order-status">{order.status}</td>
                             <td className="order-date">{formatDate(order.createdAt)}</td>
@@ -102,7 +93,7 @@ export function OrdersViewPage () {
                 </tbody>
             </table>
             {data.hasMore && (
-                <button type="button" className='load-more-btn' onClick={() => loadMoreOrders()}>Cargar Más</button>
+                <button type="button" className='load-more-btn' onClick={() => setPage(prev => prev + 1)}>Cargar Más</button>
             )}
         </main>
     );
