@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
     const [loadingCart, setLoadingCart] = useState(true)
     const [toastAlert, setToastAlert] = useState({message: '', variant: 'default'})
     const [toastVisible, setToastVisible] = useState(false)
-    // const { openModal, closeModal } = useAuthModal();
+    const { openModal, closeModal } = useAuthModal();
     const toastTimer = useRef(null);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
     const handleAddToCart = async (productId, quantity) => {
         // Lógica para agregar el ítem al backend
         if (!window.localStorage.getItem('access_token')) {
-            // openModal();
+            openModal();
             return;
         }
         try {
