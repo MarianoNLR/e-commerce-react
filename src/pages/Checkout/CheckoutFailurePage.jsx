@@ -1,4 +1,4 @@
-export default function CheckoutFailurePage() {
+export function CheckoutFailurePage() {
     return (
         <div className="checkout-failure-page">
             <h1>¡Lo sentimos!</h1>
