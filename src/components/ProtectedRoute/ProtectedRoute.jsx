@@ -12,7 +12,7 @@ export function ProtectedRoute({ children, isAllowedRoles = null }) {
 
   if (!user) {
     console.log('User not authenticated. Redirecting to login.');
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   if (isAllowedRoles && !isAllowedRoles.includes(user.role)) {
