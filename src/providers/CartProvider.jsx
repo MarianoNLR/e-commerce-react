@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         
         if (user?.id) {
-            api.get(`/cart/${user.id}`)
+            api.get(`/cart`)
             .then(res => {
                 console.log(res)
                 if (res.data.items?.length === 0) {
