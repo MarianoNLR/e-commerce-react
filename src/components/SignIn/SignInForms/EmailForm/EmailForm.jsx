@@ -25,8 +25,8 @@ export function EmailForm (props) {
         if (step === 'email') {
             try {
                 const res = await emailCheck(data.email)
-                console.log('email check response', res)
-                if (res.status === 200 && res.data.email) {
+                console.log('email check response', res.status)
+                if (res.success && res.data.email) {
                     setEmailAlreadyUsed(res.data.email)
                     setStep('password')
                 } else {
@@ -43,7 +43,7 @@ export function EmailForm (props) {
         } else if (step === 'password') {
             login(data).then(res => {
                 console.log('login response', res)
-                if (res.status === 200 && res.data) {
+                if (res.success && res.data) {
                     closeModal()
                     navigate(0)
                 }
@@ -54,13 +54,13 @@ export function EmailForm (props) {
                 register(data)
                 .then(async res => {
                 console.log('response', res)
-                // if (res.status === 200 && res.data.tempToken) {
+                // if (res.success && res.data.tempToken) {
                 //     console.log(res)
                 // }
                 if (res.status === 201) {
                     login({email: data.email, password: data.password})
                     .then(res => {
-                        if (res.status === 200 && res.data) {
+                        if (res.success && res.data) {
                             closeModal()
                             navigate(0)
                         }

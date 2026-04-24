@@ -92,7 +92,7 @@ export function SignUpForm (props) {
                 data
             }).then(res => {
                 console.log('response', res)
-                if (res.status === 200 && res.data.tempToken) {
+                if (res.success && res.data.tempToken) {
                     console.log(res)
                 }
                 // navigate(0)
