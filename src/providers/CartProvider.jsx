@@ -18,16 +18,21 @@ export const CartProvider = ({ children }) => {
     const toastTimer = useRef(null);
 
     useEffect(() => {
+        setLoadingCart(true)
+        if (!user?.id) {
+            setLoadingCart(false)
+            return
+        }
         
         if (user?.id) {
             api.get(`/cart`)
             .then(res => {
-                console.log(res)
-                if (res.data.items?.length === 0) {
+                if (!res.data || !res.data.items) {
                     setCart({items: [], total: 0, userId: user.id})
                     setLoadingCart(false)
                     return
                 }
+                
                 //setCartCount(res.data.cart.items.length)
                 setCart({items: res.data.items, total: res.data.totalPrice, userId: user.id})
                 setLoadingCart(false)
@@ -38,7 +43,7 @@ export const CartProvider = ({ children }) => {
             }) 
         }
         setLoadingCart(false)
-    }, [user?.id, cart?.items?.length])
+    }, [user?.id])
 
     
 
