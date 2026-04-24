@@ -25,7 +25,7 @@ export function Footer () {
         <span>Designed and Developed by Mariano Lotero Rolón</span>
         </div>
         <div className='footer-info-wrapper'>
-            Esta pagina web fue realizada como parte de un proyecto personal.
+            Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
         </div>
       </footer>
     )
