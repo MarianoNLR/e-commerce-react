@@ -22,8 +22,7 @@ import AuthGoogleSuccessPage from './pages/AuthGooglePage/AuthGoogleSuccessPage.
 import { AuthModalProvider } from './providers/AuthModalProvider.jsx'
 import { ProductsModerationPage } from './pages/Moderation/ProductsModerationPage/ProductsModerationPage.jsx'
 import { CategoriesPage } from './pages/Moderation/CategoriesPage/CategoriesPage.jsx'
-import { CheckoutSuccessPage } from './pages/Checkout/CheckoutSuccessPage.jsx'
-import { CheckoutFailurePage } from './pages/Checkout/CheckoutFailurePage.jsx'
+import { PaymentResultPage } from './pages/Checkout/PaymentResultPage.jsx'
 function App() {
 
   return (
@@ -95,14 +94,9 @@ function App() {
                         <CheckoutConfirmationPage />
                       </ProtectedRoute>
                     } />
-                    <Route path='/checkout/success' element={
+                    <Route path='/checkout/payment-result' element={
                       <ProtectedRoute>
-                        <CheckoutSuccessPage />
-                      </ProtectedRoute>
-                    } />
-                    <Route path='/checkout/failure' element={
-                      <ProtectedRoute>
-                        <CheckoutFailurePage />
+                        <PaymentResultPage />
                       </ProtectedRoute>
                     } />
                     <Route path='/moderation/update_product/:productId' element={
