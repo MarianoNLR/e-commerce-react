@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
+.payment-status {
+    --accent: #2563eb;
+    --accent-soft: rgba(37, 99, 235, 0.12);
+    --text-strong: #111827;
+    --text-muted: #4b5563;
+    --panel: #f8fafc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 36px 24px;
+    margin: 24px auto;
+    max-width: 720px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    background:
+        radial-gradient(120% 120% at 80% 0%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(236, 242, 255, 0.9) 100%);
+    box-shadow:
+        0 24px 48px -32px rgba(15, 23, 42, 0.35),
+        0 6px 16px -8px rgba(15, 23, 42, 0.2);
+    font-family: 'Manrope', sans-serif;
+    color: var(--text-strong);
+}
+
+.payment-status::before {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+.payment-status > * {
+    position: relative;
+    z-index: 1;
+}
+
+.payment-status-kicker {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+    font-weight: 600;
+}
+
+.payment-status-title {
+    font-size: 28px;
+    margin: 0;
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+.payment-status-message {
+    max-width: 520px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.payment-status-summary {
+    width: min(520px, 100%);
+    padding: 18px 18px 14px;
+    border-radius: 16px;
+    background: var(--panel);
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.payment-status-summary-title {
+    margin: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.payment-status-summary-line,
+.payment-status-summary-item,
+.payment-status-summary-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-strong);
+}
+
+.payment-status-summary-item span:last-child {
+    color: var(--text-muted);
+}
+
+.payment-status-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.payment-status-summary-total {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.payment-status-divider {
+    height: 1px;
+    background: rgba(15, 23, 42, 0.08);
+}
+
+.payment-status-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 12px 24px -18px rgba(15, 23, 42, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.payment-status-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px -20px rgba(15, 23, 42, 0.6);
+}
+
+.payment-status-success {
+    --accent: #16a34a;
+    --accent-soft: rgba(22, 163, 74, 0.16);
+}
+
+.payment-status-pending {
+    --accent: #ca8a04;
+    --accent-soft: rgba(202, 138, 4, 0.18);
+}
+
+.payment-status-failure {
+    --accent: #dc2626;
+    --accent-soft: rgba(220, 38, 38, 0.16);
+}
