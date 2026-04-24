@@ -60,7 +60,7 @@ export function PaymentMethodSelectionPage() {
             description={"Paga con Mercado Pago, la plataforma de pagos más grande de Latinoamérica."}
             onSelect={() => handlePaymentMethodSelect('mercado_pago')} 
             />
-            <PaymentMethodCard 
+            {/* <PaymentMethodCard 
             icon={"https://cdn-icons-png.flaticon.com/512/888/888870.png"}
             title={"PayPal"}
             description={"Paga de forma segura con tu cuenta de PayPal."}
@@ -71,7 +71,7 @@ export function PaymentMethodSelectionPage() {
             title={"Transferencia Bancaria"}
             description={"Realiza tu pago mediante transferencia bancaria."}
             onSelect={() => handlePaymentMethodSelect('transferencia_bancaria')} />
-            <div>Selected Payment Method: {paymentMethod}</div>
+            <div>Selected Payment Method: {paymentMethod}</div> */}
         </>
     )
 }
