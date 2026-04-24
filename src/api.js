@@ -28,13 +28,13 @@ api.interceptors.request.use((config) => {
 })
 
 api.interceptors.response.use(
-    response => response,
+    response => response.data,
     async (error) => {
         const originalRequest = error.config;
         if (
             error.response &&
             error.response.status === 401 &&
-            error.response.data.code === 'ACCESS_TOKEN_EXPIRED' &&
+            error.response.data.error.code === 'ACCESS_TOKEN_EXPIRED' &&
             !originalRequest._retry
         ) {
             if (originalRequest._retry) return Promise.reject(error);
@@ -63,7 +63,7 @@ api.interceptors.response.use(
             } catch (err) {
                 processQueue(err, null);
                 window.localStorage.removeItem('access_token');
-                window.location.href = '/';
+                console.error('Error refreshing token:', err);
                 return Promise.reject(err);
             } finally {
                 isRefreshing = false;
