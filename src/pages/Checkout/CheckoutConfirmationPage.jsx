@@ -18,7 +18,7 @@ export function CheckoutConfirmationPage() {
         return <CircularProgress />;
     }
     return (
-        <>
+        <div className='checkout-confirmation-page'>
             <h1>Resumen del Pedido</h1>
             <div className='customer-data-section'>
                 <h2>Detalles del Cliente</h2>
@@ -57,6 +57,6 @@ export function CheckoutConfirmationPage() {
                 </div>
             </div>
             {cart?.items?.length > 0 && <div className='payment-button-container'><MercadoPagoButton shipping_info={customerData}></MercadoPagoButton></div>}
-        </>
+        </div>
     )
 }
