@@ -31,8 +31,17 @@
 .info-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 12px;
     text-align: start;
     justify-content: center;
+}
+
+.payment-method-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.payment-method-card-description {
+    font-size: 0.9rem;
+    margin: 0;
 }

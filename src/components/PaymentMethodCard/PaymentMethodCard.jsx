@@ -7,8 +7,8 @@ export function PaymentMethodCard({icon, title, description, onSelect}) {
                     <img src={icon} alt={title} />
                 </div>
                 <div className="info-wrapper">
-                    <h3>{title}</h3>
-                    <p>{description}</p>
+                    <h3 className="payment-method-card-title">{title}</h3>
+                    <p className="payment-method-card-description">{description}</p>
                 </div>
                 {/* <div className="button-wrapper">
                     <button onClick={onSelect}>Select</button>
