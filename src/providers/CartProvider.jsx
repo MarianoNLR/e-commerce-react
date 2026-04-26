@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
             }) 
         }
         setLoadingCart(false)
-    }, [user?.id])
+    }, [user?.id, cart.items.length])
 
     
 
