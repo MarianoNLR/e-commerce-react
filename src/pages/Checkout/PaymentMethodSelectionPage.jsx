@@ -53,7 +53,7 @@ export function PaymentMethodSelectionPage() {
     }
     return (
         <>
-            <h1 className='container'>Payment Method Selection Page</h1>
+            <h1 className='container'>Selección de Método de Pago</h1>
             <PaymentMethodCard 
             icon={"https://img.icons8.com/?size=256&id=nTLVtpxsNPaz&format=png"}
             title={"Mercado Pago"}
