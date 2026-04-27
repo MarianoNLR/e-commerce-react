@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth.jsx"
 import { useCart } from "../../hooks/useCart.jsx"
-import cartIcon from '../../assets/cart-icon/icons8-cart-50.png'
+import { FaShoppingCart } from 'react-icons/fa'
 import { useEffect } from "react"
 export function CartHeader () {
     const {user, loadingUser} = useAuth()
@@ -19,9 +19,12 @@ export function CartHeader () {
     
     return (
         <div className='cart-icon-wrapper'>
-            <Link to={`/cart/${user?.id}`}><img className='cart-image' src={cartIcon} alt="" />
+            <Link to={`/cart/${user?.id}`} aria-label="Ver carrito">
+                <FaShoppingCart className='cart-icon' aria-hidden="true" />
             </Link>
-            <span className='cart-products-number'>{cart?.items?.length || 0}</span>
+            <div className='cart-products-badge'>
+                <span className='cart-products-number'>{cart?.items?.length || 0}</span>
+            </div>
         </div>
     )
 }
