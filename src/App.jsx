@@ -23,6 +23,7 @@ import { AuthModalProvider } from './providers/AuthModalProvider.jsx'
 import { ProductsModerationPage } from './pages/Moderation/ProductsModerationPage/ProductsModerationPage.jsx'
 import { CategoriesPage } from './pages/Moderation/CategoriesPage/CategoriesPage.jsx'
 import { PaymentResultPage } from './pages/Checkout/PaymentResultPage.jsx'
+import { MyOrdersPage } from './pages/MyOrders/MyOrdersPage.jsx'
 function App() {
 
   return (
@@ -97,6 +98,11 @@ function App() {
                     <Route path='/checkout/payment-result' element={
                       <ProtectedRoute>
                         <PaymentResultPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/my-orders' element={
+                      <ProtectedRoute>
+                        <MyOrdersPage />
                       </ProtectedRoute>
                     } />
                     <Route path='/moderation/update_product/:productId' element={
