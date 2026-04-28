@@ -19,6 +19,16 @@ export function MobileHeader() {
         }
     }
 
+    const closeMenu = () => {
+        setMenuOpen(false);
+        setHasInteracted(true);
+    }
+
+    const handleMenuAction = (action) => {
+        action?.();
+        closeMenu();
+    }
+
     return (
         <header className='mobile-header'>
             <div className='header-closed-wrapper'>
@@ -28,22 +38,22 @@ export function MobileHeader() {
             
                 {/* {menuOpen &&  */}
                     <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>
-                        {user && <Link to={`/cart/${user.id}`}>Carrito ({cart?.items?.length})</Link> }
+                        {user && <Link to={`/cart/${user.id}`} onClick={closeMenu}>Carrito ({cart?.items?.length})</Link> }
                         {user && (
-                            <Link to={'/my-orders'}>Ver mis ordenes</Link>
+                            <Link to={'/my-orders'} onClick={closeMenu}>Ver mis ordenes</Link>
                         )}
                         {user?.role.includes('admin') && 
                             <>
-                                <Link to={'/moderation/add_product'}>Agregar producto</Link>
-                                <Link to={'/moderation/orders'}>Ordenes</Link>
-                                <Link to={"/moderation/stock"} >Ver Stock</Link>
-                                <Link to={"/moderation/products"} >Ver Productos</Link>
+                                <Link to={'/moderation/add_product'} onClick={closeMenu}>Agregar producto</Link>
+                                <Link to={'/moderation/orders'} onClick={closeMenu}>Ordenes</Link>
+                                <Link to={"/moderation/stock"} onClick={closeMenu}>Ver Stock</Link>
+                                <Link to={"/moderation/products"} onClick={closeMenu}>Ver Productos</Link>
                             </>
                         }
                         {user ? 
-                            <Link onClick={logout}>Cerrar sesión</Link> 
+                            <Link onClick={() => handleMenuAction(logout)}>Cerrar sesión</Link> 
                         :
-                            <Link onClick={openModal}>Iniciar sesión</Link>
+                            <Link onClick={() => handleMenuAction(openModal)}>Iniciar sesión</Link>
                         }
                     </div>
                 {/* } */}
