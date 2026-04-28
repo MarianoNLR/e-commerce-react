@@ -29,6 +29,9 @@ export function MobileHeader() {
                 {/* {menuOpen &&  */}
                     <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>
                         {user && <Link to={`/cart/${user.id}`}>Carrito ({cart?.items?.length})</Link> }
+                        {user && (
+                            <Link to={'/my-orders'}>Ver mis ordenes</Link>
+                        )}
                         {user?.role.includes('admin') && 
                             <>
                                 <Link to={'/moderation/add_product'}>Agregar producto</Link>
