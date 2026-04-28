@@ -1,9 +1,11 @@
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../../../hooks/useAuth.jsx'
 import { useCart } from '../../../hooks/useCart.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
+import { FaUserCircle } from 'react-icons/fa'
 
 // @refresh
 export function Header () {
@@ -12,11 +14,14 @@ export function Header () {
     const localStorageUser = window.localStorage.getItem('access_token') ? window.localStorage.getItem('access_token') : null
     const { cartCount, loadingCartCount } = useCart()
     const navigate = useNavigate()
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+    const userMenuRef = useRef(null)
     if (loadingUser || loadingCartCount) {
         return <></>
     }
 
     const handleLogout = async () => {
+        setIsUserMenuOpen(false)
         await logout().then(res => {
             console.log(res)
             navigate('/')
@@ -26,6 +31,32 @@ export function Header () {
         })
     }
 
+    useEffect(() => {
+        if (!isUserMenuOpen) {
+            return
+        }
+
+        const handleOutsideClick = (event) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+                setIsUserMenuOpen(false)
+            }
+        }
+
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                setIsUserMenuOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleOutsideClick)
+        document.addEventListener('keydown', handleEscape)
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick)
+            document.removeEventListener('keydown', handleEscape)
+        }
+    }, [isUserMenuOpen])
+
     return (
         <header className='header'>
             {localStorageUser ?
@@ -33,7 +64,37 @@ export function Header () {
                     <Link to='/'>Logo</Link>
                     <div className="user-options-wrapper">
                         <CartHeader></CartHeader>
-                        <Link onClick={handleLogout}>Cerrar sesion</Link>
+                        <div className="user-menu-wrapper" ref={userMenuRef}>
+                            <button
+                                className="user-menu-button"
+                                type="button"
+                                aria-haspopup="menu"
+                                aria-expanded={isUserMenuOpen}
+                                onClick={() => setIsUserMenuOpen(prev => !prev)}
+                            >
+                                <FaUserCircle aria-hidden="true" />
+                            </button>
+                            {isUserMenuOpen && (
+                                <div className="user-menu" role="menu">
+                                    <Link
+                                        to="/my-orders"
+                                        className="user-menu-item"
+                                        role="menuitem"
+                                        onClick={() => setIsUserMenuOpen(false)}
+                                    >
+                                        Ver mis ordenes
+                                    </Link>
+                                    <button
+                                        className="user-menu-item"
+                                        type="button"
+                                        role="menuitem"
+                                        onClick={handleLogout}
+                                    >
+                                        Cerrar sesion
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>   
                 :
