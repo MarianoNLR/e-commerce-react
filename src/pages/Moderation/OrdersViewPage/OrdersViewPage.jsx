@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import api from '../../../api.js';
 import './OrdersViewPage.css';
 import { useNavigate } from 'react-router-dom';
+import { PaginationControls } from '../../../components/PaginationControls/PaginationControls.jsx';
 
 export function OrdersViewPage () {
     const [data, setData] = useState([]);
     const [loadingOrders, setLoadingOrders] = useState(true);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,11 +16,7 @@ export function OrdersViewPage () {
         api.get(`/orders?page=${page}`)
         .then(res => {
             console.log(res.data);
-            if (page === 0) {
-                setData(res.data);
-            } else {
-                setData(prev => ({...prev, orders: [...prev.orders, ...res.data.orders], hasMore: res.data.hasMore}));
-            }
+            setData(res.data);
             setLoadingOrders(false);
         })
         .catch(err => {
@@ -52,6 +49,14 @@ export function OrdersViewPage () {
         // Lógica para ver más detalles de la orden
         console.log('Ver más detalles de la orden:', order.id);
         navigate(`/moderation/orders/${order.id}`, { state: { order } });
+    }
+
+    const handlePageChange = (nextPage) => {
+        if (nextPage < 1 || nextPage === page) {
+            return;
+        }
+
+        setPage(nextPage);
     }
 
     if (loadingOrders) {
@@ -92,9 +97,12 @@ export function OrdersViewPage () {
                     ))}
                 </tbody>
             </table>
-            {data.hasMore && (
-                <button type="button" className='load-more-btn' onClick={() => setPage(prev => prev + 1)}>Cargar Más</button>
-            )}
+            <PaginationControls
+                currentPage={page}
+                hasMore={Boolean(data.hasMore)}
+                isLoading={loadingOrders}
+                onPageChange={handlePageChange}
+            />
         </main>
     );
 }
