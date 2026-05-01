@@ -1,16 +1,34 @@
 import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { FaCheckCircle, FaExclamationCircle, FaSpinner } from "react-icons/fa";
 import { ImageUpload } from "../ImageUpload/ImageUpload.jsx";
 import { PreviewImages } from "../PreviewImages/PreviewImages.jsx";
+import { FeedbackModal } from "../FeedbackModal/FeedbackModal.jsx";
 import api from "../../api";
 import "./AddProductForm.css";
 export function AddProductForm() {
-    const {register, handleSubmit, watch, control, formState: { errors }} = useForm();
+    const {register, handleSubmit, watch, control, reset, formState: { errors, isSubmitting }} = useForm();
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError ] = useState(null);
+    const [feedbackModal, setFeedbackModal] = useState({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "success",
+    });
+
+    const closeFeedbackModal = () => {
+        setFeedbackModal((prev) => ({ ...prev, isOpen: false }));
+    };
+
     const onSubmit = async (data) => {
-        console.log(data)
+        setFeedbackModal({
+            isOpen: true,
+            title: "Creando producto",
+            description: "Estamos procesando la información. Esto puede tardar unos segundos.",
+            type: "loading",
+        });
+
         try {
             const formData = new FormData();
             formData.append('name', data.productName);
@@ -19,9 +37,30 @@ export function AddProductForm() {
             formData.append('categoryId', data.productCategoryId);
             formData.append('description', data.productDescription);
             data.images.forEach(image => formData.append('images', image.file));
-            await api.post('/products', formData)
+            await api.post('/products', formData);
+
+            setFeedbackModal({
+                isOpen: true,
+                title: "Producto agregado",
+                description: "El producto se creó correctamente.",
+                type: "success",
+            });
+            reset({
+                productName: "",
+                productPrice: "",
+                productStock: "",
+                productCategoryId: "",
+                productDescription: "",
+                images: [],
+            });
         } catch (error) {
-            console.log("ERROR LOADING PRODUCT", error)
+            const errorMessage = error.response?.data?.message || "No se pudo crear el producto. Intentalo de nuevo.";
+            setFeedbackModal({
+                isOpen: true,
+                title: "Error al agregar producto",
+                description: errorMessage,
+                type: "error",
+            });
         }
         
     };
@@ -35,7 +74,6 @@ export function AddProductForm() {
             })
             .catch(err => {
                 console.error(err)
-                setError(err)
                 setLoading(false)
             })
         }
@@ -43,28 +81,29 @@ export function AddProductForm() {
     fetchCategories()
     }, [])
 
-    console.log(watch("productName")); // watch input value by passing the name of it
+    watch("productName");
 
     return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)} className="add-product-form">
         <div className="form-group">
             <div className="input-wrapper">
                 <label htmlFor="productName">Nombre del Producto</label>
-                <input type="text" {...register("productName", { required: true })} placeholder="Nombre del Producto"/>
+                <input type="text" id="productName" {...register("productName", { required: true })} placeholder="Nombre del Producto"/>
             </div>
             {errors.productName && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
                 <label htmlFor="productPrice">Precio del Producto</label>
-                <input type="number" {...register("productPrice", { required: true })} placeholder="Precio del Producto"/>
+                <input type="number" id="productPrice" {...register("productPrice", { required: true })} placeholder="Precio del Producto"/>
             </div>
             {errors.productPrice && <span>Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
             <div className="input-wrapper">
                 <label htmlFor="productStock">Stock del Producto</label>
-                <input type="number" {...register("productStock", { required: true })} placeholder="Stock del Producto"/>
+                <input type="number" id="productStock" {...register("productStock", { required: true })} placeholder="Stock del Producto"/>
             </div>
             {errors.productStock && <span>Este campo es obligatorio</span>}
         </div>
@@ -83,7 +122,7 @@ export function AddProductForm() {
         <div className="form-group">
             <div className="input-wrapper">
                 <label htmlFor="productDescription">Descripción del Producto</label>
-                <input type="text" {...register("productDescription", { required: true })} placeholder="Descripción del Producto"/>
+                <input type="text" id="productDescription" {...register("productDescription", { required: true })} placeholder="Descripción del Producto"/>
             </div>
             {errors.productDescription && <span>Este campo es obligatorio</span>}
         </div>
@@ -106,8 +145,26 @@ export function AddProductForm() {
             </div>
         </div>
         <div className="form-group">
-            <input type="submit" value="Agregar Producto" />
+            <input type="submit" value="Agregar Producto" disabled={loading || isSubmitting} />
         </div>
     </form>
+    <FeedbackModal
+        isOpen={feedbackModal.isOpen}
+        onClose={feedbackModal.type === "loading" ? () => {} : closeFeedbackModal}
+        title={feedbackModal.title}
+        description={feedbackModal.description}
+        icon={
+            feedbackModal.type === "success"
+                ? <FaCheckCircle />
+                : feedbackModal.type === "loading"
+                    ? <FaSpinner />
+                    : <FaExclamationCircle />
+        }
+        isSpinningIcon={feedbackModal.type === "loading"}
+        buttonText={feedbackModal.type === "loading" ? "Procesando..." : "Entendido"}
+        hideCloseButton={feedbackModal.type === "loading"}
+        isActionDisabled={feedbackModal.type === "loading"}
+    />
+    </>
     );
 }
