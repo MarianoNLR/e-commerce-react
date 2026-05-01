@@ -2,7 +2,7 @@ import { FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 import styles from './ConfirmModal.module.css';
 import propTypes from 'prop-types';
 
-export function ConfirmModal({ isOpen, onClose, onConfirm, title, message, confirmText = "Eliminar", cancelText = "Cancelar" }) {
+export function ConfirmModal({ isOpen, onClose, onConfirm, title, message, highlightedText, confirmText = "Eliminar", cancelText = "Cancelar" }) {
     if (!isOpen) return null;
 
     return (
@@ -23,6 +23,9 @@ export function ConfirmModal({ isOpen, onClose, onConfirm, title, message, confi
                 <div className={styles.modalBody}>
                     <h2>{title}</h2>
                     <p>{message}</p>
+                    {highlightedText && (
+                        <p className={styles.highlightedText}>{highlightedText}</p>
+                    )}
                 </div>
 
                 <div className={styles.modalActions}>
@@ -52,6 +55,7 @@ ConfirmModal.propTypes = {
     onConfirm: propTypes.func.isRequired,
     title: propTypes.string.isRequired,
     message: propTypes.string.isRequired,
+    highlightedText: propTypes.string,
     confirmText: propTypes.string,
     cancelText: propTypes.string,
 }
