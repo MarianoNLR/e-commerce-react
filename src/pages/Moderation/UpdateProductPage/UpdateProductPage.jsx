@@ -1,30 +1,31 @@
 import './UpdateProductPage.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa';
 import api from '../../../api.js';
-import { useAuth } from '../../../hooks/useAuth.jsx';
-import { SimpleToastAlert } from '../../../components/SimpleToastAlert/SimpleToastAlert.jsx';
-import { useForm, Controller } from 'react-hook-form';
-import {ImageUpload} from '../../../components/ImageUpload/ImageUpload.jsx';
-import { PreviewImages } from '../../../components/PreviewImages/PreviewImages.jsx';
+import { useForm } from 'react-hook-form';
+import { ConfirmModal } from '../../../components/ConfirmModal/ConfirmModal.jsx';
+import { FeedbackModal } from '../../../components/FeedbackModal/FeedbackModal.jsx';
+import { UpdateProductForm } from '../../../components/UpdateProductForm/UpdateProductForm.jsx';
 
 export function UpdateProductPage() {
     const { productId } = useParams();
     const [categories, setCategories] = useState([]);
-    const [productData, setProductData] = useState(null);
+    const [productName, setProductName] = useState('');
     const [loadingProduct, setLoadingProduct] = useState(true);
     const [loadingCategories, setLoadingCategories] = useState(true);
 
-    const {register, 
+    const {
+        register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         reset,
-        control
-       } = useForm() 
-    const { user } = useAuth() || {};
-    const [formData, setFormData] = useState(null);
-    const [toastAlert, setToastAlert] = useState({ visible: false, message: '', type: '' });
+        control,
+    } = useForm();
     const [imagesToDelete, setImagesToDelete] = useState([]);
+    const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         Promise.all([
@@ -32,7 +33,7 @@ export function UpdateProductPage() {
             api.get('/category')
         ])
         .then(([productRes, categoryRes]) => {
-            setProductData(productRes.data.product);
+            setProductName(productRes.data.product.name || '');
             const preloadedImages = (productRes.data.product.images || []).map(img => ({
                 name: img.secure_url,
                 preview: `${img.secure_url}`,
@@ -70,82 +71,74 @@ export function UpdateProductPage() {
         })
         .then(res => {
             console.log(res);
-            setToastAlert({ visible: true, message: 'Producto actualizado con éxito', type: 'success' });
         })
         .catch(err => {
             console.log(err)
-            setToastAlert({ visible: true, message: 'Error al actualizar el producto', type: 'error' });
         });
     console.log('Submitted data:', data);
     return data;
     };
 
+    const onConfirmDeleteProduct = async () => {
+        try {
+            setIsDeleting(true);
+            setConfirmDeleteModalOpen(false);
+            await api.delete(`/products/${productId}`);
+            navigate('/moderation/products');
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
+    if (loadingProduct || loadingCategories) {
+        return (
+            <div className="update-product-loading">
+                <p>Cargando...</p>
+            </div>
+        );
+    }
+
     return (
         <>
             <h1>Actualización de Producto</h1>
-                {/* {(loadingProduct || loadingCategories) ? (
-                    <p>Cargando...</p>
-                ) : ( */}
-                    <form className='update-product-form' onSubmit={handleSubmit(onSubmit)}>
-                        <div className='update-product-input-group'>
-                            <label htmlFor="name">Nombre</label>
-                            <input type="text" {...register("name", { required: true })}/>
-                            {errors.name && <span>Este campo es obligatorio</span>}
-                        </div>
-                        
-                        <div className='update-product-input-group'>
-                            <label htmlFor="price">Precio</label>
-                            <input type="number" {...register("price", { required: true })}/>
-                            {errors.price && <span>Este campo es obligatorio</span>}
-                        </div>
-                        
-                        <div className='update-product-input-group'>
-                            <label htmlFor="quantity">Cantidad</label>
-                            <input type="number" {...register("quantity", { required: true })}/>
-                            {errors.quantity && <span>Este campo es obligatorio</span>}
-                        </div>
-                        
-                        <div className='update-product-input-group'>
-                            <label htmlFor="description">Descripción</label>
-                            <textarea {...register("description", { required: true })} />
-                            {errors.description && <span>Este campo es obligatorio</span>}
-                        </div>
+            <UpdateProductForm
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                register={register}
+                errors={errors}
+                categories={categories}
+                control={control}
+                setImagesToDelete={setImagesToDelete}
+                isDeleting={isDeleting}
+                onDeleteClick={() => setConfirmDeleteModalOpen(true)}
+            />
 
-                        <div className='update-product-input-group'>
-                            <label htmlFor="category">Categoría</label>
-                            {/* Cargar categorias de la bd */}
-                            <select {...register("category", { required: true })}>
-                               
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
-                                ))}
-                            </select>
-                            {errors.category && <span>Este campo es obligatorio</span>}
-                        </div>
-                        
-                        <div className='update-product-input-group'>
-                            <label htmlFor="image">Imagen</label>
-                            {/* Image Upload Controller and Preview */}
-                            <Controller
-                                name="images"
-                                control={control}
-                                rules={{ required: false }}
-                                defaultValue={[]}
-                                render={({ field }) => (
-                                    <>
-                                        <ImageUpload images={field.value || []} onChange={field.onChange} />
-                                        <PreviewImages images={field.value || []} setImages={field.onChange} setImagesToDelete={setImagesToDelete} />
-                                        {errors.images && <span>Este campo es obligatorio</span>}
-                                    </>
-                                )}
-                            />
-                        </div>
-                        
-                        
-                        
-                        <button type="submit">Actualizar</button>
-                    </form>
-                {/* )} */}
+            {confirmDeleteModalOpen && (
+                <ConfirmModal
+                    isOpen={confirmDeleteModalOpen}
+                    onClose={() => setConfirmDeleteModalOpen(false)}
+                    onConfirm={onConfirmDeleteProduct}
+                    title="Eliminar producto"
+                    message="Esta accion no se puede deshacer. Se eliminara el producto de forma permanente."
+                    highlightedText={productName}
+                    confirmText={isDeleting ? 'Eliminando...' : 'Si, eliminar'}
+                    cancelText="Cancelar"
+                />
+            )}
+
+            <FeedbackModal
+                isOpen={isDeleting}
+                onClose={() => {}}
+                title="Eliminando producto"
+                description="Estamos eliminando el producto. Por favor espera..."
+                icon={<FaSpinner />}
+                isSpinningIcon={true}
+                buttonText="Procesando..."
+                hideCloseButton={true}
+                isActionDisabled={true}
+            />
         </>
     );
 }
