@@ -1,7 +1,112 @@
-main {
+.checkout-summary-page {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80%;
+    gap: 2rem;
+    padding: 4rem 1.5rem 5rem;
+    color: #e6e8ef;
+}
+
+.checkout-summary-page h1 {
+    font-size: clamp(2rem, 2.2vw + 1.5rem, 2.75rem);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #f4f6fb;
+    margin: 0;
+}
+
+.customer-data-section {
+    width: min(840px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-top: 2px solid rgba(230, 232, 239, 0.35);
+    border-bottom: 2px solid rgba(230, 232, 239, 0.35);
+}
+
+.customer-data-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #c7cbd6;
+    margin: 0;
+}
+
+.order-summary-group {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(230, 232, 239, 0.12);
+}
+
+.order-summary-group-label {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: #d6dae5;
+    letter-spacing: 0.01em;
+    margin: 0;
+}
+
+.order-summary-group-value {
+    font-size: 1.05rem;
+    color: #f0f2f7;
+    margin: 0;
+    word-break: break-word;
+}
+
+.payment-method-section {
+    width: min(840px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-bottom: 2px solid rgba(230, 232, 239, 0.35);
+}
+
+.payment-method-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #c7cbd6;
+    margin: 0;
+}
+
+.payment-method-section p {
+    font-size: 1.05rem;
+    color: #f0f2f7;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.confirm-order-button {
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.3rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #111;
+    background: #f2f4f8;
+}
+
+.confirm-order-button:hover {
+    background: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .checkout-summary-page {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .order-summary-group {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
 }
