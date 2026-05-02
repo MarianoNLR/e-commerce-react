@@ -14,7 +14,7 @@ export function OrderDetailsView() {
     const [loadingOrder, setLoadingOrder] = useState(true);
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
     const orderPossibleStatus = {
-        pending: "Pendiente",
+        pending_payment: "Pendiente",
         paid: "Pagado",
         shipped: "Enviado",
         delivered: "Entregado",
