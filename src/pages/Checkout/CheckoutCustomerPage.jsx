@@ -3,13 +3,12 @@ import './CheckoutCustomerPage.css';
 import { useForm } from 'react-hook-form';
 
 export function CheckoutCustomerPage() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     
     const onSubmit = (data) => {
         console.log(data);
         try {
-            // Aquí puedes manejar el envío de datos, como enviarlos a una API
             const formData = new FormData();
             formData.append('name', data.name);
             formData.append('lastName', data.lastName);
