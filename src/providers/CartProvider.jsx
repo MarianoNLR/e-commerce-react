@@ -1,9 +1,7 @@
-import React, {createContext, useState, useContext, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef, useCallback } from "react";
 import api from "../api.js";
 import { useAuthLogic } from "../hooks/useAuthLogic.jsx";
-import { set } from "react-hook-form";
 import { useAuthModal } from '../hooks/useAuthModal.jsx';
-import { SimpleToastAlert } from '../components/SimpleToastAlert/SimpleToastAlert.jsx';
 import { CartContext } from "../contexts/CartContext.jsx";
 
 export const CartProvider = ({ children }) => {
@@ -14,36 +12,42 @@ export const CartProvider = ({ children }) => {
     const [loadingCart, setLoadingCart] = useState(true)
     const [toastAlert, setToastAlert] = useState({message: '', variant: 'default'})
     const [toastVisible, setToastVisible] = useState(false)
-    const { openModal, closeModal } = useAuthModal();
+    const { openModal } = useAuthModal();
     const toastTimer = useRef(null);
 
-    useEffect(() => {
-        setLoadingCart(true)
+    const clearCart = () => {
+        setCart({ items: [], total: 0, userId: user?.id || null });
+    };
+
+    const refreshCart = useCallback(async () => {
         if (!user?.id) {
-            setLoadingCart(false)
-            return
+            setCart({ items: [], total: 0, userId: null });
+            setLoadingCart(false);
+            return;
         }
-        
-        if (user?.id) {
-            api.get(`/cart`)
-            .then(res => {
-                if (!res.data || !res.data.items) {
-                    setCart({items: [], total: 0, userId: user.id})
-                    setLoadingCart(false)
-                    return
-                }
-                
-                //setCartCount(res.data.cart.items.length)
-                setCart({items: res.data.items, total: res.data.totalPrice, userId: user.id})
-                setLoadingCart(false)
-            })
-            .catch(err => {
-                setLoadingCart(false)
-                console.error(err)
-            }) 
+
+        setLoadingCart(true);
+        try {
+            const res = await api.get(`/cart`);
+            const data = res?.data || res;
+
+            if (!data || !data.items) {
+                setCart({ items: [], total: 0, userId: user.id });
+                setLoadingCart(false);
+                return;
+            }
+
+            setCart({ items: data.items, total: data.totalPrice, userId: user.id });
+            setLoadingCart(false);
+        } catch (err) {
+            setLoadingCart(false);
+            console.error(err);
         }
-        setLoadingCart(false)
-    }, [user?.id, cart.items.length])
+    }, [user?.id]);
+
+    useEffect(() => {
+        refreshCart();
+    }, [refreshCart])
 
     
 
@@ -111,6 +115,8 @@ export const CartProvider = ({ children }) => {
             toastVisible, 
             setToastVisible,
             handleShowToast,
+            clearCart,
+            refreshCart,
             // hideToast
             }}>
             {children}
