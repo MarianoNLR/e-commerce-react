@@ -1,0 +1,86 @@
+.paymentMethodSection {
+    width: min(840px, 100%);
+}
+
+.paymentMethodCard {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(230, 232, 239, 0.12);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.paymentMethodTitle {
+    margin: 0;
+    color: #f4f6fb;
+    font-size: 1.3rem;
+}
+
+.paymentMethodDescription {
+    margin: 0;
+    color: #c7cbd6;
+}
+
+.paymentButtonContainer {
+    width: min(420px, 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.bankTransferInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(230, 232, 239, 0.12);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.bankTransferInfo p {
+    margin: 0;
+    color: #e6e8ef;
+}
+
+.bankTransferForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.proofUploadLabel {
+    color: #d6dae5;
+    font-weight: 600;
+}
+
+.proofFileName {
+    margin: 0;
+    color: #c7cbd6;
+}
+
+.proofSubmitButton {
+    width: fit-content;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #111;
+    background: #f2f4f8;
+}
+
+.proofSubmitButton:hover {
+    background: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .paymentMethodCard {
+        padding: 1rem;
+    }
+
+    .proofSubmitButton {
+        width: 100%;
+    }
+}
