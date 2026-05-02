@@ -11,6 +11,7 @@ import { CategoryProducts } from './pages/CategoryProducts/CategoryProducts.jsx'
 import { SearchProduct } from './pages/SearchProduct/SearchProduct.jsx'
 import { AddProductPage } from './pages/Moderation/AddProductPage/AddProductPage.jsx'
 import { CheckoutCustomerPage } from './pages/Checkout/CheckoutCustomerPage.jsx'
+import { CheckoutSummaryPage } from './pages/Checkout/CheckoutSummaryPage.jsx'
 import { CheckoutConfirmationPage } from './pages/Checkout/CheckoutConfirmationPage.jsx'
 import { PaymentMethodSelectionPage } from './pages/Checkout/PaymentMethodSelectionPage.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
@@ -85,9 +86,9 @@ function App() {
                         <PaymentMethodSelectionPage />
                       </ProtectedRoute>
                     } />
-                    <Route path='/checkout/confirmation' element={
+                    <Route path='/checkout/summary' element={
                       <ProtectedRoute>
-                        <CheckoutConfirmationPage />
+                        <CheckoutSummaryPage />
                       </ProtectedRoute>
                     } />
                     <Route path='/checkout/confirmation' element={
