@@ -2,11 +2,13 @@ import './MyOrdersPage.css'
 import { Link } from 'react-router-dom'
 import api from '../../api.js'
 import { useEffect, useState } from 'react'
+import { FaBox, FaCalendarAlt, FaCreditCard } from 'react-icons/fa'
 import { PaginationControls } from '../../components/PaginationControls/PaginationControls.jsx'
 
 const STATUS_FILTERS = [
   { value: 'all', label: 'Todos' },
   { value: 'pending_payment', label: 'Pago pendiente' },
+  { value: 'pending_validation', label: 'Validación pendiente' },
   { value: 'paid', label: 'Pagado' },
   { value: 'payment_failed', label: 'Pago fallido' },
   { value: 'shipped', label: 'Enviado' },
@@ -27,6 +29,7 @@ export function MyOrdersPage() {
     pending_payment: 'Pago pendiente',
     paid: 'Pagado',
     payment_failed: 'Pago fallido',
+    pending_validation: 'Validación pendiente',
     shipped: 'Enviado',
     cancelled: 'Cancelado',
     expired: 'Expirado'
@@ -128,23 +131,25 @@ export function MyOrdersPage() {
         <h1>Mis Pedidos</h1>
 
         <div className='my-orders-toolbar'>
-          <label htmlFor='status-filter' className='my-orders-filter-label'>
-            Estado
-          </label>
-          <select
-            id='status-filter'
-            className='my-orders-filter'
-            value={statusFilter}
-            onChange={handleFilterChange}
-          >
-            {STATUS_FILTERS.map((filterOption) => (
-              <option key={filterOption.value} value={filterOption.value}>
-                {filterOption.label}
-              </option>
-            ))}
-          </select>
-          <span className='my-orders-total'>Total: {totalOrders}</span>
+          <div className='my-orders-filter-group'>
+            <label htmlFor='status-filter' className='my-orders-filter-label'>
+              Filtrar por Estado
+            </label>
+            <select
+              id='status-filter'
+              className='my-orders-filter'
+              value={statusFilter}
+              onChange={handleFilterChange}
+            >
+              {STATUS_FILTERS.map((filterOption) => (
+                <option key={filterOption.value} value={filterOption.value}>
+                  {filterOption.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <span className='my-orders-total'>Total: {totalOrders}</span>
 
         {!orders.length ? (
           <>
@@ -166,14 +171,41 @@ export function MyOrdersPage() {
 
                 <div className='my-order-meta'>
                   <p>
-                    <strong>Fecha:</strong> {formatDate(order.createdAt)}
+                    <FaCalendarAlt className='my-order-meta-icon' aria-hidden='true' />
+                    {formatDate(order.createdAt)}
                   </p>
-                  <p>
-                    <strong>Productos:</strong> {order.items?.length ?? 0}
-                  </p>
-                  <p>
-                    <strong>Total:</strong> {formatPrice(order.total)}
-                  </p>
+                  <div className='my-order-products'>
+                    <FaBox className='my-order-meta-icon my-order-products-icon' aria-hidden='true' />
+                    <strong>Productos:</strong>
+                    {order.items && order.items.length > 0 ? (
+                      <ul className='my-order-products-list'>
+                        {order.items.map((item, index) => {
+                          const productName = item?.productName ?? item?.name ?? item?.title ?? 'Producto'
+                          const quantity = Number(item?.quantity) || 0
+                          const priceAtPurchase = formatPrice(item?.priceAtPurchase * quantity)
+
+                          return (
+                            <li key={item?.id ?? `${order.id}-${productName}-${index}`}>
+                              <span className='my-order-product-left'>
+                                <span className='my-order-product-name'>{productName}</span>
+                                <span className='my-order-product-quantity'>x {quantity}</span>
+                              </span>
+                              <span className='my-order-product-price'>{priceAtPurchase}</span>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    ) : (
+                      <span className='my-order-products-empty'>-</span>
+                    )}
+                  </div>
+                  <div className='my-order-total-row'>
+                    <span className='my-order-total-left'>
+                      <FaCreditCard className='my-order-meta-icon' aria-hidden='true' />
+                      <strong>Total:</strong>
+                    </span>
+                    <span className='my-order-total-value'>{formatPrice(order.total)}</span>
+                  </div>
                 </div>
               </article>
             ))}
