@@ -1,8 +1,13 @@
+.admin-layout-sidebar-spacer {
+    transition: width 220ms ease, min-width 220ms ease;
+}
+
 .admin-layout-sidebar-container {
     color: white;
     border-right: none;
     background-color: transparent;
     border-radius: 1px;
+    position: sticky;
 }
 
 .admin-panel-sidebar-collapse-button {
