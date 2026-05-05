@@ -1,7 +1,7 @@
 .mobile-header {
     max-height: 80px;
     position: fixed;
-    width: 80%;
+    width: 100%;
     min-width: 260px;
     padding: 10px 16px;
     color: white;
