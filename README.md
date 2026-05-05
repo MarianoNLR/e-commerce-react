@@ -4,7 +4,7 @@
 
 ### Repositorio backend: https://github.com/MarianoNLR/e-commerce-api
 
-### 🔴 Link: https://e-commerce-react-live-lgtvwr23d-marianonlrs-projects.vercel.app/
+### 🔴 Link: https://e-commerce-react-live.vercel.app/
 
 ## 🚀 Funcionalidades
 
