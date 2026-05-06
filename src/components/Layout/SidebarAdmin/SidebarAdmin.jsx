@@ -15,7 +15,7 @@ export function SidebarAdmin() {
                 width={width}
                 collapsedWidth="80px"
                 backgroundColor="transparent"
-                rootStyles={{border: "none", position: "sticky", top: "6rem", alignSelf: "flex-start"}}
+                rootStyles={{border: "none", position: "sticky", top: "6.5rem", alignSelf: "flex-start"}}
             >
                 <Menu>
                     <MenuItem className="sidebar-option-button" icon={collapsed ? <FaArrowRight /> : <FaArrowLeft />} onClick={() => setCollapsed(!collapsed)}>Admin Panel</MenuItem>
