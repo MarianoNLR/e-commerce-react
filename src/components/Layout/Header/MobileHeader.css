@@ -1,12 +1,14 @@
 .mobile-header {
-    max-height: 80px;
+    min-height: 80px;
     position: fixed;
     width: 100%;
     min-width: 260px;
     padding: 10px 16px;
     color: white;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
     border-bottom: 1px solid #111;
     z-index: 1000;
 }
@@ -22,6 +24,18 @@
     font-size: 20px;
     font-weight: bold;
     color: white;
+}
+
+.mobile-header-disclaimer-bar {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(255, 196, 0);
+  color: #111;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0.4rem 0.6rem;
 }
 
 .menu-toggle {
