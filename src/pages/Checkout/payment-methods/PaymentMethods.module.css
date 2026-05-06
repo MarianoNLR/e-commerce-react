@@ -23,6 +23,22 @@
     color: #c7cbd6;
 }
 
+.demoWarning {
+    margin: 0;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 194, 102, 0.45);
+    background: rgba(255, 194, 102, 0.1);
+    color: #ffe6b8;
+    font-weight: 600;
+}
+
+.orderTotalText {
+    margin: 0;
+    color: #e6e8ef;
+    font-size: 1rem;
+}
+
 .paymentButtonContainer {
     width: min(420px, 100%);
     display: flex;
