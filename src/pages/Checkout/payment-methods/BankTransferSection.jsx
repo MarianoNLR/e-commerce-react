@@ -1,19 +1,28 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import api from '../../../api.js';
 import { FeedbackModal } from '../../../components/FeedbackModal/FeedbackModal.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from './PaymentMethods.module.css';
 
-const BANK_ACCOUNT = {
-	alias: 'tienda.ecommerce.mpago',
-	cbu: '0000003100000000000001',
-	holderName: 'E-Commerce Demo S.A.',
+const formatPrice = (value) => {
+	const numericValue = Number(value);
+	if (Number.isNaN(numericValue)) {
+		return 'No disponible';
+	}
+
+	return new Intl.NumberFormat('es-AR', {
+		style: 'currency',
+		currency: 'ARS',
+		maximumFractionDigits: 2,
+	}).format(numericValue);
 };
 
 export function BankTransferSection({ orderData }) {
 	const [proofFile, setProofFile] = useState(null);
 	const orderId = orderData?.id || null;
+	const orderTotal = orderData?.total;
 	const [isSubmittingProof, setIsSubmittingProof] = useState(false);
     const navigate = useNavigate();
 	const [feedbackModal, setFeedbackModal] = useState({
@@ -95,12 +104,12 @@ export function BankTransferSection({ orderData }) {
 			<p className={styles.paymentMethodDescription}>
 				Realiza la transferencia y luego sube el comprobante para validar tu pedido.
 			</p>
-
-			<div className={styles.bankTransferInfo}>
-				<p><strong>Alias:</strong> {BANK_ACCOUNT.alias}</p>
-				<p><strong>CBU:</strong> {BANK_ACCOUNT.cbu}</p>
-				<p><strong>Titular:</strong> {BANK_ACCOUNT.holderName}</p>
-			</div>
+			<p className={styles.demoWarning}>
+				Este sitio web y el flujo de pago son una demo. No realices transferencias reales.
+			</p>
+			<p className={styles.orderTotalText}>
+				<strong>Total de la orden:</strong> {formatPrice(orderTotal)}
+			</p>
 
 			<form className={styles.bankTransferForm} onSubmit={handleSubmit}>
 				<label className={styles.proofUploadLabel} htmlFor='proof-image'>
@@ -134,3 +143,10 @@ export function BankTransferSection({ orderData }) {
 		</section>
 	);
 }
+
+BankTransferSection.propTypes = {
+	orderData: PropTypes.shape({
+		id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	}),
+};
