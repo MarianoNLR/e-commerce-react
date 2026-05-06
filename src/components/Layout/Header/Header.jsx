@@ -61,7 +61,7 @@ export function Header () {
         <header className='header'>
             {localStorageUser ?
                 <div className="header-main-wrapper">
-                    <Link to='/'>Logo</Link>
+                    <Link to='/' className='header-logo'>Logo</Link>
                     <div className="user-options-wrapper">
                         <CartHeader></CartHeader>
                         <div className="user-menu-wrapper" ref={userMenuRef}>
@@ -103,6 +103,9 @@ export function Header () {
                     <Link to='#' onClick={openModal} className='header-login-link'>Iniciar Sesión</Link>
                 </div>
             }
+            <p className='header-disclaimer-bar'>
+                Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
+            </p>
         </header>
     )
 }

@@ -35,6 +35,9 @@ export function MobileHeader() {
                 <button className='menu-toggle' onClick={handleToogleMenu}>☰</button>
                 <a href='/' className='header-logo'>Logo</a>
             </div>
+            <p className='mobile-header-disclaimer-bar'>
+                Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
+            </p>
             
                 {/* {menuOpen &&  */}
                     <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>
