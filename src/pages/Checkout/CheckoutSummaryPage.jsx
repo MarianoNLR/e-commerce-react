@@ -24,6 +24,7 @@ export function CheckoutSummaryPage() {
     };
 
     const handleConfirmOrder = async () => {
+        if (isProcessingOrder) return;
         setIsProcessingOrder(true);
 
         try {
@@ -108,7 +109,7 @@ export function CheckoutSummaryPage() {
                 <h2>Método de Pago</h2>
                 <p>{paymentMethod}</p>
             </div>
-            <button className='confirm-order-button' type='button' onClick={handleConfirmOrder}>
+            <button className='confirm-order-button' type='button' onClick={handleConfirmOrder} disabled={isProcessingOrder}>
                 {isProcessingOrder ? 'Procesando...' : 'Confirmar pedido'}
             </button>
 
