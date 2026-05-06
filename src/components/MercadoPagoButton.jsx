@@ -8,7 +8,7 @@ export function MercadoPagoButton(props) {
     const [loadingPreference, setLoadingPreference] = useState(true)
     useEffect(() => {
         initMercadoPago('APP_USR-4265d0aa-e20a-42a9-b687-30be71fa5be3');
-            api.post('/checkout', { shipping_info: props.shipping_info, payment_method: 'mercadopago' })
+            api.post('/checkout', { shipping_info: props.shipping_info, payment_method: 'mercadopago', order_id: props.order_data.id })
             .then(res => {
                 console.log(res.data.result.id)
                 setPreferenceId(res.data.result.id)
