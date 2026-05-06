@@ -35,7 +35,7 @@ export default function Layout(props) {
             {user?.role.includes('admin') && 
               <SidebarAdmin></SidebarAdmin>
             }
-            <main className='flex-1 min-h-10vh '>
+            <main className='flex-1 min-h-10vh mt-4'>
               {props.children}
             </main>
           </div>
