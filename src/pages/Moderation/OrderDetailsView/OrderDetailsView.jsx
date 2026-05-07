@@ -5,6 +5,7 @@ import './OrderDetailsView.css';
 import { useLocation, useParams } from 'react-router-dom';
 import api from '../../../api.js';
 import { UpdateStatusModal } from './UpdateStatusModal.jsx';
+import { ImageModal } from '../../../components/ImageModal/ImageModal.jsx';
 
 
 export function OrderDetailsView() {
@@ -13,8 +14,10 @@ export function OrderDetailsView() {
     const [orderData, setOrderData] = useState(location.state?.order || null);
     const [loadingOrder, setLoadingOrder] = useState(true);
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
+    const [showProofModal, setShowProofModal] = useState(false);
     const orderPossibleStatus = {
         pending_payment: "Pendiente",
+        pending_validation: "Pendiente de validación",
         paid: "Pagado",
         shipped: "Enviado",
         delivered: "Entregado",
@@ -58,6 +61,33 @@ export function OrderDetailsView() {
                     </div>
                     <p className='order-p'><strong>Total:</strong> ${orderData.total}</p>
                     <p className='order-p'><strong>Fecha de pedido:</strong> {new Date(orderData.createdAt).toLocaleString()}</p>
+
+                    <div className='order-details-products-container'>
+                        <h2>Comprobante de pago:</h2>
+                        {orderData.proof_of_payment_url ? (
+                            <button
+                                type='button'
+                                onClick={() => setShowProofModal(true)}
+                                className='order-proof-link'
+                                title='Ver comprobante de pago'
+                            >
+                                <img
+                                    src={orderData.proof_of_payment_url}
+                                    alt='Comprobante de pago'
+                                    className='order-proof-preview'
+                                    loading='lazy'
+                                />
+                                <span className='order-proof-hint'>Click para ampliar imagen</span>
+                            </button>
+                        ) : (
+                            <p className='order-p'>No hay comprobante de pago disponible.</p>
+                        )}
+                    </div>
+
+                    {showProofModal && (
+                        <ImageModal imageUrl={orderData.proof_of_payment_url} onClose={() => setShowProofModal(false)} />
+                    )}
+
                     <div className='order-status-wrapper'>
                         <p className='order-p'><strong>Estado:</strong> {orderPossibleStatus[orderData.status]}</p>
                         <button onClick={() => setShowUpdateStatusModal(true)} type="button">Actualizar Estado</button>
