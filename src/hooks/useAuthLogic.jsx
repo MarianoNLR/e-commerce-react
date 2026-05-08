@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { login as authServiceLogin, getUserFromToken, logout as logoutUser } from "../services/auth.service.js";
+import { login as authServiceLogin, getUserFromToken, logout as logoutUser, registerUser } from "../services/auth.service.js";
 
 export function useAuthLogic() {
     const [user, setUser] = useState(null)
@@ -35,12 +35,22 @@ export function useAuthLogic() {
         try {
             const res = await authServiceLogin(credentials)
             console.log("Login response: ", res)
-            fetchUser()
+            //fetchUser()
             window.localStorage.setItem('access_token', res.data)
+            fetchUser()
             return res
         } catch (error) {
             throw error
         }
+    }
+
+    const register = async (userInfo) => {
+        const res = await registerUser(userInfo)
+        if (res.success) {
+            window.localStorage.setItem('access_token', res.data.accessToken)
+            fetchUser()
+        }
+        return res
     }
 
     const logout = async () => {
@@ -53,5 +63,5 @@ export function useAuthLogic() {
         }
     }
 
-    return { user, fetchUser, loadingUser, login, logout }
+    return { user, fetchUser, loadingUser, login, logout, registerNewUser: register }
 }
