@@ -59,3 +59,8 @@
 .complete-signup-form-submit-btn:hover, .signup-email-form button:hover {
     background-color: #0056b3;
 }
+
+.form-submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
