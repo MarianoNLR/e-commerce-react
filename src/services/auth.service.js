@@ -21,9 +21,9 @@ export const logout = async () => {
     return response.data;
 };
 
-export const register = async (userInfo) => {
+export const registerUser = async (userInfo) => {
     const response = await api.post('/auth/register', userInfo);
-    return response.data;
+    return response;
 };
 
 export const loginWithGoogle = async (googleToken) => {

@@ -10,9 +10,10 @@ import { useAuth } from "../../../../hooks/useAuth.jsx"
 export function EmailForm (props) {
     const [step, setStep] = useState("email")
     const [emailAlreadyUsed, setEmailAlreadyUsed] = useState(null)
-    const { login } = useAuth()
+    const { login, registerNewUser } = useAuth()
     const { closeModal } = useAuthModal()
     const navigate = useNavigate()
+    const [ isProcessingRequest, setIsProcessingRequest ] = useState(false)
 
     const {register, 
             handleSubmit,
@@ -21,7 +22,8 @@ export function EmailForm (props) {
     } = useForm() 
 
     const onSubmit = handleSubmit( async (data) => {
-
+        if (isProcessingRequest) return
+        setIsProcessingRequest(true)
         if (step === 'email') {
             try {
                 const res = await emailCheck(data.email)
@@ -35,6 +37,9 @@ export function EmailForm (props) {
             } catch (error) {
                 console.error('Error checking email:', error)
             }
+            finally {
+                setIsProcessingRequest(false)
+            }
             
             // .then(res => {
                 
@@ -47,28 +52,29 @@ export function EmailForm (props) {
                     closeModal()
                     navigate(0)
                 }
-            }).catch(err => console.error(err))
+            }).catch(err => {
+                console.error(err)
+            }).finally(() => {
+                setIsProcessingRequest(false)
+            })
             
         } else if (step === 'register') {
                 // Call auth service register function
-                register(data)
+                registerNewUser(data)
                 .then(async res => {
                 console.log('response', res)
                 // if (res.success && res.data.tempToken) {
                 //     console.log(res)
                 // }
-                if (res.status === 201) {
-                    login({email: data.email, password: data.password})
-                    .then(res => {
-                        if (res.success && res.data) {
-                            closeModal()
-                            navigate(0)
-                        }
-                    })
-                    
-                }
-                
-            }).catch(err => console.error(err))
+                if (res.success) {
+                    closeModal()
+                    navigate(0)  
+                }    
+            }).catch(err => {
+                console.error(err)
+            }).finally(() => {
+                setIsProcessingRequest(false)
+            })
         }
     })
     return (
@@ -90,7 +96,9 @@ export function EmailForm (props) {
                         })} />
                         {errors.email && <span className="span-form-error">{errors.email.message}</span>}
                     </div>
-                    <button type="submit">Continuar</button>
+                    <button type="submit" disabled={isProcessingRequest} className="form-submit-button">
+                        {isProcessingRequest ? 'Procesando...' : 'Continuar'}
+                    </button>
                 </form>
             )}
             {step === 'password' && (
@@ -125,7 +133,9 @@ export function EmailForm (props) {
                             {errors.password && <span className="span-form-error">{errors.password.message}</span>}
                         </div>
                     </form>
-                    <button onClick={onSubmit}>Iniciar Sesión</button>
+                    <button onClick={onSubmit} disabled={isProcessingRequest} className="form-submit-button">
+                        {isProcessingRequest ? 'Procesando...' : 'Iniciar Sesión'}
+                    </button>
                 </>
             )}
             {step === 'register' && (
@@ -208,7 +218,7 @@ export function EmailForm (props) {
                         })}/>
                         {errors.confirmPassword && <span className="span-form-error">{errors.confirmPassword.message}</span>}
                         </div>
-                        <input className="complete-signup-form-submit-btn" type="submit" value="Registrarme" />
+                        <input className="complete-signup-form-submit-btn form-submit-button" type="submit" value="Registrarme" disabled={isProcessingRequest} />
                     </form>
             )}
             
