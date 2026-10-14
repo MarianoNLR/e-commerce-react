@@ -106,6 +106,9 @@ export function Header () {
             <p className='header-disclaimer-bar'>
                 Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
             </p>
+            <p className='header-server-notice' role='status'>
+                El servidor puede tardar un momento en activarse luego de un período de inactividad.
+            </p>
         </header>
     )
 }

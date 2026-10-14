@@ -38,6 +38,9 @@ export function MobileHeader() {
             <p className='mobile-header-disclaimer-bar'>
                 Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
             </p>
+            <p className='mobile-header-server-notice' role='status'>
+                El servidor puede tardar un momento en activarse luego de un período de inactividad.
+            </p>
             
                 {/* {menuOpen &&  */}
                     <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>

@@ -20,7 +20,7 @@ export default function Layout(props) {
       {isMobile ? (
         <>
           <MobileHeader></MobileHeader>
-          <div className='flex flex-1 py-20 mt-4'>
+          <div className='flex flex-1 pt-40 pb-20'>
             <main className='flex-1 min-h-10vh'>
               {props.children}
             </main>
@@ -31,7 +31,7 @@ export default function Layout(props) {
       (
       <>
         <Header></Header>
-          <div className='flex flex-1 py-20 mt-4'>
+          <div className='flex flex-1 pt-40 pb-20'>
             {user?.role.includes('admin') && 
               <SidebarAdmin></SidebarAdmin>
             }
