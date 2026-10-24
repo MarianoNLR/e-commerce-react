@@ -6,6 +6,7 @@ import { PaymentSuccess } from '../../components/PaymentStatus/PaymentSuccess.js
 import { PaymentPending } from '../../components/PaymentStatus/PaymentPending.jsx';
 import { PaymentFailed } from '../../components/PaymentStatus/PaymentFailed.jsx';
 import '../../components/PaymentStatus/PaymentStatus.css';
+import { ORDER_STATUSES, isOrderFailureStatus } from '../../utils/orderStatuses.js';
 
 export function PaymentResultPage() {
     const [searchParams] = useSearchParams();
@@ -28,8 +29,8 @@ export function PaymentResultPage() {
                 const res = await api.get(`/orders/${orderId}`);
                 const orderStatus = res.data.status;
 
-                if (orderStatus === 'paid' || orderStatus === 'failure') {
-                    setStatus(orderStatus);
+                if (orderStatus === ORDER_STATUSES.PAID || isOrderFailureStatus(orderStatus)) {
+                    setStatus(orderStatus === ORDER_STATUSES.PAID ? 'paid' : 'failure');
                     setOrder(res.data);
                     return;
                 }
