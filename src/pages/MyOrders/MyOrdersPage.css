@@ -298,6 +298,7 @@
 }
 
 .my-order-status-payment_failed,
+.my-order-status-payment_rejected,
 .my-order-status-expired {
 	color: #ff6b6b;
 	background: rgba(255, 107, 107, 0.16);

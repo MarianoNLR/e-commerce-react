@@ -6,6 +6,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import api from '../../../api.js';
 import { UpdateStatusModal } from './UpdateStatusModal.jsx';
 import { ImageModal } from '../../../components/ImageModal/ImageModal.jsx';
+import { ORDER_STATUS_LABELS, getOrderStatusLabel } from '../../../utils/orderStatuses.js';
 
 
 export function OrderDetailsView() {
@@ -15,14 +16,6 @@ export function OrderDetailsView() {
     const [loadingOrder, setLoadingOrder] = useState(true);
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
     const [showProofModal, setShowProofModal] = useState(false);
-    const orderPossibleStatus = {
-        pending_payment: "Pendiente",
-        pending_validation: "Pendiente de validación",
-        paid: "Pagado",
-        shipped: "Enviado",
-        delivered: "Entregado",
-        cancelled: "Cancelado"
-    }
 
     useEffect(() => {
             api.get(`/orders/${orderId}`)
@@ -89,10 +82,10 @@ export function OrderDetailsView() {
                     )}
 
                     <div className='order-status-wrapper'>
-                        <p className='order-p'><strong>Estado:</strong> {orderPossibleStatus[orderData.status]}</p>
+                        <p className='order-p'><strong>Estado:</strong> {getOrderStatusLabel(orderData.status)}</p>
                         <button onClick={() => setShowUpdateStatusModal(true)} type="button">Actualizar Estado</button>
                         {showUpdateStatusModal && <UpdateStatusModal 
-                        orderPossibleStatus={orderPossibleStatus} 
+                        orderPossibleStatus={ORDER_STATUS_LABELS}
                         setOrderData={setOrderData} 
                         orderData={orderData} 
                         setShowUpdateStatusModal={setShowUpdateStatusModal} />}
