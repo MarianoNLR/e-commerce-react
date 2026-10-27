@@ -1,5 +1,5 @@
 const PAYMENT_METHODS = {
-    MERCADO_PAGO: 'mercado_pago',
+    MERCADO_PAGO: 'mercadopago',
     BANK_TRANSFER: 'bank_transfer',
 };
 

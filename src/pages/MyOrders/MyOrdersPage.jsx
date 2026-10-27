@@ -5,16 +5,7 @@ import { useEffect, useState } from 'react'
 import { FaBox, FaCalendarAlt, FaCreditCard } from 'react-icons/fa'
 import { PaginationControls } from '../../components/PaginationControls/PaginationControls.jsx'
 
-const STATUS_FILTERS = [
-  { value: 'all', label: 'Todos' },
-  { value: 'pending_payment', label: 'Pago pendiente' },
-  { value: 'pending_validation', label: 'Validación pendiente' },
-  { value: 'paid', label: 'Pagado' },
-  { value: 'payment_failed', label: 'Pago fallido' },
-  { value: 'shipped', label: 'Enviado' },
-  { value: 'cancelled', label: 'Cancelado' },
-  { value: 'expired', label: 'Expirado' }
-]
+import { ORDER_STATUS_FILTERS as STATUS_FILTERS, getOrderStatusLabel } from '../../utils/orderStatuses.js'
 
 export function MyOrdersPage() {
   const [orders, setOrders] = useState([])
@@ -24,16 +15,6 @@ export function MyOrdersPage() {
   const [hasMore, setHasMore] = useState(false)
   const [totalOrders, setTotalOrders] = useState(0)
   const [statusFilter, setStatusFilter] = useState('all')
-
-  const orderPossibleStatus = {
-    pending_payment: 'Pago pendiente',
-    paid: 'Pagado',
-    payment_failed: 'Pago fallido',
-    pending_validation: 'Validación pendiente',
-    shipped: 'Enviado',
-    cancelled: 'Cancelado',
-    expired: 'Expirado'
-  }
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('es-AR', {
@@ -165,7 +146,7 @@ export function MyOrdersPage() {
                 <header className='my-order-card-header'>
                   <h2>Pedido #{order.id}</h2>
                   <span className={`my-order-status my-order-status-${order.status}`}>
-                    {orderPossibleStatus[order.status] ?? order.status}
+                    {getOrderStatusLabel(order.status)}
                   </span>
                 </header>
 
