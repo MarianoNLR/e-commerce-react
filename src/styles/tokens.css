@@ -111,7 +111,8 @@
   --duration-base: 200ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
 
-  --content-max: 1240px;
+  --content-width: 80%; /* ancho del contenido principal; header y footer se alinean a este */
+  --header-h: 64px;
   --z-header: 1000;
   --z-menu: 2000;
   --z-modal: 3000;

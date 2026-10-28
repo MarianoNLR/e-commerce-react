@@ -1,61 +1,61 @@
-.footer-wrapper {
-    text-align: center;
-    background-color: #ffffff00;
-    padding: 15px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.2rem;
-    /* box-shadow: 1px -3px 17px -2px rgba(255,255,255,0.71);
-    -webkit-box-shadow: 1px -3px 17px -2px rgba(255,255,255,0.71);
-    -moz-box-shadow: 1px -3px 17px -2px rgba(255,255,255,0.71); */
-  }
-  
-  .footer-wrapper span {
-    /* text-shadow: 2px 2px 2px gray; */
-  }
+.site-footer {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+}
 
-  .social-list-item {
+.footer-inner {
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .social-list-item_image {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .social-list-item_image:hover {
-    transform: scale(1.2);
-  }
-  
-  .social-list {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-5) 0;
+}
+
+.footer-credit {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
+.social-list {
+    display: flex;
+    gap: var(--space-3);
+    margin: 0;
     padding: 0;
-  }
-  
-  .social-list-item-link {
-    cursor: pointer;
+    list-style: none;
+}
+
+.social-list-item-link {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+    padding: var(--space-1);
+    border-radius: var(--radius-pill);
+    opacity: 0.8;
+    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
 
-  .footer-info-wrapper {
-    background-color: rgb(255, 196, 0);
-    color: black;
-    font-size: 1rem;
-    font-weight: 500;
+.social-list-item-link:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.social-list-item_image {
+    width: 28px;
+    height: 28px;
 }
 
 .github-logo img {
     background-color: #ffffff;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+}
+
+@media (max-width: 640px) {
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
 }

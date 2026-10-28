@@ -7,30 +7,16 @@ import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
 import { FaUserCircle } from 'react-icons/fa'
 
-// @refresh
 export function Header () {
     const { openModal } = useAuthModal() ?? {}
-    const {user, loadingUser, logout} = useAuth()
-    const localStorageUser = window.localStorage.getItem('access_token') ? window.localStorage.getItem('access_token') : null
-    const { cartCount, loadingCartCount } = useCart()
+    const { loadingUser, logout } = useAuth()
+    const isLoggedIn = Boolean(window.localStorage.getItem('access_token'))
+    const { loadingCartCount } = useCart()
     const navigate = useNavigate()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const userMenuRef = useRef(null)
-    if (loadingUser || loadingCartCount) {
-        return <></>
-    }
 
-    const handleLogout = async () => {
-        setIsUserMenuOpen(false)
-        await logout().then(res => {
-            console.log(res)
-            navigate('/')
-        })
-        .catch(error => {
-            console.error(error)
-        })
-    }
-
+    // Los hooks van siempre antes de cualquier return condicional.
     useEffect(() => {
         if (!isUserMenuOpen) {
             return
@@ -57,58 +43,64 @@ export function Header () {
         }
     }, [isUserMenuOpen])
 
+    if (loadingUser || loadingCartCount) {
+        return <></>
+    }
+
+    const handleLogout = async () => {
+        setIsUserMenuOpen(false)
+        try {
+            await logout()
+            navigate('/')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <header className='header'>
-            {localStorageUser ?
-                <div className="header-main-wrapper">
-                    <Link to='/' className='header-logo'>Logo</Link>
-                    <div className="user-options-wrapper">
+            <div className='header-main-wrapper'>
+                <Link to='/' className='header-logo'>Logo</Link>
+                {isLoggedIn ?
+                    <div className='user-options-wrapper'>
                         <CartHeader></CartHeader>
-                        <div className="user-menu-wrapper" ref={userMenuRef}>
+                        <div className='user-menu-wrapper' ref={userMenuRef}>
                             <button
-                                className="user-menu-button"
-                                type="button"
-                                aria-haspopup="menu"
+                                className='user-menu-button'
+                                type='button'
+                                aria-label='Menú de usuario'
+                                aria-haspopup='menu'
                                 aria-expanded={isUserMenuOpen}
                                 onClick={() => setIsUserMenuOpen(prev => !prev)}
                             >
-                                <FaUserCircle aria-hidden="true" />
+                                <FaUserCircle aria-hidden='true' />
                             </button>
                             {isUserMenuOpen && (
-                                <div className="user-menu" role="menu">
+                                <div className='user-menu' role='menu'>
                                     <Link
-                                        to="/my-orders"
-                                        className="user-menu-item"
-                                        role="menuitem"
+                                        to='/my-orders'
+                                        className='user-menu-item'
+                                        role='menuitem'
                                         onClick={() => setIsUserMenuOpen(false)}
                                     >
-                                        Ver mis ordenes
+                                        Mis órdenes
                                     </Link>
                                     <button
-                                        className="user-menu-item"
-                                        type="button"
-                                        role="menuitem"
+                                        className='user-menu-item'
+                                        type='button'
+                                        role='menuitem'
                                         onClick={handleLogout}
                                     >
-                                        Cerrar sesion
+                                        Cerrar sesión
                                     </button>
                                 </div>
                             )}
                         </div>
                     </div>
-                </div>   
-                :
-                <div className="header-main-wrapper">
-                    <Link to='/' className='header-logo'>Logo</Link>
-                    <Link to='#' onClick={openModal} className='header-login-link'>Iniciar Sesión</Link>
-                </div>
-            }
-            <p className='header-disclaimer-bar'>
-                Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
-            </p>
-            <p className='header-server-notice' role='status'>
-                El servidor puede tardar un momento en activarse luego de un período de inactividad.
-            </p>
+                    :
+                    <Link to='#' onClick={openModal} className='header-login-link'>Iniciar sesión</Link>
+                }
+            </div>
         </header>
     )
 }
