@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import './FilterPanelOption.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export function FilterPanelOption (props) {
     return (
-        <>
-            <Link to={props.categoryId ? `/products/${props.categoryId}` : '/'}>
-                <div className='option-wrapper'>
-                    <p className='option'>{props.name}</p>
-                </div>
-            </Link>
-        </>
+        <NavLink
+            to={props.categoryId ? `/products/${props.categoryId}` : '/'}
+            end={!props.categoryId}
+            className='filter-chip'
+        >
+            {props.name}
+        </NavLink>
     )
 }
 

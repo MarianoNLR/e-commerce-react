@@ -35,7 +35,7 @@ export function SearchProduct () {
                 <FilterPanel></FilterPanel>
                 {loadingProducts ? (<h2>Loading...</h2>) 
                 : 
-                <ProductList products={products}></ProductList>
+                <ProductList products={products} setProducts={setProducts}></ProductList>
                 }
             </main>
         </>

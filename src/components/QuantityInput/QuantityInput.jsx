@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from 'prop-types'
 import './QuantityInput.css'
 
@@ -25,9 +24,9 @@ export function QuantityInput ({ quantity, setQuantity, stock }) {
         <>
             <div className="quantity-input-wrapper">
                 <div className="quantity-input-controls-wrapper">
-                <input type="button" className="quantity-input subtract" value="-" onClick={(e) => handleSubQuantity(e)} />
-                <span className="quantity-output">{quantity}</span>
-                <input type="button" className="quantity-input add" value="+" onClick={(e) => handleAddQuantity(e)}/>
+                <input type="button" className="quantity-input subtract" value="−" aria-label="Disminuir cantidad" onClick={(e) => handleSubQuantity(e)} />
+                <span className="quantity-output tabular" aria-live="polite">{quantity}</span>
+                <input type="button" className="quantity-input add" value="+" aria-label="Aumentar cantidad" onClick={(e) => handleAddQuantity(e)}/>
                 </div>
             </div>
         </>

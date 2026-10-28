@@ -29,10 +29,11 @@ export function ProductSortCriteria ({ products, setProducts }) {
 
     return (
         <div className='product-sort-criteria-wrapper'>
-            <label className='product-sort-criteria-label'>Ordenar por:</label>
-            <select defaultValue='price-desc' name="order-criteria" onChange={(e) => handleSortChange(e.target.value)} className="product-sort-criteria-select">
-                <option value="price-desc">Mayor Precio</option>
-                <option value="price-asc">Menor Precio</option>
+            <label htmlFor='order-criteria' className='product-sort-criteria-label'>Ordenar por</label>
+            <select id='order-criteria' defaultValue='' name="order-criteria" onChange={(e) => handleSortChange(e.target.value)} className="product-sort-criteria-select">
+                <option value="" disabled>Seleccionar</option>
+                <option value="price-desc">Mayor precio</option>
+                <option value="price-asc">Menor precio</option>
                 <option value="name-asc">Nombre (A-Z)</option>
                 <option value="name-desc">Nombre (Z-A)</option>
             </select>

@@ -26,11 +26,11 @@ export function FilterPanel () {
     }, [])
 
     if (loading) {
-        return <>Cargando...</>
+        return <p className='filters-status' role='status'>Cargando categorías…</p>
     }
 
     if (error) {
-        return <>Error al cargar las categorias</>
+        return <p className='filters-status' role='alert'>No se pudieron cargar las categorías. Recargá la página para intentar de nuevo.</p>
     }
 
     return (
