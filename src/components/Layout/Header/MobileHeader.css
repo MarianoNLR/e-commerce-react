@@ -63,7 +63,7 @@
   top: 100%; 
   left: 0;
   width: 100%;
-  background: #111;
+  background: var(--bg);
   padding: 1rem 1rem;
   display: flex;
   flex-direction: column;
