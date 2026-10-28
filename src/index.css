@@ -65,14 +65,17 @@ textarea {
   font-family: inherit;
 }
 
+/* Botón neutro por defecto; las variantes (.btn-primary, etc.) viven en styles/forms.css */
 button {
   border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  background-color: var(--surface-raised);
+  color: var(--text);
   cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease);
+  transition: border-color var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
 }
 button:hover {
   border-color: var(--accent);

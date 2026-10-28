@@ -1,47 +1,52 @@
 .payment-method-card-container {
     display: flex;
-    flex-direction: row;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: .5rem;
-    width: 80%;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    padding: var(--space-4);
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: left;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: border-color var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
 }
 
 .payment-method-card-container:hover {
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    background-color: #818181b7;
+    border-color: var(--accent);
+    background-color: var(--surface-raised);
 }
 
 .icon-wrapper {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    color: #007bff;
-    padding: 1rem;
-    max-width: 20%;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background-color: var(--media-bg);
+    border-radius: var(--radius-md);
 }
 
 .icon-wrapper img {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
 }
 
 .info-wrapper {
     display: flex;
     flex-direction: column;
-    text-align: start;
-    justify-content: center;
+    gap: var(--space-1);
 }
 
 .payment-method-card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
 }
 
 .payment-method-card-description {
-    font-size: 0.9rem;
-    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.4;
 }

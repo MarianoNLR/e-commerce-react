@@ -138,6 +138,7 @@ export function UpdateProductPage() {
                 buttonText="Procesando..."
                 hideCloseButton={true}
                 isActionDisabled={true}
+                variant="info"
             />
         </>
     );

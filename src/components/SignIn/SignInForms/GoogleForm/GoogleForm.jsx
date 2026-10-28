@@ -35,18 +35,18 @@ export function GoogleForm (props) {
     return (
         <>
             <form className='complete-google-signup-form' onSubmit={handleSubmit(onSubmit)}>
-                <h2>Completa tus datos</h2>
+                <h2>Completá tus datos</h2>
                 <div className='input-group'>
-                    <label className='input-label is_required' htmlFor="">Nombre</label>
-                    <input type="text" placeholder='Ingrese su nombre' {...register('name', { required: true, minLength: 2 })} />
-                    {errors.name && <span>This field is required</span>}
+                    <label className='input-label is_required' htmlFor="google-name">Nombre</label>
+                    <input type="text" id="google-name" placeholder='Ingresá tu nombre' {...register('name', { required: true, minLength: 2 })} />
+                    {errors.name && <span className="span-form-error" role="alert">Este campo es obligatorio</span>}
                 </div>
                 <div className='input-group'>
-                    <label className='input-label is_required' htmlFor="">Apellido</label>
-                    <input type="text" placeholder='Ingrese su apellido' {...register('lastName', { required: true, minLength: 2 })} />
-                    {errors.lastName && <span>This field is required</span>}
+                    <label className='input-label is_required' htmlFor="google-lastName">Apellido</label>
+                    <input type="text" id="google-lastName" placeholder='Ingresá tu apellido' {...register('lastName', { required: true, minLength: 2 })} />
+                    {errors.lastName && <span className="span-form-error" role="alert">Este campo es obligatorio</span>}
                 </div>
-                <button type="submit">Registrarme</button>
+                <button type="submit" className="btn btn-primary btn-block">Registrarme</button>
             </form>
         </>
     )

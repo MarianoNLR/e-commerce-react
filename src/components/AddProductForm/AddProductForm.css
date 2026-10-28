@@ -8,28 +8,28 @@
     padding: 1rem 5rem;
 }
 
-.form-group {
+.add-product-form .form-group {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"] {
+.add-product-form .form-group input[type="text"],
+.add-product-form .form-group input[type="number"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     flex: 1;
 }
 
-.form-group select {
+.add-product-form .form-group select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     flex: 1;
 }
 
-.form-group label {
+.add-product-form .form-group label {
     display: flex;
     flex: 0 0 200px;
     font-weight: bold;
@@ -44,14 +44,14 @@
     flex: 0 0 20px;
 }
 
-.form-group:last-child {
+.add-product-form .form-group:last-child {
     margin-top: 12px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.form-group input[type="submit"] {
+.add-product-form .form-group input[type="submit"] {
     display: block;
     width: 100%;
     background-color: #28a745;
@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.form-group input[type="submit"]:hover {
+.add-product-form .form-group input[type="submit"]:hover {
     background-color: #218838;
 }
 
@@ -71,7 +71,7 @@
     flex-direction: row;
 }
 
-.form-group span{
+.add-product-form .form-group span{
     text-align: end;
     color: rgb(255, 107, 107);
 }
@@ -86,7 +86,7 @@
         flex-direction: column;
     }
     
-    .form-group label {
+    .add-product-form .form-group label {
         flex: 0 0 auto;
     }
 }

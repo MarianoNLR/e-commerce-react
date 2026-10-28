@@ -164,6 +164,7 @@ export function AddProductForm() {
         buttonText={feedbackModal.type === "loading" ? "Procesando..." : "Entendido"}
         hideCloseButton={feedbackModal.type === "loading"}
         isActionDisabled={feedbackModal.type === "loading"}
+        variant={feedbackModal.type === "success" ? "success" : feedbackModal.type === "loading" ? "info" : "error"}
     />
     </>
     );

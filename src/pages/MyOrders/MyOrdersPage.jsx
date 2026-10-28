@@ -301,6 +301,7 @@ export function MyOrdersPage() {
         title={feedbackModal.title}
         description={feedbackModal.description}
         icon={feedbackModal.type === 'success' ? <FaCheckCircle /> : <FaExclamationCircle />}
+        variant={feedbackModal.type === 'success' ? 'success' : 'error'}
         buttonText='Entendido'
       />
     </section>

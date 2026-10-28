@@ -13,6 +13,7 @@ export function FeedbackModal({
     buttonText = 'Entendido',
     hideCloseButton = false,
     isActionDisabled = false,
+    variant = 'success',
 }) {
     useEffect(() => {
         if (!isOpen) return undefined;
@@ -50,7 +51,7 @@ export function FeedbackModal({
                 )}
 
                 <div className={styles.visualWrapper}>
-                    <div className={styles.iconWrapper}>
+                    <div className={`${styles.iconWrapper} ${styles[variant] || ''}`}>
                         <span className={isSpinningIcon ? styles.spin : ''}>
                             {icon || <FaCheckCircle />}
                         </span>
@@ -64,7 +65,7 @@ export function FeedbackModal({
 
                 <button
                     type="button"
-                    className={styles.btnAcknowledge}
+                    className={`${styles.btnAcknowledge} btn btn-primary`}
                     onClick={onClose}
                     disabled={isActionDisabled}
                 >
@@ -85,4 +86,5 @@ FeedbackModal.propTypes = {
     buttonText: propTypes.string,
     hideCloseButton: propTypes.bool,
     isActionDisabled: propTypes.bool,
+    variant: propTypes.oneOf(['success', 'error', 'info']),
 };

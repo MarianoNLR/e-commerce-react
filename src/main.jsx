@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import './styles/tokens.css'
 import './index.css'
+import './styles/forms.css'
 import { initTheme } from './lib/theme.js'
 
 initTheme()

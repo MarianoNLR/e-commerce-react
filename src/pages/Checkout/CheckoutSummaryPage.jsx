@@ -50,7 +50,7 @@ export function CheckoutSummaryPage() {
             setFeedbackModal({
                 isOpen: true,
                 title: 'No se pudo confirmar el pedido',
-                description: 'Ocurrio un error al crear la orden. Intenta nuevamente en unos minutos.',
+                description: 'Ocurrió un error al crear la orden. Probá de nuevo en unos minutos.',
                 type: 'error',
             });
         } finally {
@@ -68,49 +68,49 @@ export function CheckoutSummaryPage() {
 
     return (
         <main className='checkout-summary-page'>
-            <h1>Resumen del Pedido</h1>
+            <h1>Resumen del pedido</h1>
             <div className='customer-data-section'>
-                <h2>Detalles del Cliente</h2>
+                <h2>Datos de envío</h2>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Nombre: </p>
+                    <p className='order-summary-group-label'>Nombre</p>
                     <p className='order-summary-group-value'>{customerData?.name}</p>
                 </div>
 
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Apellido: </p>
+                    <p className='order-summary-group-label'>Apellido</p>
                     <p className='order-summary-group-value'>{customerData?.lastName}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Email: </p>
+                    <p className='order-summary-group-label'>Email</p>
                     <p className='order-summary-group-value'>{customerData?.email}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Telefono: </p>
+                    <p className='order-summary-group-label'>Teléfono</p>
                     <p className='order-summary-group-value'>{customerData?.phone}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Direccion: </p>
+                    <p className='order-summary-group-label'>Dirección</p>
                     <p className='order-summary-group-value'>{customerData?.address}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Estado: </p>
+                    <p className='order-summary-group-label'>Provincia</p>
                     <p className='order-summary-group-value'>{customerData?.state}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Ciudad: </p>
+                    <p className='order-summary-group-label'>Ciudad</p>
                     <p className='order-summary-group-value'>{customerData?.city}</p>
                 </div>
                 <div className='order-summary-group'>
-                    <p className='order-summary-group-label'>Codigo Postal: </p>
+                    <p className='order-summary-group-label'>Código postal</p>
                     <p className='order-summary-group-value'>{customerData?.zip}</p>
                 </div>
             </div>
             <div className='payment-method-section'>
-                <h2>Método de Pago</h2>
+                <h2>Método de pago</h2>
                 <p>{paymentMethod}</p>
             </div>
-            <button className='confirm-order-button' type='button' onClick={handleConfirmOrder} disabled={isProcessingOrder}>
-                {isProcessingOrder ? 'Procesando...' : 'Confirmar pedido'}
+            <button className='confirm-order-button btn btn-primary' type='button' onClick={handleConfirmOrder} disabled={isProcessingOrder}>
+                {isProcessingOrder ? 'Procesando…' : 'Confirmar pedido'}
             </button>
 
             <FeedbackModal
@@ -127,6 +127,7 @@ export function CheckoutSummaryPage() {
                 buttonText={isProcessingOrder ? 'Procesando...' : 'Entendido'}
                 hideCloseButton={isProcessingOrder}
                 isActionDisabled={isProcessingOrder}
+                variant={isProcessingOrder ? 'info' : 'error'}
             />
             
         </main>
