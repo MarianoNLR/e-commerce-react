@@ -60,43 +60,8 @@
     color: #e6e8ef;
 }
 
-.bankTransferForm {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.proofUploadLabel {
-    color: #d6dae5;
-    font-weight: 600;
-}
-
-.proofFileName {
-    margin: 0;
-    color: #c7cbd6;
-}
-
-.proofSubmitButton {
-    width: fit-content;
-    border: none;
-    border-radius: 8px;
-    padding: 0.65rem 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: #111;
-    background: #f2f4f8;
-}
-
-.proofSubmitButton:hover {
-    background: #ffffff;
-}
-
 @media (max-width: 640px) {
     .paymentMethodCard {
         padding: 1rem;
-    }
-
-    .proofSubmitButton {
-        width: 100%;
     }
 }

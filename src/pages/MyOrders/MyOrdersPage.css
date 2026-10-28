@@ -325,3 +325,48 @@
 		margin-left: 0;
 	}
 }
+
+.my-order-card .my-order-proof-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 0.9rem;
+	padding-top: 0.9rem;
+	border-top: 1px solid #3a3a3a;
+}
+
+.my-order-card .my-order-proof-hint {
+	color: #f2c14b;
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.my-order-card .my-order-proof-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	border: none;
+	border-radius: 8px;
+	padding: 0.6rem 1rem;
+	cursor: pointer;
+	font-weight: 600;
+	color: #111;
+	background: #f2f4f8;
+}
+
+.my-order-card .my-order-proof-button:hover {
+	background: #ffffff;
+}
+
+@media (max-width: 640px) {
+	.my-order-card .my-order-proof-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.my-order-card .my-order-proof-button {
+		justify-content: center;
+	}
+}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import api from '../../../api.js';
 import { FeedbackModal } from '../../../components/FeedbackModal/FeedbackModal.jsx';
+import { PaymentProofForm } from '../../../components/PaymentProofForm/PaymentProofForm.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from './PaymentMethods.module.css';
 
@@ -20,11 +20,9 @@ const formatPrice = (value) => {
 };
 
 export function BankTransferSection({ orderData }) {
-	const [proofFile, setProofFile] = useState(null);
 	const orderId = orderData?.id || null;
 	const orderTotal = orderData?.total;
-	const [isSubmittingProof, setIsSubmittingProof] = useState(false);
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 	const [feedbackModal, setFeedbackModal] = useState({
 		isOpen: false,
 		title: '',
@@ -34,20 +32,19 @@ export function BankTransferSection({ orderData }) {
 
 	const closeFeedbackModal = () => {
 		setFeedbackModal((prev) => ({ ...prev, isOpen: false }));
-        navigate('/my-orders');
+		navigate('/my-orders');
 	};
 
-	const handleProofChange = (event) => {
-		const selectedFile = event.target.files?.[0] || null;
-		setProofFile(selectedFile);
+	const handleProofUploaded = () => {
+		setFeedbackModal({
+			isOpen: true,
+			title: 'Comprobante recibido',
+			description: 'Recibimos tu comprobante y lo confirmaremos cuanto antes. Muchas gracias por tu compra.',
+			type: 'success',
+		});
 	};
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		if (!proofFile) {
-			return;
-		}
-
+	const handleProofUploadFailed = () => {
 		if (!orderId) {
 			setFeedbackModal({
 				isOpen: true,
@@ -58,44 +55,12 @@ export function BankTransferSection({ orderData }) {
 			return;
 		}
 
-        if (isSubmittingProof) {
-            return;
-        }
-
-		setIsSubmittingProof(true);
-
-		try {
-			const formData = new FormData();
-			formData.append('image', proofFile);
-
-			const response = await api.post(`/orders/${orderId}/payment_proof`, formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			});
-
-			if (!response?.success) {
-				throw new Error('No se pudo registrar el comprobante.');
-			}
-
-			setFeedbackModal({
-				isOpen: true,
-				title: 'Comprobante recibido',
-				description: 'Recibimos tu comprobante y lo confirmaremos cuanto antes. Muchas gracias por tu compra.',
-				type: 'success',
-			});
-			setProofFile(null);
-			event.target.reset();
-		} catch (error) {
-			setFeedbackModal({
-				isOpen: true,
-				title: 'No se pudo enviar el comprobante',
-				description: 'Ocurrio un error al subir la imagen. Intenta nuevamente en unos minutos.',
-				type: 'error',
-			});
-		} finally {
-			setIsSubmittingProof(false);
-		}
+		setFeedbackModal({
+			isOpen: true,
+			title: 'No se pudo enviar el comprobante',
+			description: 'Ocurrio un error al subir el comprobante. Intenta nuevamente en unos minutos.',
+			type: 'error',
+		});
 	};
 
 	return (
@@ -111,26 +76,11 @@ export function BankTransferSection({ orderData }) {
 				<strong>Total de la orden:</strong> {formatPrice(orderTotal)}
 			</p>
 
-			<form className={styles.bankTransferForm} onSubmit={handleSubmit}>
-				<label className={styles.proofUploadLabel} htmlFor='proof-image'>
-					Comprobante de pago (imagen)
-				</label>
-				<input
-					id='proof-image'
-					type='file'
-					accept='image/*'
-					onChange={handleProofChange}
-					required
-				/>
-
-				{proofFile && (
-					<p className={styles.proofFileName}>Archivo seleccionado: {proofFile.name}</p>
-				)}
-
-				<button type='submit' className={styles.proofSubmitButton}>
-					{isSubmittingProof ? 'Enviando comprobante...' : 'Enviar comprobante'}
-				</button>
-			</form>
+			<PaymentProofForm
+				orderId={orderId}
+				onSuccess={handleProofUploaded}
+				onError={handleProofUploadFailed}
+			/>
 
 			<FeedbackModal
 				isOpen={feedbackModal.isOpen}

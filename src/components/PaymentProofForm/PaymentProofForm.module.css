@@ -1,0 +1,48 @@
+.proofForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.proofUploadLabel {
+    color: #d6dae5;
+    font-weight: 600;
+}
+
+.proofFileName {
+    margin: 0;
+    color: #c7cbd6;
+    word-break: break-word;
+}
+
+.proofError {
+    margin: 0;
+    color: #ff8a8a;
+    font-weight: 600;
+}
+
+.proofSubmitButton {
+    width: fit-content;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #111;
+    background: #f2f4f8;
+}
+
+.proofSubmitButton:hover {
+    background: #ffffff;
+}
+
+.proofSubmitButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+    .proofSubmitButton {
+        width: 100%;
+    }
+}
