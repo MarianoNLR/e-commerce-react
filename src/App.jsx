@@ -25,10 +25,12 @@ import { ProductsModerationPage } from './pages/Moderation/ProductsModerationPag
 import { CategoriesPage } from './pages/Moderation/CategoriesPage/CategoriesPage.jsx'
 import { PaymentResultPage } from './pages/Checkout/PaymentResultPage.jsx'
 import { MyOrdersPage } from './pages/MyOrders/MyOrdersPage.jsx'
+import { ScrollToTop } from './components/ScrollToTop/ScrollToTop.jsx'
 function App() {
 
   return (
     <> 
+        <ScrollToTop />
         <AuthProvider>
           <AuthModalProvider>
             <CartProvider>
