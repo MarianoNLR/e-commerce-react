@@ -45,7 +45,6 @@ export function CategoriesPage() {
         if (isCreating) {
             setCategories(prev => [...prev, updatedCategory]);
         } else {
-            console.log(updatedCategory)
             setCategories(prev => 
                 prev.map( category => category._id === updatedCategory._id ? updatedCategory : category )
             );
@@ -64,21 +63,21 @@ export function CategoriesPage() {
             setConfirmModalOpened(false);
         } catch (error) {
             console.error('Error deleting category:', error);
-            alert('Error al eliminar la categoría');
+            setConfirmModalOpened(false);
         }
     };
 
     if (loading) {
-        return <div className={styles.loadingContainer}>Cargando categorías...</div>;
+        return <div className={styles.loadingContainer} role="status">Cargando categorías…</div>;
     }
 
     return (
         // Header page
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1>Gestión de Categorías</h1>
-                <button className={styles.btnCreate} onClick={handleCreateCategory}>
-                    <FaPlus /> Nueva Categoría
+                <h1>Gestión de categorías</h1>
+                <button type="button" className="btn btn-primary" onClick={handleCreateCategory}>
+                    <FaPlus aria-hidden="true" /> Nueva categoría
                 </button>
             </div>
 
@@ -94,23 +93,25 @@ export function CategoriesPage() {
                             <div className={styles.categoryInfo}>
                                 <h3 className={styles.categoryName}>{category.name}</h3>
                                 <span className={styles.categoryCount}>
-                                    {category.productCount || 0} productos
+                                    {category.productCount || 0} {category.productCount === 1 ? 'producto' : 'productos'}
                                 </span>
                             </div>
                             <div className={styles.categoryActions}>
-                                <button 
-                                    className={styles.btnEdit}
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary btn-icon"
                                     onClick={() => handleEditCategory(category)}
-                                    title="Editar categoría"
+                                    aria-label={`Editar categoría ${category.name}`}
                                 >
-                                    <FaEdit />
+                                    <FaEdit aria-hidden="true" />
                                 </button>
-                                <button 
-                                    className={styles.btnDelete}
+                                <button
+                                    type="button"
+                                    className="btn btn-danger btn-icon"
                                     onClick={() => handleDeleteCategory(category)}
-                                    title="Eliminar categoría"
+                                    aria-label={`Eliminar categoría ${category.name}`}
                                 >
-                                    <FaTrash />
+                                    <FaTrash aria-hidden="true" />
                                 </button>
                             </div>
                         </div>

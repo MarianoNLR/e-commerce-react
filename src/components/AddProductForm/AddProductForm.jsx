@@ -5,7 +5,6 @@ import { ImageUpload } from "../ImageUpload/ImageUpload.jsx";
 import { PreviewImages } from "../PreviewImages/PreviewImages.jsx";
 import { FeedbackModal } from "../FeedbackModal/FeedbackModal.jsx";
 import api from "../../api";
-import "./AddProductForm.css";
 export function AddProductForm() {
     const {register, handleSubmit, watch, control, reset, formState: { errors, isSubmitting }} = useForm();
     const [categories, setCategories] = useState([]);
@@ -85,68 +84,54 @@ export function AddProductForm() {
 
     return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)} className="add-product-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="admin-form" noValidate>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productName">Nombre del Producto</label>
-                <input type="text" id="productName" {...register("productName", { required: true })} placeholder="Nombre del Producto"/>
-            </div>
-            {errors.productName && <span>Este campo es obligatorio</span>}
+            <label htmlFor="productName">Nombre del producto</label>
+            <input type="text" id="productName" className="form-input" {...register("productName", { required: true })} placeholder="Ej: Teclado mecánico 60%" />
+            {errors.productName && <span className="field-error" role="alert">Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productPrice">Precio del Producto</label>
-                <input type="number" id="productPrice" {...register("productPrice", { required: true })} placeholder="Precio del Producto"/>
-            </div>
-            {errors.productPrice && <span>Este campo es obligatorio</span>}
+            <label htmlFor="productPrice">Precio</label>
+            <input type="number" id="productPrice" className="form-input" {...register("productPrice", { required: true })} placeholder="0" min="0" />
+            {errors.productPrice && <span className="field-error" role="alert">Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productStock">Stock del Producto</label>
-                <input type="number" id="productStock" {...register("productStock", { required: true })} placeholder="Stock del Producto"/>
-            </div>
-            {errors.productStock && <span>Este campo es obligatorio</span>}
+            <label htmlFor="productStock">Stock</label>
+            <input type="number" id="productStock" className="form-input" {...register("productStock", { required: true })} placeholder="0" min="0" />
+            {errors.productStock && <span className="field-error" role="alert">Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productCategoryId">Categoría del Producto</label>
-                <select {...register("productCategoryId", { required: true })}>
-                    <option value="">Seleccionar una categoría</option>
-                    {categories.map((category) => (
-                        <option key={category.id} value={category.id}>{category.name}</option>
-                    ))}
-                </select>
-            </div>
-            {errors.productCategoryId && <span>Este campo es obligatorio</span>}
+            <label htmlFor="productCategoryId">Categoría</label>
+            <select id="productCategoryId" className="form-input" {...register("productCategoryId", { required: true })}>
+                <option value="">Seleccionar una categoría</option>
+                {categories.map((category) => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+            </select>
+            {errors.productCategoryId && <span className="field-error" role="alert">Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper">
-                <label htmlFor="productDescription">Descripción del Producto</label>
-                <input type="text" id="productDescription" {...register("productDescription", { required: true })} placeholder="Descripción del Producto"/>
-            </div>
-            {errors.productDescription && <span>Este campo es obligatorio</span>}
+            <label htmlFor="productDescription">Descripción</label>
+            <textarea id="productDescription" className="form-input" {...register("productDescription", { required: true })} placeholder="Descripción del producto" />
+            {errors.productDescription && <span className="field-error" role="alert">Este campo es obligatorio</span>}
         </div>
         <div className="form-group">
-            <div className="input-wrapper image-group">
-                <label>Imágenes del Producto</label>
-               <Controller
-                    name="images"
-                    control={control}
-                    rules={{ required: true }}
-                    defaultValue={[]}
-                    render={({ field }) => (
-                        <>
-                            <ImageUpload images={field.value || []} onChange={field.onChange} />
-                            <PreviewImages images={field.value || []} onRemove={field.onChange} />
-                            {errors.images && <span>Este campo es obligatorio</span>}
-                        </>
-                    )}
-                />
-            </div>
+            <span className="form-label">Imágenes</span>
+            <Controller
+                name="images"
+                control={control}
+                rules={{ required: true }}
+                defaultValue={[]}
+                render={({ field }) => (
+                    <>
+                        <ImageUpload images={field.value || []} onChange={field.onChange} />
+                        <PreviewImages images={field.value || []} onRemove={field.onChange} />
+                        {errors.images && <span className="field-error" role="alert">Agregá al menos una imagen</span>}
+                    </>
+                )}
+            />
         </div>
-        <div className="form-group">
-            <input type="submit" value="Agregar Producto" disabled={loading || isSubmitting} />
-        </div>
+        <button type="submit" className="btn btn-primary btn-block" disabled={loading || isSubmitting}>Agregar producto</button>
     </form>
     <FeedbackModal
         isOpen={feedbackModal.isOpen}
@@ -161,7 +146,7 @@ export function AddProductForm() {
                     : <FaExclamationCircle />
         }
         isSpinningIcon={feedbackModal.type === "loading"}
-        buttonText={feedbackModal.type === "loading" ? "Procesando..." : "Entendido"}
+        buttonText={feedbackModal.type === "loading" ? "Procesando…" : "Entendido"}
         hideCloseButton={feedbackModal.type === "loading"}
         isActionDisabled={feedbackModal.type === "loading"}
         variant={feedbackModal.type === "success" ? "success" : feedbackModal.type === "loading" ? "info" : "error"}

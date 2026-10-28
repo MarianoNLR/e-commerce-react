@@ -2,9 +2,9 @@ import { AddProductForm } from "../../../components/AddProductForm/AddProductFor
 
 export function AddProductPage() {
   return (
-    <>
-          <h1>Agregar Producto</h1>
-          <AddProductForm></AddProductForm>
-    </>
+    <section className="admin-page admin-form-page">
+      <h1>Agregar producto</h1>
+      <AddProductForm />
+    </section>
   );
 }

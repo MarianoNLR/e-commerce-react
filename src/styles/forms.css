@@ -96,6 +96,7 @@
 
 .input-group label,
 .form-group label,
+.form-group .form-label,
 .input-label {
   color: var(--text-muted);
   font-size: var(--text-sm);

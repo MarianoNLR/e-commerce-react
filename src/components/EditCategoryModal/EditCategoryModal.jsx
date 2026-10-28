@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaTimes } from 'react-icons/fa';
 import api from '../../api.js';
-import styles from './EditCategoryModal.module.css';
 import { useForm } from 'react-hook-form';
 
 export function EditCategoryModal({ isOpen, onClose, category, onCategoryUpdated, isCreating }) {
@@ -13,6 +11,14 @@ export function EditCategoryModal({ isOpen, onClose, category, onCategoryUpdated
             name: category ? category.name : ''
         }
     })
+
+    useEffect(() => {
+        const handleEsc = (event) => {
+            if (event.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handleEsc);
+        return () => window.removeEventListener('keydown', handleEsc);
+    }, [onClose]);
 
     useEffect(() => {
         if (category) {
@@ -58,38 +64,29 @@ export function EditCategoryModal({ isOpen, onClose, category, onCategoryUpdated
     if (!isOpen) return null;
 
     return (
-        <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
-                <button 
-                    className={styles.closeButton}
-                    onClick={handleCancel}
-                    type="button"
-                >
-                    <FaTimes />
-                </button>
+        <div className="dialog-overlay">
+            <div className="dialog" role="dialog" aria-modal="true" aria-labelledby="category-modal-title">
+                <h2 id="category-modal-title">{isCreating ? 'Nueva categoría' : 'Editar categoría'}</h2>
 
-                <div className={styles.modalHeader}>
-                    <h2>{isCreating ? 'Nueva Categoría' : 'Editar Categoría'}</h2>
-                </div>
-
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                    <div className={styles.formGroup}>
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                    <div className="form-group">
                         <label htmlFor="categoryName">Nombre de la categoría</label>
-                        <input type="text" id="categoryName" {...register('name', { required: 'El nombre es requerido', 
+                        <input type="text" id="categoryName" className="form-input" {...register('name', { required: 'El nombre es requerido', 
                             minLength: { 
                                 value: 2, 
                                 message: 'El nombre debe tener al menos 2 caracteres' 
                                 } 
                         })}
-                        placeholder="Ej: Electrónica, Cables..."
+                        placeholder="Ej: Periféricos, Cables…"
                         />
-                        {error && <span className={styles.error}>{error}</span>}
+                        {errors.name && <span className="field-error" role="alert">{errors.name.message}</span>}
+                        {error && <span className="field-error" role="alert">{error}</span>}
                     </div>
 
-                    <div className={styles.modalActions}>
+                    <div className="dialog-actions">
                         <button
                             type="button"
-                            className={styles.btnCancel}
+                            className="btn btn-secondary"
                             onClick={handleCancel}
                             disabled={loading}
                         >
@@ -97,10 +94,10 @@ export function EditCategoryModal({ isOpen, onClose, category, onCategoryUpdated
                         </button>
                         <button
                             type="submit"
-                            className={styles.btnSave}
+                            className="btn btn-primary"
                             disabled={loading}
                         >
-                            {loading ? 'Guardando...' : isCreating ? 'Crear' : 'Guardar'}
+                            {loading ? 'Guardando…' : isCreating ? 'Crear' : 'Guardar'}
                         </button>
                     </div>
                 </form>

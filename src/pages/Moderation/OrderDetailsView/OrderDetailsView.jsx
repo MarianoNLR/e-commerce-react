@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from "react";
-import PropTypes from 'prop-types';
 import './OrderDetailsView.css';
 import { useLocation, useParams } from 'react-router-dom';
 import api from '../../../api.js';
 import { UpdateStatusModal } from './UpdateStatusModal.jsx';
 import { ImageModal } from '../../../components/ImageModal/ImageModal.jsx';
-import { ORDER_STATUS_LABELS, getOrderStatusLabel } from '../../../utils/orderStatuses.js';
+import { OrderStatusBadge } from '../../../components/OrderStatusBadge/OrderStatusBadge.jsx';
+import { ORDER_STATUS_LABELS } from '../../../utils/orderStatuses.js';
 
 
 export function OrderDetailsView() {
@@ -30,72 +30,80 @@ export function OrderDetailsView() {
     }, [orderId]);
 
     if (loadingOrder) {
-        return <div>Loading...</div>;
+        return <section className="admin-page admin-page-status" role="status">Cargando pedido…</section>;
     }
 
+    if (!orderData) {
+        return <section className="admin-page admin-page-status" role="alert">No se pudo cargar el pedido.</section>;
+    }
+
+    const formatPrice = (price) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
+
     return (
-        <div className="order-details-view">
-            {!loadingOrder && 
-                
-                <>
-                    <p className='order-p'><strong>Orden ID:</strong> {orderData.id}</p>
-                    <p className='order-p'><strong>Nombre del Cliente:</strong> {orderData.user.name}</p>
-                    
-                   
-                    <div className='order-details-products-container'>
-                        <h2>Productos:</h2>
-                        <ul className='order-details-products-list'>
-                            {orderData.items.map((productDetails, index) => (
-                                <li key={index}>
-                                    {productDetails.name} x {productDetails.quantity} = ${productDetails.priceAtPurchase}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <p className='order-p'><strong>Total:</strong> ${orderData.total}</p>
-                    <p className='order-p'><strong>Fecha de pedido:</strong> {new Date(orderData.createdAt).toLocaleString()}</p>
+        <section className="admin-page order-details-view">
+            <div className="admin-page-header">
+                <h1>Pedido #{orderData.id}</h1>
+                <OrderStatusBadge status={orderData.status} />
+            </div>
 
-                    <div className='order-details-products-container'>
-                        <h2>Comprobante de pago:</h2>
-                        {orderData.proof_of_payment_url ? (
-                            <button
-                                type='button'
-                                onClick={() => setShowProofModal(true)}
-                                className='order-proof-link'
-                                title='Ver comprobante de pago'
-                            >
-                                <img
-                                    src={orderData.proof_of_payment_url}
-                                    alt='Comprobante de pago'
-                                    className='order-proof-preview'
-                                    loading='lazy'
-                                />
-                                <span className='order-proof-hint'>Click para ampliar imagen</span>
-                            </button>
-                        ) : (
-                            <p className='order-p'>No hay comprobante de pago disponible.</p>
-                        )}
-                    </div>
+            <div className="detail-card">
+                <dl className="order-details-summary">
+                    <div className="detail-row"><dt>Cliente</dt><dd>{orderData.user?.name}</dd></div>
+                    <div className="detail-row"><dt>Fecha del pedido</dt><dd>{new Date(orderData.createdAt).toLocaleString('es-AR')}</dd></div>
+                </dl>
 
-                    {showProofModal && (
-                        <ImageModal imageUrl={orderData.proof_of_payment_url} onClose={() => setShowProofModal(false)} />
+                <div>
+                    <h2>Productos</h2>
+                    <ul className="order-details-products-list">
+                        {orderData.items.map((productDetails, index) => (
+                            <li key={index}>
+                                <span>{productDetails.name} <span className="order-details-qty">× {productDetails.quantity}</span></span>
+                                <span className="tabular">{formatPrice(productDetails.priceAtPurchase)}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="order-details-total"><span>Total</span><strong className="tabular">{formatPrice(orderData.total)}</strong></p>
+                </div>
+
+                <div>
+                    <h2>Comprobante de pago</h2>
+                    {orderData.proof_of_payment_url ? (
+                        <button
+                            type="button"
+                            onClick={() => setShowProofModal(true)}
+                            className="order-proof-link"
+                            title="Ver comprobante de pago"
+                        >
+                            <img
+                                src={orderData.proof_of_payment_url}
+                                alt="Comprobante de pago"
+                                className="order-proof-preview"
+                                loading="lazy"
+                            />
+                            <span className="order-proof-hint">Click para ampliar</span>
+                        </button>
+                    ) : (
+                        <p className="order-details-empty">No hay comprobante de pago disponible.</p>
                     )}
+                </div>
 
-                    <div className='order-status-wrapper'>
-                        <p className='order-p'><strong>Estado:</strong> {getOrderStatusLabel(orderData.status)}</p>
-                        <button onClick={() => setShowUpdateStatusModal(true)} type="button">Actualizar Estado</button>
-                        {showUpdateStatusModal && <UpdateStatusModal 
-                        orderPossibleStatus={ORDER_STATUS_LABELS}
-                        setOrderData={setOrderData} 
-                        orderData={orderData} 
-                        setShowUpdateStatusModal={setShowUpdateStatusModal} />}
-                    </div>
-                </>
-                }
-            
+                <div className="order-status-wrapper">
+                    <button onClick={() => setShowUpdateStatusModal(true)} type="button" className="btn btn-primary">Actualizar estado</button>
+                </div>
+            </div>
 
-            
-        </div>
+            {showProofModal && (
+                <ImageModal imageUrl={orderData.proof_of_payment_url} onClose={() => setShowProofModal(false)} />
+            )}
+
+            {showUpdateStatusModal && (
+                <UpdateStatusModal
+                    orderPossibleStatus={ORDER_STATUS_LABELS}
+                    setOrderData={setOrderData}
+                    orderData={orderData}
+                    setShowUpdateStatusModal={setShowUpdateStatusModal} />
+            )}
+        </section>
     )
 }
 
