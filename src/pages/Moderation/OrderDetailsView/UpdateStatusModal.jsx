@@ -7,7 +7,7 @@ export function UpdateStatusModal({ orderPossibleStatus, setOrderData, orderData
         })
         .then(res => {
             setShowUpdateStatusModal(false);
-            setOrderData(prev => ({...prev, status: res.data.status}));
+            setOrderData(prev => ({...prev, status: res.data.order.status}));
         })
         .catch(err => {
             console.error(err);
