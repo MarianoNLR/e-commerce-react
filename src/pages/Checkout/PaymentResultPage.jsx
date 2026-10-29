@@ -47,7 +47,17 @@ export function PaymentResultPage() {
                 return;
             }
         }
-        poll();
+        // Primero se verifica el pago directamente con el backend, sin esperar al webhook.
+        // Si falla, el polling sigue funcionando como respaldo.
+        const verifyThenPoll = async () => {
+            try {
+                await api.post('/checkout/verify-payment', { payment_id: paymentId, order_id: orderId });
+            } catch (err) {
+                console.error('No se pudo verificar el pago al volver de la pasarela:', err);
+            }
+            poll();
+        };
+        verifyThenPoll();
     }, []);
 
     if (status === 'loading') {
