@@ -12,6 +12,8 @@ export const CartProvider = ({ children }) => {
     const [loadingCart, setLoadingCart] = useState(true)
     const [toastAlert, setToastAlert] = useState({message: '', variant: 'default'})
     const [toastVisible, setToastVisible] = useState(false)
+    const [addingToCart, setAddingToCart] = useState(false)
+    const addingRef = useRef(false)
     const { openModal } = useAuthModal();
     const toastTimer = useRef(null);
 
@@ -57,6 +59,10 @@ export const CartProvider = ({ children }) => {
             openModal();
             return;
         }
+        // Evita pedidos duplicados mientras el servidor responde
+        if (addingRef.current) return;
+        addingRef.current = true;
+        setAddingToCart(true);
         try {
             const res = await api.post('/cart', { productId, quantity: Number(quantity) });
             // Actualiza el estado del carrito con la respuesta
@@ -69,6 +75,9 @@ export const CartProvider = ({ children }) => {
             // hideToast();
             setToastAlert({message: 'Error al agregar el producto al carrito', variant: 'error'})
             handleShowToast();
+        } finally {
+            addingRef.current = false;
+            setAddingToCart(false);
         }
         
     }
@@ -110,6 +119,7 @@ export const CartProvider = ({ children }) => {
             setCart, 
             loadingCart, 
             handleAddToCart, 
+            addingToCart,
             handleRemoveFromCart, 
             toastAlert,
             toastVisible, 

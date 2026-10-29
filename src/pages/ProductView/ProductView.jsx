@@ -15,7 +15,7 @@ export function ProductView () {
     const [productData, setProductData] = useState(null)
     const [loadingProduct, setLoadingProduct] = useState(true)
     const [quantity, setQuantity] = useState(1)
-    const { handleAddToCart, toastAlert, toastVisible, setToastVisible } = useCart()
+    const { handleAddToCart, addingToCart, toastAlert, toastVisible, setToastVisible } = useCart()
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     // const [toastVisible, setToastVisible] = useState(false)
     const navigate = useNavigate()
@@ -189,10 +189,15 @@ export function ProductView () {
                                         </div>
                                         
                                         <button 
+                                            type="button"
                                             className="add-to-cart-button" 
                                             onClick={() => {handleAddToCart(productId, quantity)}}
+                                            disabled={addingToCart}
+                                            aria-busy={addingToCart}
                                         >
-                                            Agregar al carrito
+                                            {addingToCart ? (
+                                                <><span className="spinner" aria-hidden="true" /> Agregando…</>
+                                            ) : 'Agregar al carrito'}
                                         </button>
                                     </div>
                                 )}
