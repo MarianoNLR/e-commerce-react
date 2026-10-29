@@ -41,6 +41,7 @@
 
 .paymentButtonContainer {
     width: min(420px, 100%);
+    margin-inline: auto;
     display: flex;
     justify-content: center;
 }

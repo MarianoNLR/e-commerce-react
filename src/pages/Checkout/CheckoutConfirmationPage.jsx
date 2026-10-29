@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart.jsx'
 import CircularProgress from '@mui/material/CircularProgress';
 import { PaymentMethodSection } from './payment-methods/PaymentMethodSection.jsx';
+import { OrderSummaryCard } from './OrderSummaryCard.jsx';
 
 export function CheckoutConfirmationPage() {
     const location = useLocation();
@@ -14,8 +15,11 @@ export function CheckoutConfirmationPage() {
     }
     return (
         <div className='checkout-confirmation-page'>
-            <h1>Confirmacion de Pago</h1>
-            <PaymentMethodSection selectedMethod={paymentMethod} customerData={customerData} orderData={orderData} cart={cart} />
+            <h1>Confirmación de pago</h1>
+            <div className='checkout-confirmation-layout'>
+                <PaymentMethodSection selectedMethod={paymentMethod} customerData={customerData} orderData={orderData} cart={cart} />
+                <OrderSummaryCard orderData={orderData} customerData={customerData} paymentMethod={paymentMethod} />
+            </div>
         </div>
     )
 }
