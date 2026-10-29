@@ -94,8 +94,8 @@ export function PaymentProofForm({ orderId, onSuccess, onError }) {
                 <p className={styles.proofError} role='alert'>{validationError}</p>
             )}
 
-            <button type='submit' className={styles.proofSubmitButton} disabled={isSubmitting}>
-                {isSubmitting ? 'Enviando comprobante...' : 'Enviar comprobante'}
+            <button type='submit' className={`${styles.proofSubmitButton} btn btn-primary`} disabled={isSubmitting}>
+                {isSubmitting ? 'Enviando comprobante…' : 'Enviar comprobante'}
             </button>
         </form>
     );

@@ -7,7 +7,7 @@ import PAYMENT_METHODS from './constants/paymentMethods.js';
 export function PaymentMethodSelectionPage() {
     const location = useLocation();
     const { customerData } = location.state || {};
-    const [paymentMethod, setPaymentMethod] = useState(null);
+    const [, setPaymentMethod] = useState(null);
     const navigate = useNavigate();
     console.log('Datos del cliente recibidos:', customerData);
 
@@ -46,7 +46,9 @@ export function PaymentMethodSelectionPage() {
     }
     return (
         <>
-            <h1 className='container'>Selección de Método de Pago</h1>
+            <div className='payment-selection-page'>
+            <h1 className='checkout-page-title'>Elegí cómo pagar</h1>
+            <div className='payment-method-list'>
             <PaymentMethodCard 
             icon={"https://img.icons8.com/?size=256&id=nTLVtpxsNPaz&format=png"}
             title={"Mercado Pago"}
@@ -64,7 +66,8 @@ export function PaymentMethodSelectionPage() {
             title={"Transferencia"}
             description={"Realiza tu pago mediante transferencia bancaria."}
             onSelect={() => handlePaymentMethodSelect(PAYMENT_METHODS.BANK_TRANSFER)} />
-            <div>Selected Payment Method: {paymentMethod}</div>
+            </div>
+            </div>
         </>
     )
 }

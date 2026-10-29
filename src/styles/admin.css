@@ -1,0 +1,198 @@
+/* Páginas del panel de administración: encabezado y tablas compartidas */
+.admin-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--space-5) var(--space-7);
+    text-align: left;
+}
+
+.admin-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+}
+
+.admin-page-header h1,
+.admin-page > h1 {
+    margin: 0 0 var(--space-5);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+}
+
+.admin-page-header h1 {
+    margin: 0;
+}
+
+.admin-page-status {
+    padding: var(--space-8) 0;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.admin-table-wrapper {
+    overflow-x: auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.admin-table th {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--surface-sunken);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--border);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background-color: var(--surface-raised);
+}
+
+.admin-table .is-numeric {
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-table .is-danger {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.admin-table .is-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: var(--text-sm);
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+/* Diálogos del panel (estado de orden, stock, categorías) */
+.dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    background-color: var(--overlay);
+}
+
+.dialog {
+    position: relative;
+    width: min(420px, 100%);
+    padding: var(--space-5);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: left;
+}
+
+.dialog h2 {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-xl);
+    font-weight: 600;
+}
+
+.dialog-subtitle {
+    margin: calc(var(--space-2) * -1) 0 var(--space-4);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+}
+
+.dialog-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    color: var(--accent);
+    font-size: var(--text-sm);
+}
+
+/* Detalle de orden */
+.detail-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.detail-card h2 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 600;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin: 0;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-sm);
+}
+
+.detail-row dt,
+.detail-row strong {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Formularios de producto (alta y edición) */
+.admin-form-page {
+    max-width: 720px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.admin-form textarea.form-input {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admin-form-danger {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+}

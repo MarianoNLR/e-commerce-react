@@ -1,13 +1,77 @@
-.cart-total_price-wrapper {
+.cart-loading {
     display: flex;
-    gap: 1rem;
-    font-weight: 600;
-    font-size: 1.5rem;
-    margin-top: 1rem;
+    justify-content: center;
+    padding: var(--space-8) 0;
 }
 
-@media (max-width: 660px) {
-    .cart-total_price-wrapper {
-        flex-direction: column;
+.empty-cart-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-8) var(--space-4);
+}
+
+.empty-cart-text h2 {
+    margin: 0;
+    font-size: var(--text-xl);
+}
+
+.empty-cart-text p {
+    margin: 0 0 var(--space-2);
+    color: var(--text-muted);
+}
+
+/* Lista de productos a la izquierda, resumen a la derecha */
+.cart-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: var(--space-6);
+    align-items: start;
+    width: var(--content-width);
+    text-align: left;
+}
+
+.cart-summary {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-4));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.cart-summary-title {
+    margin: 0;
+    font-size: var(--text-lg);
+}
+
+.cart-total_price-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+.cart-total_price {
+    color: var(--text);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+}
+
+@media (max-width: 960px) {
+    .cart-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cart-summary {
+        position: static;
     }
 }

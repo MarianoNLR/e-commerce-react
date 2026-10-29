@@ -2,29 +2,31 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth.jsx"
 import { useCart } from "../../hooks/useCart.jsx"
 import { FaShoppingCart } from 'react-icons/fa'
-import { useEffect } from "react"
-export function CartHeader () {
-    const {user, loadingUser} = useAuth()
-    const localStorageUser = window.localStorage.getItem('access_token')
-    const { cart, loadingCart} = useCart()
 
+export function CartHeader () {
+    const { user, loadingUser } = useAuth()
+    const { cart, loadingCart } = useCart()
 
     if (loadingUser) {
         return null
     }
 
-    if (loadingCart) {
-        return <>Loading...</>
-    }
-    
+    // Mientras carga se muestra el ícono sin contador, así el header no "salta".
+    const itemsCount = loadingCart ? 0 : (cart?.items?.length || 0)
+
     return (
         <div className='cart-icon-wrapper'>
-            <Link to={`/cart/${user?.id}`} aria-label="Ver carrito">
+            <Link
+                to={`/cart/${user?.id}`}
+                aria-label={itemsCount > 0 ? `Ver carrito, ${itemsCount} productos` : 'Ver carrito'}
+            >
                 <FaShoppingCart className='cart-icon' aria-hidden="true" />
             </Link>
-            <div className='cart-products-badge'>
-                <span className='cart-products-number'>{cart?.items?.length || 0}</span>
-            </div>
+            {itemsCount > 0 && (
+                <div className='cart-products-badge' aria-hidden="true">
+                    <span className='cart-products-number'>{itemsCount}</span>
+                </div>
+            )}
         </div>
     )
 }

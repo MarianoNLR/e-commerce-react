@@ -179,13 +179,13 @@ export function SignUpForm (props) {
                 {errors.confirmPassword && <span className="span-form-error">{errors.confirmPassword.message}</span>}
                 </div>
                 <FormErrorMessage message={formMessage}></FormErrorMessage>
-                <input type="submit" value="Registrarme" />
+                <input type="submit" className="btn btn-primary" value="Registrarme" />
                 <div className="link-register-wrapper">
                     <p>Ya tienes una cuenta?</p>
                     <a href="#" onClick={() => props.setShowLoginForm(true)}>Iniciar Sesión</a>
                 </div>
                 <div className="gmail-login">
-                    <button onClick={() => {handleGoogleLogin()}} type="button">Iniciar sesión con Google</button>
+                    <button onClick={() => {handleGoogleLogin()}} type="button" className="btn btn-secondary btn-block">Iniciar sesión con Google</button>
                 </div>
             </form>
         </>

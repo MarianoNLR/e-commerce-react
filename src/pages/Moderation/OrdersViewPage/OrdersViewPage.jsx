@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../../api.js';
-import './OrdersViewPage.css';
 import { useNavigate } from 'react-router-dom';
+import { OrderStatusBadge } from '../../../components/OrderStatusBadge/OrderStatusBadge.jsx';
 import { PaginationControls } from '../../../components/PaginationControls/PaginationControls.jsx';
 
 export function OrdersViewPage () {
@@ -15,7 +15,6 @@ export function OrdersViewPage () {
         // Lógica para obtener las órdenes desde la API
         api.get(`/orders?page=${page}`)
         .then(res => {
-            console.log(res.data);
             setData(res.data);
             setLoadingOrders(false);
         })
@@ -47,7 +46,6 @@ export function OrdersViewPage () {
 
     const handleViewMore = (order) => {
         // Lógica para ver más detalles de la orden
-        console.log('Ver más detalles de la orden:', order.id);
         navigate(`/moderation/orders/${order.id}`, { state: { order } });
     }
 
@@ -60,34 +58,36 @@ export function OrdersViewPage () {
     }
 
     if (loadingOrders) {
-        return <main className="orders-view-page-main">Cargando órdenes...</main>;
+        return <section className="admin-page admin-page-status" role="status">Cargando órdenes…</section>;
     }
 
     return (
-        <main className="orders-view-page-main">
-            <h1>Lista de Pedidos</h1>
-            <table className="orders-table">
+        <section className="admin-page">
+            <h1>Pedidos</h1>
+            <div className="admin-table-wrapper">
+            <table className="admin-table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Productos</th>
                         <th>Total</th>
                         <th>Estado</th>
-                        <th>Fecha de Creación</th>
-                        <th>Acciones</th>
+                        <th>Fecha</th>
+                        <th className="is-actions">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.orders?.map((order, index) => (
-                        <tr key={index} className="order-row">
+                        <tr key={order.id ?? index}>
                             <td className="order-id">{order.id}</td>
-                            <td className="order-products-count">{order.items.length} productos</td>
-                            <td className="order-total">{formatPrice(order.total)}</td>
-                            <td className="order-status">{order.status}</td>
-                            <td className="order-date">{formatDate(order.createdAt)}</td>
-                            <td className="order-actions">
+                            <td>{order.items.length} {order.items.length === 1 ? 'producto' : 'productos'}</td>
+                            <td className="is-numeric">{formatPrice(order.total)}</td>
+                            <td><OrderStatusBadge status={order.status} /></td>
+                            <td>{formatDate(order.createdAt)}</td>
+                            <td className="is-actions">
                                 <button 
-                                    className="order-view-more-btn"
+                                    type="button"
+                                    className="btn btn-secondary btn-sm"
                                     onClick={() => handleViewMore(order)}
                                 >
                                     Ver más
@@ -97,12 +97,13 @@ export function OrdersViewPage () {
                     ))}
                 </tbody>
             </table>
+            </div>
             <PaginationControls
                 currentPage={page}
                 hasMore={Boolean(data.hasMore)}
                 isLoading={loadingOrders}
                 onPageChange={handlePageChange}
             />
-        </main>
+        </section>
     );
 }

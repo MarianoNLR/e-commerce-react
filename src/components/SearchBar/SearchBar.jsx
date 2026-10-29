@@ -1,32 +1,37 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { FaSearch } from 'react-icons/fa'
+import PropTypes from 'prop-types'
 import './SearchBar.css'
 
 export function SearchBar (props) {
     const [searchInput, setSearchInput] = useState(props.value || '')
     const navigate = useNavigate()
 
-    const handleSearchInputChange = (e) => {
-        setSearchInput(e.target.value)
-    }
-
-    const handleSearchClick = () => {
-        //TODO
-        navigate(`/products/search/?q=${searchInput}`, {state: {searchQuery: searchInput}})
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        navigate(`/products/search/?q=${encodeURIComponent(searchInput)}`, {state: {searchQuery: searchInput}})
     }
 
     return (
-        <div className="search-bar-wrapper">
-            <input className="search-bar-input" type="text" name="q" id="" placeholder="Buscar producto" 
-            onChange={(e) => handleSearchInputChange(e)}
-            onKeyDown={(e) => e.key === 'Enter' ? handleSearchClick() : null}
-            value={searchInput}
+        <form className="search-bar-wrapper" role="search" onSubmit={handleSubmit}>
+            <input
+                className="search-bar-input"
+                type="search"
+                name="q"
+                placeholder="Buscar productos"
+                aria-label="Buscar productos"
+                autoComplete="off"
+                onChange={(e) => setSearchInput(e.target.value)}
+                value={searchInput}
             />
-            <div className="search-bar-submit" onClick={handleSearchClick}>
-                <svg  width="30px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-            </div>
-        </div>    
+            <button type="submit" className="search-bar-submit" aria-label="Buscar">
+                <FaSearch aria-hidden="true" />
+            </button>
+        </form>
     )
+}
+
+SearchBar.propTypes = {
+    value: PropTypes.string
 }

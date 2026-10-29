@@ -1,12 +1,17 @@
 .filters-options-wrapper {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
-    width: 80%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    width: var(--content-width);
+    margin-bottom: var(--space-5);
 }
 
-@media (max-width: 1000px) {
-    .filters-options-wrapper {
-        flex-direction: column;
-    }
+.filters-status {
+    width: var(--content-width);
+    min-height: 36px;
+    margin: 0 0 var(--space-5);
+    text-align: left;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
 }

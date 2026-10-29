@@ -63,7 +63,7 @@ export function LoginForm (props) {
     return (
         <>
             <form onSubmit={onSubmit} className="login-form">
-                <h2>Inicio de Sesión</h2>
+                <h2>Iniciar sesión</h2>
                 <div className="input-group">
                 <input type="email" name="email" id="email" placeholder="Example@gmail.com" 
                 {...register("email", {
@@ -91,12 +91,12 @@ export function LoginForm (props) {
                 })}/>
                 {errors.password && <span className="span-form-error">{errors.password.message}</span>}
                 </div>
-                <input type="submit" value="Inciar Sesion" />
+                <input type="submit" className="btn btn-primary" value="Iniciar sesión" />
                 <FormErrorMessage message={formMessage}></FormErrorMessage>
                 <a href="#">Olvidaste tu contraseña?</a>
                 <div className="gmail-login">
                     <a href="http://localhost:3000/users/google?state=login">
-                        <button type="button">Iniciar sesión con Google</button>
+                        <button type="button" className="btn btn-secondary btn-block">Iniciar sesión con Google</button>
                     </a>
                 </div>
                 <div className="link-register-wrapper">

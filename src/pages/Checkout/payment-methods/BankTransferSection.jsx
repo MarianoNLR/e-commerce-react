@@ -89,6 +89,7 @@ export function BankTransferSection({ orderData }) {
 				description={feedbackModal.description}
 				icon={feedbackModal.type === 'success' ? <FaCheckCircle /> : <FaExclamationCircle />}
 				buttonText='Entendido'
+				variant={feedbackModal.type === 'success' ? 'success' : 'error'}
 			/>
 		</section>
 	);

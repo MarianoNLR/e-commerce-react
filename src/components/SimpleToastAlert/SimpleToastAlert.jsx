@@ -22,7 +22,7 @@ export function SimpleToastAlert({ message, variant = 'default', duration = 3000
     // }, [duration, onClose]);
 
     return (
-        <div className={`toast-alert-container ${variant}`}>
+        <div className={`toast-alert-container ${variant}`} role={variant === 'error' ? 'alert' : 'status'}>
             <p className="toast-alert-message">{message}</p>
         </div>
     );

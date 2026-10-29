@@ -1,0 +1,131 @@
+/*
+  Design tokens.
+  Los componentes deben usar SOLO estas variables (var(--...)), nunca colores literales.
+  Para cambiar de tema: <html data-theme="dark|light"> (ver src/lib/theme.js).
+*/
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Superficies: grafito con un leve tinte azul, para que el negro no sea plano */
+  --bg:             #14171c;
+  --surface:        #1c2027;
+  --surface-raised: #252a33;
+  --surface-sunken: #101318;
+  --border:         #323843;
+  --border-strong:  #4a5260;
+
+  /* Texto */
+  --text:           #e9ecf1;
+  --text-muted:     #9aa3b2;
+  --text-faint:     #6f7887;
+
+  /* Acento (teal "pantalla encendida") */
+  --accent:         #3fd0c0;
+  --accent-hover:   #6fe0d3;
+  --accent-contrast:#06201d;
+  --accent-soft:    rgba(63, 208, 192, 0.14);
+
+  /* Estado */
+  --success:        #3ecf8e;
+  --warning:        #f5b83d;
+  --warning-contrast:#1d1500;
+  --danger:         #ef5b5b;
+  --danger-contrast:#1d0808;
+  --info:           #6aa8ff;
+
+  --focus-ring:     #8ce9de;
+  /* Placa de las fotos de producto: blanca en ambos temas para que las fotos con fondo blanco se integren */
+  --media-bg:       #ffffff;
+  --overlay:        rgba(6, 8, 11, 0.72);
+  --shadow-color:   0 0 0;
+  --shadow-alpha:   0.45;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg:             #f3f5f8;
+  --surface:        #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: #e9edf2;
+  --border:         #d6dbe3;
+  --border-strong:  #aeb6c3;
+
+  --text:           #151922;
+  --text-muted:     #4d586a;
+  --text-faint:     #7a8496;
+
+  --accent:         #0b8478;
+  --accent-hover:   #096b61;
+  --accent-contrast:#ffffff;
+  --accent-soft:    rgba(11, 132, 120, 0.12);
+
+  --success:        #1a8f5a;
+  --warning:        #f5b83d;
+  --warning-contrast:#1d1500;
+  --danger:         #c93a3a;
+  --danger-contrast:#ffffff;
+  --info:           #2862c9;
+
+  --focus-ring:     #0b8478;
+  --media-bg:       #ffffff;
+  --overlay:        rgba(21, 25, 34, 0.5);
+  --shadow-color:   21 25 34;
+  --shadow-alpha:   0.14;
+}
+
+/* Tokens que no dependen del tema */
+:root {
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Escala tipográfica (ratio ~1.2) */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.375rem;
+  --text-2xl:  1.75rem;
+  --text-3xl:  2.25rem;
+
+  --leading-tight: 1.2;
+  --leading-body:  1.55;
+
+  /* Espaciado (base 4px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Radios: chicos para controles, más grandes para contenedores */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgb(var(--shadow-color) / var(--shadow-alpha));
+  --shadow-md: 0 8px 24px rgb(var(--shadow-color) / var(--shadow-alpha));
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  --content-width: 80%; /* ancho del contenido principal; header y footer se alinean a este */
+  --header-h: 64px;
+  --z-header: 1000;
+  --z-menu: 2000;
+  --z-modal: 3000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}

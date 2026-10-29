@@ -1,6 +1,18 @@
 import './ImageModal.css'
 import { CircleX } from 'lucide-react'
+import { useEffect } from 'react'
+
 export function ImageModal({ imageUrl, onClose }) {
+    useEffect(() => {
+        const handleEsc = (event) => {
+            if (event.key === 'Escape') {
+                onClose()
+            }
+        }
+        window.addEventListener('keydown', handleEsc)
+        return () => window.removeEventListener('keydown', handleEsc)
+    }, [onClose])
+
     return (
         <div
             className='order-proof-modal-overlay'
@@ -18,6 +30,7 @@ export function ImageModal({ imageUrl, onClose }) {
                     type='button'
                     className='order-proof-modal-close'
                     onClick={onClose}
+                    aria-label='Cerrar'
                 >
                     <CircleX size={20} className='order-proof-modal-close-icon' />
                 </button>

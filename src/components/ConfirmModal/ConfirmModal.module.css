@@ -1,148 +1,90 @@
 .modalOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-    padding: 1rem;
-    animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    padding: var(--space-4);
+    background-color: var(--overlay);
+    z-index: var(--z-modal);
 }
 
 .modalContent {
-    background: white;
-    border-radius: 16px;
+    position: relative;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.3s ease;
-    position: relative;
-    padding: 1.5rem;
+    padding: var(--space-5);
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     text-align: center;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 .closeButton {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: transparent;
+    top: var(--space-3);
+    right: var(--space-3);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #9ca3af;
-    z-index: 1;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-muted);
 }
 
 .closeButton:hover {
-    color: #1a1a1a;
-    transform: rotate(90deg);
+    color: var(--text);
+    background-color: var(--surface-raised);
 }
 
 .iconWrapper {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ef4444;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-4);
+    border-radius: 50%;
     font-size: 1.75rem;
+    color: var(--danger);
+    background-color: color-mix(in srgb, var(--danger) 16%, transparent);
 }
 
 .modalBody h2 {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text);
 }
 
 .modalBody p {
-    font-size: 0.9375rem;
-    color: #6b7280;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 var(--space-5);
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
 .modalBody .highlightedText {
     display: inline-block;
-    margin: 0 0 1.5rem 0;
-    padding: 0.4rem 0.7rem;
-    border-radius: 999px;
-    color: #000000;
-    font-weight: 700;
+    margin: 0 0 var(--space-5);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-raised);
+    color: var(--text);
+    font-weight: 600;
     line-height: 1.2;
 }
 
 .modalActions {
     display: flex;
-    gap: 0.75rem;
+    gap: var(--space-3);
 }
 
 .modalActions button {
     flex: 1;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btnCancel {
-    background: #f3f4f6;
-    color: #6b7280;
-}
-
-.btnCancel:hover {
-    background: #e5e7eb;
-    color: #374151;
-}
-
-.btnConfirm {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-}
-
-.btnConfirm:hover {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-}
-
-@media (max-width: 480px) {
-    .modalContent {
-        max-width: 100%;
-    }
 }

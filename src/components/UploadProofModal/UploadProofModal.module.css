@@ -1,65 +1,69 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-    padding: 1rem;
+    padding: var(--space-4);
+    background-color: var(--overlay);
+    z-index: var(--z-modal);
 }
 
 .content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
     width: 100%;
     max-width: 460px;
     max-height: 90vh;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
-    border-radius: 14px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-    color: #f2f2f2;
+    padding: var(--space-5);
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     text-align: left;
 }
 
 .closeButton {
-    all: unset;
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: var(--space-3);
+    right: var(--space-3);
     display: flex;
-    cursor: pointer;
-    color: #c7cbd6;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-muted);
 }
 
 .closeButton:hover {
-    color: #ff6b6b;
-    transform: scale(1.15);
-    transition: all 0.2s ease;
+    color: var(--text);
+    background-color: var(--surface-raised);
 }
 
 .title {
     margin: 0;
-    padding-right: 2rem;
-    font-size: 1.3rem;
-    color: #ffffff;
+    padding-right: var(--space-6);
+    font-size: var(--text-xl);
+    color: var(--text);
 }
 
 .orderInfo {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: var(--space-1);
 }
 
 .orderInfo p {
     margin: 0;
-    color: #e6e8ef;
+    color: var(--text);
     line-height: 1.4;
 }
 
@@ -68,6 +72,6 @@
 }
 
 .deadline {
-    color: #f2c14b;
+    color: var(--warning);
     font-weight: 600;
 }

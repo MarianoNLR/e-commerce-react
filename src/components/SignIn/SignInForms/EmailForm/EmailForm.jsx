@@ -81,10 +81,10 @@ export function EmailForm (props) {
         <> 
             {step === 'email' && (
                 <form onSubmit={handleSubmit(onSubmit)} className="signup-email-form">
-                    <h2>Continua con tu correo:</h2>
+                    <h2>Continuá con tu correo</h2>
                     <div className="input-group">
-                        <label className="label-email is_required" htmlFor="">Email</label>
-                        <input className="email-input" type="email" name="email" id="" placeholder="example@example.com" {...register("email", {
+                        <label className="label-email is_required" htmlFor="signin-email">Email</label>
+                        <input className="email-input" type="email" name="email" id="signin-email" placeholder="example@example.com" {...register("email", {
                             required: {
                                 value: true,
                                 message: "Email es requerido."
@@ -96,7 +96,7 @@ export function EmailForm (props) {
                         })} />
                         {errors.email && <span className="span-form-error">{errors.email.message}</span>}
                     </div>
-                    <button type="submit" disabled={isProcessingRequest} className="form-submit-button">
+                    <button type="submit" disabled={isProcessingRequest} className="form-submit-button btn btn-primary btn-block">
                         {isProcessingRequest ? 'Procesando...' : 'Continuar'}
                     </button>
                 </form>
@@ -104,10 +104,10 @@ export function EmailForm (props) {
             {step === 'password' && (
                 <>
                     <form className="signup-email-form">
-                        <h2>Inicia Sesión</h2>
+                        <h2>Iniciá sesión</h2>
                         <div className="input-group">
-                            <label className="is_required" htmlFor="">Email</label>
-                            <input type="email" name="email" placeholder="Correo electrónico" {...register('email', {
+                            <label className="is_required" htmlFor="signin-email-readonly">Email</label>
+                            <input type="email" name="email" id="signin-email-readonly" placeholder="Correo electrónico" {...register('email', {
                                 required: {
                                     value: true,
                                     message: "Email es requerido."
@@ -119,7 +119,7 @@ export function EmailForm (props) {
                             })} />
                         </div>
                         <div className="input-group">
-                            <label className="is_required" htmlFor="">Contraseña</label>
+                            <label className="is_required" htmlFor="password">Contraseña</label>
                             <input type="password" name="password" id="password" placeholder="Contraseña" {...register("password", {
                                 required: {
                                     value: true,
@@ -133,14 +133,14 @@ export function EmailForm (props) {
                             {errors.password && <span className="span-form-error">{errors.password.message}</span>}
                         </div>
                     </form>
-                    <button onClick={onSubmit} disabled={isProcessingRequest} className="form-submit-button">
-                        {isProcessingRequest ? 'Procesando...' : 'Iniciar Sesión'}
+                    <button onClick={onSubmit} disabled={isProcessingRequest} className="form-submit-button btn btn-primary btn-block">
+                        {isProcessingRequest ? 'Procesando…' : 'Iniciar sesión'}
                     </button>
                 </>
             )}
             {step === 'register' && (
                                     <form onSubmit={onSubmit} className="complete-signup-form">
-                        <h2>Completa tus Datos</h2>
+                        <h2>Completá tus datos</h2>
                         <div className="input-group">
                             <label className="is_required" htmlFor="name">Nombre</label>
                             <input type="text" name="name" id="name" placeholder="Nombre" 
@@ -218,7 +218,7 @@ export function EmailForm (props) {
                         })}/>
                         {errors.confirmPassword && <span className="span-form-error">{errors.confirmPassword.message}</span>}
                         </div>
-                        <input className="complete-signup-form-submit-btn form-submit-button" type="submit" value="Registrarme" disabled={isProcessingRequest} />
+                        <input className="complete-signup-form-submit-btn form-submit-button btn btn-primary btn-block" type="submit" value="Registrarme" disabled={isProcessingRequest} />
                     </form>
             )}
             

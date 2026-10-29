@@ -1,30 +1,44 @@
 .admin-layout-sidebar-spacer {
-    transition: width 220ms ease, min-width 220ms ease;
+    flex-shrink: 0;
+    transition: width var(--duration-base) var(--ease), min-width var(--duration-base) var(--ease);
 }
 
 .admin-layout-sidebar-container {
-    color: white;
+    color: var(--text);
     border-right: none;
     background-color: transparent;
-    border-radius: 1px;
     position: sticky;
 }
 
-.admin-panel-sidebar-collapse-button {
-    color: white;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 12px;
-    gap: 2rem;
-}
-
-.sidebar-option-button {
-    color: white;
+.admin-layout-sidebar-container .sidebar-option-button > .ps-menu-button {
+    height: 44px;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
     text-decoration: none;
+    border-radius: var(--radius-md);
+    background-color: transparent;
 }
 
-.sidebar-option-button a:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+.admin-layout-sidebar-container .sidebar-option-button > .ps-menu-button:hover {
+    background-color: var(--surface-raised);
+    color: var(--text);
+}
+
+.admin-layout-sidebar-container .sidebar-option-button.ps-active > .ps-menu-button {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.admin-layout-sidebar-container .sidebar-option-title > .ps-menu-button {
+    height: 44px;
+    color: var(--text);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+}
+
+.admin-layout-sidebar-container .sidebar-option-title > .ps-menu-button:hover {
+    background-color: var(--surface-raised);
+    color: var(--text);
 }

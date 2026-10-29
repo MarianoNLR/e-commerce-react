@@ -1,0 +1,35 @@
+.site-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-6);
+    background-color: var(--surface-sunken);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+}
+
+.site-notice-text {
+    margin: 0;
+    max-width: 90ch;
+    text-align: center;
+}
+
+.site-notice-text strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    .site-notice {
+        justify-content: flex-start;
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--text-xs);
+    }
+
+    .site-notice-text {
+        text-align: left;
+    }
+}

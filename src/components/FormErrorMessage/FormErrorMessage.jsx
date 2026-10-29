@@ -9,7 +9,7 @@ export function FormErrorMessage (props) {
     
     return (
         <>
-            <div className="error-message-wrapper">
+            <div className="error-message-wrapper" role="alert">
                 <p>{props.message}</p>
             </div>
         </>

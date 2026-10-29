@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {EmailForm } from "./SignInForms/EmailForm/EmailForm.jsx"
 import{ GoogleForm } from "./SignInForms/GoogleForm/GoogleForm.jsx"
 import './SignIn.css'
@@ -10,6 +10,17 @@ export function SignIn () {
     const [method, setMethod] = useState(null)
     const [googleTempData, setGoogleTempData] = useState(null)
     const { fetchUser } = useAuth()
+
+    useEffect(() => {
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                closeModal()
+            }
+        }
+        window.addEventListener('keydown', handleEscape)
+        return () => window.removeEventListener('keydown', handleEscape)
+    }, [closeModal])
+
     const handleSelectMethod = async (selectedMethod) => {
         if (selectedMethod === "google") {
             try {
@@ -49,16 +60,16 @@ export function SignIn () {
 
     return (
         <div className="signin-popup">
-            <div className="signin-popup-container">
-                <button className="signin-popup-close-button" onClick={closeModal}>X</button>
+            <div className="signin-popup-container" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
+                <button type="button" className="signin-popup-close-button" onClick={closeModal} aria-label="Cerrar">×</button>
                 {!method && (
                     <>
                         <div className="signin-popup-header">
-                            <h2>Elige una opción para Iniciar Sesión</h2>
+                            <h2>Iniciá sesión o creá tu cuenta</h2>
                         </div>
                         <div className="signin-popup-body">
-                            <button onClick={() => handleSelectMethod("email")}>Continuar con Correo</button>
-                            <button onClick={() => handleSelectMethod("google")}>Continuar con Google</button>
+                            <button type="button" className="btn btn-primary btn-block" onClick={() => handleSelectMethod("email")}>Continuar con correo</button>
+                            <button type="button" className="btn btn-secondary btn-block" onClick={() => handleSelectMethod("google")}>Continuar con Google</button>
                         </div>
                     </>
                 )}

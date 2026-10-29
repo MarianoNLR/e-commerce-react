@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../../api.js'
 import styles from './ProductsModerationPage.module.css';
 import { EditStockModal } from '../../../components/EditStockModal/EditStockModal.jsx';
-import { FaEdit, FaBox, FaEye } from 'react-icons/fa';
+import { FaEdit, FaBox, FaEye, FaSearch, FaPlus } from 'react-icons/fa';
+import placeholder from '../../../assets/placeholder-product.svg';
 
 export function ProductsModerationPage() {
   const navigate = useNavigate();
@@ -63,38 +64,33 @@ export function ProductsModerationPage() {
   }
 
   if (loading) {
-    return <div className={styles.loadingContainer}>Cargando productos...</div>;
+    return <div className={styles.loadingContainer} role="status">Cargando productos…</div>;
   }
 
   return (
-    // <div className={styles.placeholderContainer}>
-    //   <h2 className={styles.placeholderText}>Página de Gestión de Productos en Construcción</h2>
-    // </div>
     <div className={styles.productsModerationPage}>
       <div className={styles.pageHeader}>
-        <h1>Gestión de Productos</h1>
-        <button className={styles.btnPrimary} onClick={() => navigate('/moderation/add_product')}>
-          <span className={styles.icon}>+</span> Nuevo Producto
+        <h1>Gestión de productos</h1>
+        <button type="button" className="btn btn-primary" onClick={() => navigate('/moderation/add_product')}>
+          <FaPlus aria-hidden="true" /> Nuevo producto
         </button>
       </div>
 
       <div className={styles.filtersSection}>
         <div className={styles.searchBar}>
-          <span className={styles.searchIcon}>🔍</span>
+          <FaSearch className={styles.searchIcon} aria-hidden="true" />
           <input
-            type="text"
-            placeholder="Buscar productos..."
+            type="search"
+            aria-label="Buscar productos"
+            placeholder="Buscar productos…"
             value={searchTerm}
             onChange={(e) => filterProducts(e.target.value)}
           />
         </div>
-
-        <div className={styles.filterButtons}>
-        </div>
       </div>
 
       <div className={styles.productsGrid}>
-        {products?.length === 0 ? (
+        {filteredProducts.length === 0 ? (
           <div className={styles.noProducts}>
             <p>No se encontraron productos</p>
           </div>
@@ -102,28 +98,22 @@ export function ProductsModerationPage() {
           filteredProducts.map(product => (
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
-                <img src={`${product.images[0]?.secure_url}`} alt={product.name} />
+                <img src={product.images?.[0]?.secure_url || placeholder} alt={product.name} loading="lazy" />
               </div>
               
               <div className={styles.productInfo}>
                 <h3 className={styles.productName}>{product.name}</h3>
-                <p className={styles.productCategory}>{product.category}</p>
+                <p className={styles.productCategory}>{product.categoryId?.name}</p>
                 
                 <div className={styles.productDetails}>
                   <div className={styles.detailItem}>
-                    <span className={styles.label}>Precio:</span>
+                    <span className={styles.label}>Precio</span>
                     <span className={`${styles.value} ${styles.price}`}>{formatPrice(product.price)}</span>
                   </div>
                   <div className={styles.detailItem}>
-                    <span className={styles.label}>Stock:</span>
+                    <span className={styles.label}>Stock</span>
                     <span className={`${styles.value} ${styles.stock} ${product.quantity === 0 ? styles.outOfStock : ''}`}>
-                      {product.quantity} unidades
-                    </span>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.label}>Categoria:</span>
-                    <span className={styles.value}>
-                      {product.categoryId.name}
+                      {product.quantity} {product.quantity === 1 ? 'unidad' : 'unidades'}
                     </span>
                   </div>
                 </div>
@@ -131,24 +121,28 @@ export function ProductsModerationPage() {
 
               <div className={styles.productActions}>
                 <div className={styles.productEditActions}>
-                  <button 
-                    className={styles.btnEdit} 
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
                     onClick={() => handleEditProduct(product.id)}
                   >
-                    <FaEdit /> Editar Producto
+                    <FaEdit aria-hidden="true" /> Editar
                   </button>
-                  <button className={styles.btnEdit}
-                  onClick={() => handleStockEdit(product)}
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => handleStockEdit(product)}
                   >
-                    <FaBox /> Editar Stock
+                    <FaBox aria-hidden="true" /> Stock
                   </button>
                 </div>
-                <button className={styles.btnView}
+                <button
+                  type="button"
+                  className="btn btn-text btn-sm"
                   onClick={() => navigate(`/products/product/${product.id}`)}
                 >
-                  <FaEye /> Ver detalles
+                  <FaEye aria-hidden="true" /> Ver en la tienda
                 </button>
-                
               </div>
             </div>
           ))

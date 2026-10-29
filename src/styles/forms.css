@@ -1,0 +1,159 @@
+/*
+  Botones y campos de formulario compartidos.
+  Usar estas clases en lugar de repetir estilos en cada pantalla.
+*/
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.7rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  color: var(--accent-contrast);
+  border-color: transparent;
+}
+
+.btn-secondary {
+  background-color: var(--surface-raised);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--danger-contrast);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger);
+  color: var(--danger-contrast);
+  border-color: transparent;
+  filter: brightness(1.1);
+}
+
+/* Botón con aspecto de link, para acciones secundarias dentro de una fila */
+.btn-text {
+  padding: 0.25rem 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.btn-text:hover {
+  color: var(--danger);
+  border-color: transparent;
+}
+
+/* ---------- Campos ---------- */
+.input-group,
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  text-align: left;
+}
+
+.input-group label,
+.form-group label,
+.form-group .form-label,
+.input-label {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.is_required::after {
+  content: " *";
+  color: var(--text-faint);
+}
+
+.input-group input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.input-group textarea,
+.input-group select,
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background-color: var(--surface-sunken);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+
+.input-group input:hover,
+.input-group textarea:hover,
+.form-input:hover {
+  border-color: var(--border-strong);
+}
+
+/* El borde y el halo reemplazan al contorno nativo */
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder,
+.form-input::placeholder {
+  color: var(--text-faint);
+}
+
+.input-group input:-webkit-autofill,
+.form-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--surface-sunken) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
+.span-form-error,
+.field-error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}

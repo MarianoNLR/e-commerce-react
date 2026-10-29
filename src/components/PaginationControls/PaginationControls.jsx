@@ -9,25 +9,25 @@ export function PaginationControls({
   onPageChange
 }) {
   return (
-    <nav className='pagination-controls' aria-label='Paginacion de pedidos'>
+    <nav className='pagination-controls' aria-label='Paginación'>
       <button
         type='button'
         className='pagination-button'
         onClick={() => onPageChange(currentPage - 1)}
         disabled={isLoading || currentPage <= 1}
-        aria-label='Pagina anterior'
+        aria-label='Página anterior'
       >
         <FaChevronLeft aria-hidden='true' />
       </button>
 
-      <span className='pagination-page'>Pagina {currentPage}</span>
+      <span className='pagination-page'>Página {currentPage}</span>
 
       <button
         type='button'
         className='pagination-button'
         onClick={() => onPageChange(currentPage + 1)}
         disabled={isLoading || !hasMore}
-        aria-label='Pagina siguiente'
+        aria-label='Página siguiente'
       >
         <FaChevronRight aria-hidden='true' />
       </button>

@@ -1,20 +1,25 @@
+/* Página /login: misma tarjeta que el modal de inicio de sesión */
 .form-wrapper {
     display: flex;
-    /* width: 400px; */
+    width: min(440px, calc(100% - 2 * var(--space-4)));
+    margin: var(--space-6) auto;
     overflow-x: hidden;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
 }
 
 .login-active .login-form {
-    animation: swipeRight 1s forwards;
+    animation: swipeRight var(--duration-base) var(--ease) forwards;
 }
 
 .register-active .signup-form {
-    animation: swipeLeft 1s forwards;
+    animation: swipeLeft var(--duration-base) var(--ease) forwards;
 }
 
 @keyframes swipeLeft {
     from {
-        transform: translateX(100%);
+        transform: translateX(24px);
         opacity: 0;
     }
     to {
@@ -25,7 +30,7 @@
 
 @keyframes swipeRight {
     from {
-        transform: translateX(-100%);
+        transform: translateX(-24px);
         opacity: 0;
     }
     to {
@@ -33,4 +38,3 @@
         opacity: 1;
     }
 }
-

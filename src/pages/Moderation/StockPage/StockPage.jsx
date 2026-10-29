@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import api from '../../../api.js';
 import { EditStockModal } from '../../../components/EditStockModal/EditStockModal.jsx';
-import './StockPage.css';
 
 export function StockPage() {
     const [products, setProducts] = useState([]);
@@ -16,7 +15,6 @@ export function StockPage() {
         const fetchStockData = async () => {
             try {
                 const response = await api.get('products/');
-                console.log(response.data);
                 setProducts(response.data.products);
                 setLoading(false);
             } catch (error) {
@@ -26,13 +24,6 @@ export function StockPage() {
         };
         fetchStockData();
     }, []);
-
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('es-AR', {
-            style: 'currency',
-            currency: 'ARS'
-        }).format(price);
-    }
 
     const handleStockEdit = (product) => {
         setSelectedProduct(product);
@@ -44,43 +35,45 @@ export function StockPage() {
     }
 
     if (loading) {
-        return <main className="stock-page-main">Cargando datos de stock...</main>;
+        return <section className="admin-page admin-page-status" role="status">Cargando datos de stock…</section>;
     }
 
     return (
-        <main className="stock-page-main">
-            <h1 className='stock-page-title'>Gestión de Stock</h1>
-            {/* Aquí puedes agregar la tabla o lista de productos en stock */}
-            {loading ? (
-                <p>Cargando datos de stock...</p>
-            ) : (
-                <table className='products-table'>
+        <section className="admin-page">
+            <h1>Gestión de stock</h1>
+            <div className="admin-table-wrapper">
+                <table className='admin-table'>
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            {/* <th>Precio</th> */}
                             <th>Stock</th>
-                            <th>Acciones</th>
+                            <th className="is-actions">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map(product => (
-                            <tr className='product-row' key={product.id}>
-                                <td className='product-name'>{product.name}</td>
-                                {/* <td className='product-price'>{formatPrice(product.price)}</td> */}
-                                <td className='product-quantity'>{product.quantity}</td>
-                                <td className='product-actions'><button onClick={() => handleStockEdit(product)}><FaEdit /></button></td>
+                            <tr key={product.id}>
+                                <td>{product.name}</td>
+                                <td className={`is-numeric${product.quantity === 0 ? ' is-danger' : ''}`}>{product.quantity}</td>
+                                <td className='is-actions'>
+                                    <button
+                                        type='button'
+                                        className='btn btn-secondary btn-icon'
+                                        aria-label={`Editar stock de ${product.name}`}
+                                        onClick={() => handleStockEdit(product)}
+                                    ><FaEdit aria-hidden='true' /></button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-            )}
+            </div>
             {editStockModalOpened && selectedProduct && (
                 <EditStockModal 
                 setEditStockModalOpened={setEditStockModalOpened} 
                 product={selectedProduct} 
                 onStockUpdated={handleStockUpdated} />
             )}
-        </main>
+        </section>
     );
 }

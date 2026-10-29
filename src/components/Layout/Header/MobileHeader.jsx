@@ -7,22 +7,11 @@ import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
 
 export function MobileHeader() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [hasInteracted, setHasInteracted] = useState(false);
     const { user, logout } = useAuth()
     const { openModal } = useAuthModal() ?? {}
     const { cart } = useCart()
 
-    const handleToogleMenu = () => {
-        setMenuOpen(!menuOpen);
-        if (!hasInteracted) {
-            setHasInteracted(true);
-        }
-    }
-
-    const closeMenu = () => {
-        setMenuOpen(false);
-        setHasInteracted(true);
-    }
+    const closeMenu = () => setMenuOpen(false)
 
     const handleMenuAction = (action) => {
         action?.();
@@ -31,38 +20,40 @@ export function MobileHeader() {
 
     return (
         <header className='mobile-header'>
-            <div className='header-closed-wrapper'>
-                <button className='menu-toggle' onClick={handleToogleMenu}>☰</button>
-                <a href='/' className='header-logo'>Logo</a>
+            <div className='mobile-header-bar'>
+                <Link to='/' className='header-logo' onClick={closeMenu}>Logo</Link>
+                <button
+                    type='button'
+                    className='menu-toggle'
+                    onClick={() => setMenuOpen(prev => !prev)}
+                    aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+                    aria-expanded={menuOpen}
+                    aria-controls='mobile-menu'
+                >
+                    {menuOpen ? '✕' : '☰'}
+                </button>
             </div>
-            <p className='mobile-header-disclaimer-bar'>
-                Esta pagina web fue realizada como parte de un proyecto personal. La tienda y los productos son ficticios.
-            </p>
-            <p className='mobile-header-server-notice' role='status'>
-                El servidor puede tardar un momento en activarse luego de un período de inactividad.
-            </p>
-            
-                {/* {menuOpen &&  */}
-                    <div className={`header-dropdown ${hasInteracted && (menuOpen ? "open" : "closed")}`}>
-                        {user && <Link to={`/cart/${user.id}`} onClick={closeMenu}>Carrito ({cart?.items?.length})</Link> }
-                        {user && (
-                            <Link to={'/my-orders'} onClick={closeMenu}>Ver mis ordenes</Link>
-                        )}
-                        {user?.role.includes('admin') && 
-                            <>
-                                <Link to={'/moderation/add_product'} onClick={closeMenu}>Agregar producto</Link>
-                                <Link to={'/moderation/orders'} onClick={closeMenu}>Ordenes</Link>
-                                <Link to={"/moderation/stock"} onClick={closeMenu}>Ver Stock</Link>
-                                <Link to={"/moderation/products"} onClick={closeMenu}>Ver Productos</Link>
-                            </>
-                        }
-                        {user ? 
-                            <Link onClick={() => handleMenuAction(logout)}>Cerrar sesión</Link> 
-                        :
-                            <Link onClick={() => handleMenuAction(openModal)}>Iniciar sesión</Link>
-                        }
-                    </div>
-                {/* } */}
+            <nav
+                id='mobile-menu'
+                className={`header-dropdown ${menuOpen ? 'open' : ''}`}
+                aria-label='Menú principal'
+            >
+                {user && <Link to={`/cart/${user.id}`} onClick={closeMenu}>Carrito ({cart?.items?.length || 0})</Link>}
+                {user && <Link to='/my-orders' onClick={closeMenu}>Mis órdenes</Link>}
+                {user?.role.includes('admin') &&
+                    <>
+                        <Link to='/moderation/add_product' onClick={closeMenu}>Agregar producto</Link>
+                        <Link to='/moderation/orders' onClick={closeMenu}>Órdenes</Link>
+                        <Link to='/moderation/stock' onClick={closeMenu}>Ver stock</Link>
+                        <Link to='/moderation/products' onClick={closeMenu}>Ver productos</Link>
+                    </>
+                }
+                {user ?
+                    <button type='button' className='header-dropdown-action' onClick={() => handleMenuAction(logout)}>Cerrar sesión</button>
+                    :
+                    <button type='button' className='header-dropdown-action' onClick={() => handleMenuAction(openModal)}>Iniciar sesión</button>
+                }
+            </nav>
         </header>
     )
 }

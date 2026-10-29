@@ -7,8 +7,9 @@ import { PaginationControls } from '../../components/PaginationControls/Paginati
 import { FeedbackModal } from '../../components/FeedbackModal/FeedbackModal.jsx'
 import { UploadProofModal } from '../../components/UploadProofModal/UploadProofModal.jsx'
 import PAYMENT_METHODS from '../Checkout/constants/paymentMethods.js'
+import { OrderStatusBadge } from '../../components/OrderStatusBadge/OrderStatusBadge.jsx'
 
-import { ORDER_STATUSES, ORDER_STATUS_FILTERS as STATUS_FILTERS, getOrderStatusLabel } from '../../utils/orderStatuses.js'
+import { ORDER_STATUSES, ORDER_STATUS_FILTERS as STATUS_FILTERS } from '../../utils/orderStatuses.js'
 
 export function MyOrdersPage() {
   const [orders, setOrders] = useState([])
@@ -78,7 +79,7 @@ export function MyOrdersPage() {
       }
     } catch (fetchError) {
       console.error(fetchError)
-      setError('No se pudieron cargar tus pedidos. Intenta nuevamente.')
+      setError('No se pudieron cargar tus pedidos. Intentá de nuevo.')
     } finally {
       setLoadingOrders(false)
     }
@@ -159,32 +160,32 @@ export function MyOrdersPage() {
   }
 
   if (loadingOrders) {
-    return <main className='my-orders-page'>Cargando pedidos...</main>
+    return <section className='my-orders-page' role='status'>Cargando pedidos…</section>
   }
 
   if (error) {
     return (
-      <main className='my-orders-page'>
+      <section className='my-orders-page'>
         <article className='my-orders-content'>
-          <h1>Mis Pedidos</h1>
-          <p>{error}</p>
-          <button type='button' className='my-orders-button' onClick={fetchOrders}>
+          <h1>Mis pedidos</h1>
+          <p role='alert'>{error}</p>
+          <button type='button' className='my-orders-button btn btn-primary' onClick={() => fetchOrders()}>
             Reintentar
           </button>
         </article>
-      </main>
+      </section>
     )
   }
 
   return (
     <section className='my-orders-page'>
       <article className='my-orders-content'>
-        <h1>Mis Pedidos</h1>
+        <h1>Mis pedidos</h1>
 
         <div className='my-orders-toolbar'>
           <div className='my-orders-filter-group'>
             <label htmlFor='status-filter' className='my-orders-filter-label'>
-              Filtrar por Estado
+              Filtrar por estado
             </label>
             <select
               id='status-filter'
@@ -199,15 +200,17 @@ export function MyOrdersPage() {
               ))}
             </select>
           </div>
+          <span className='my-orders-total tabular'>{totalOrders} {totalOrders === 1 ? 'pedido' : 'pedidos'}</span>
         </div>
-        <span className='my-orders-total'>Total: {totalOrders}</span>
 
         {!orders.length ? (
           <>
-            <p>No hay pedidos para el filtro seleccionado.</p>
-            <Link to='/' className='my-orders-button'>
-              Ir a comprar
-            </Link>
+            <div className='my-orders-empty'>
+              <p>No hay pedidos para el filtro seleccionado.</p>
+              <Link to='/' className='my-orders-button btn btn-primary'>
+                Ir a comprar
+              </Link>
+            </div>
           </>
         ) : (
           <div className='my-orders-list'>
@@ -215,9 +218,7 @@ export function MyOrdersPage() {
               <article className='my-order-card' key={order.id}>
                 <header className='my-order-card-header'>
                   <h2>Pedido #{order.id}</h2>
-                  <span className={`my-order-status my-order-status-${order.status}`}>
-                    {getOrderStatusLabel(order.status)}
-                  </span>
+                  <OrderStatusBadge status={order.status} />
                 </header>
 
                 <div className='my-order-meta'>
@@ -264,7 +265,7 @@ export function MyOrdersPage() {
                     <p className='my-order-proof-hint'>{getProofDeadlineText(order)}</p>
                     <button
                       type='button'
-                      className='my-order-proof-button'
+                      className='my-order-proof-button btn btn-primary'
                       onClick={() => setProofOrder(order)}
                     >
                       <FaUpload aria-hidden='true' />
@@ -301,6 +302,7 @@ export function MyOrdersPage() {
         title={feedbackModal.title}
         description={feedbackModal.description}
         icon={feedbackModal.type === 'success' ? <FaCheckCircle /> : <FaExclamationCircle />}
+        variant={feedbackModal.type === 'success' ? 'success' : 'error'}
         buttonText='Entendido'
       />
     </section>

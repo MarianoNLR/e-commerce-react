@@ -1,88 +1,58 @@
-.checkout-customer-page {
-    min-height: 100vh;
+.checkout-customer-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80%;
+    width: 100%;
+    padding: var(--space-6) var(--space-4) var(--space-8);
 }
 
-.checkout-customer-page .container {
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.container h1 {
+.checkout-customer-container h1 {
+    width: min(720px, 100%);
+    margin: 0 0 var(--space-5);
+    font-size: var(--text-2xl);
+    font-weight: 600;
     text-align: left;
-    margin-bottom: 1rem;
 }
 
+/* Los campos van de a pares; la observación y el botón ocupan todo el ancho */
 .checkout-customer-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 80%;
-    margin: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    width: min(720px, 100%);
+    padding: var(--space-5);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: left;
 }
 
-.checkout-customer-form .form-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.checkout-customer-form > h1,
+.checkout-customer-form > .form-group:has(textarea),
+.checkout-customer-form > .checkout-customer-form-required-text-wrapper,
+.checkout-customer-form > button {
+    grid-column: 1 / -1;
 }
 
-.checkout-customer-form .form-group .form-input {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    border-bottom: 1px solid gray;
-    color: #ffffff;
-    width: 100%;
-    padding: 10px;
-    font-size: 1.1rem;
-    box-sizing: border-box;
+.checkout-customer-form > h1 {
+    margin: 0;
+    width: auto;
 }
 
-.checkout-customer-form .form-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.checkout-customer-form .form-textarea-additional_info {
+    resize: vertical;
+    min-height: 90px;
 }
 
-.checkout-customer-form .form-group label {
-    font-weight: bold;
-    margin-bottom: 4px;
-    display: flex;
-    flex: 0;
-    color: rgba(255, 255, 255, 0.589);
+.checkout-customer-form-required-text {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
 }
 
-.checkout-customer-form-required-text-wrapper .checkout-customer-form-required-text {
-    font-size: 1rem;
-    color: #ffffff;
-    text-align: start;
-    margin-bottom: 8px;
-}
-
- .checkout-customer-form .form-group .form-textarea-additional_info {
-    resize: none;
-    min-height: 80px;
-    border: 1px solid gray;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 1.1rem;
-    box-sizing: border-box;
-}
-
-.checkout-customer-form .form-group .form-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #242424 inset !important;
-    -webkit-text-fill-color: #ffffff !important;
-    font-size: 1.1rem;
+@media (max-width: 640px) {
+    .checkout-customer-form {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-4);
+    }
 }

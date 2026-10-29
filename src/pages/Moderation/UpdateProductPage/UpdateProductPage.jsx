@@ -1,4 +1,3 @@
-import './UpdateProductPage.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
@@ -94,15 +93,13 @@ export function UpdateProductPage() {
 
     if (loadingProduct || loadingCategories) {
         return (
-            <div className="update-product-loading">
-                <p>Cargando...</p>
-            </div>
+            <section className="admin-page admin-page-status" role="status">Cargando producto…</section>
         );
     }
 
     return (
-        <>
-            <h1>Actualización de Producto</h1>
+        <section className="admin-page admin-form-page">
+            <h1>Editar producto</h1>
             <UpdateProductForm
                 handleSubmit={handleSubmit}
                 onSubmit={onSubmit}
@@ -121,9 +118,9 @@ export function UpdateProductPage() {
                     onClose={() => setConfirmDeleteModalOpen(false)}
                     onConfirm={onConfirmDeleteProduct}
                     title="Eliminar producto"
-                    message="Esta accion no se puede deshacer. Se eliminara el producto de forma permanente."
+                    message="Esta acción no se puede deshacer. Se eliminará el producto de forma permanente."
                     highlightedText={productName}
-                    confirmText={isDeleting ? 'Eliminando...' : 'Si, eliminar'}
+                    confirmText={isDeleting ? 'Eliminando…' : 'Sí, eliminar'}
                     cancelText="Cancelar"
                 />
             )}
@@ -132,13 +129,14 @@ export function UpdateProductPage() {
                 isOpen={isDeleting}
                 onClose={() => {}}
                 title="Eliminando producto"
-                description="Estamos eliminando el producto. Por favor espera..."
+                description="Estamos eliminando el producto. Por favor, esperá…"
                 icon={<FaSpinner />}
                 isSpinningIcon={true}
-                buttonText="Procesando..."
+                buttonText="Procesando…"
                 hideCloseButton={true}
                 isActionDisabled={true}
+                variant="info"
             />
-        </>
+        </section>
     );
 }
