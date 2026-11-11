@@ -1,3 +1,5 @@
+![CI](https://github.com/MarianoNLR/e-commerce-react/actions/workflows/ci.yml/badge.svg)
+
 # 🛍️ E-commerce – Frontend
 ### Interfaz de usuario para el sistema de e-commerce. Consume la API del backend y permite explorar productos y realizar compras.
 ### Estado: En desarrollo. Algunas pantallas y flujos aún no están finalizados.
