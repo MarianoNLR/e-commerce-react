@@ -2,16 +2,14 @@ import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../../../hooks/useAuth.jsx'
-import { useCart } from '../../../hooks/useCart.jsx'
 import { CartHeader } from '../../CartHeader/CartHeader.jsx'
 import { useAuthModal } from '../../../hooks/useAuthModal.jsx'
 import { FaUserCircle } from 'react-icons/fa'
 
 export function Header () {
     const { openModal } = useAuthModal() ?? {}
-    const { loadingUser, logout } = useAuth()
+    const { logout } = useAuth()
     const isLoggedIn = Boolean(window.localStorage.getItem('access_token'))
-    const { loadingCartCount } = useCart()
     const navigate = useNavigate()
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const userMenuRef = useRef(null)
@@ -42,10 +40,6 @@ export function Header () {
             document.removeEventListener('keydown', handleEscape)
         }
     }, [isUserMenuOpen])
-
-    if (loadingUser || loadingCartCount) {
-        return <></>
-    }
 
     const handleLogout = async () => {
         setIsUserMenuOpen(false)
