@@ -4,13 +4,14 @@ import { useAuth } from '../../hooks/useAuth.jsx';
 import { propTypes } from 'prop-types';
 
 export function ProtectedRoute({ children, isAllowedRoles = null }) {
-  const { user, loadingUser } = useAuth();
+  const { user, sessionStatus } = useAuth();
 
-  if (loadingUser) {
-    return null;
+  // The cached user is not enough here: wait until the server confirms the session.
+  if (sessionStatus === 'checking') {
+    return <section className="admin-page-status" role="status">Verificando sesión…</section>;
   }
 
-  if (!user) {
+  if (!user || sessionStatus !== 'verified') {
     console.log('User not authenticated. Redirecting to login.');
     return <Navigate to="/" />;
   }

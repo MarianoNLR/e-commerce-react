@@ -6,14 +6,9 @@ export const login = async (credentials) => {
     return response;
 };
 
+// Throws on failure so the caller can tell an invalid session from a network error.
 export const getUserFromToken = async () => {
-    try {
-        const res = await api.get('/users/me')
-        return res
-    } catch (error) {
-        console.error('An error has ocurred while obtaining your token: ', error)
-        return null
-    }
+    return api.get('/users/me')
 };
 
 export const logout = async () => {
