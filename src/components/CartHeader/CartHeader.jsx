@@ -4,12 +4,8 @@ import { useCart } from "../../hooks/useCart.jsx"
 import { FaShoppingCart } from 'react-icons/fa'
 
 export function CartHeader () {
-    const { user, loadingUser } = useAuth()
+    const { user } = useAuth()
     const { cart, loadingCart } = useCart()
-
-    if (loadingUser) {
-        return null
-    }
 
     // Mientras carga se muestra el ícono sin contador, así el header no "salta".
     const itemsCount = loadingCart ? 0 : (cart?.items?.length || 0)
@@ -17,7 +13,7 @@ export function CartHeader () {
     return (
         <div className='cart-icon-wrapper'>
             <Link
-                to={`/cart/${user?.id}`}
+                to={user ? `/cart/${user.id}` : '#'}
                 aria-label={itemsCount > 0 ? `Ver carrito, ${itemsCount} productos` : 'Ver carrito'}
             >
                 <FaShoppingCart className='cart-icon' aria-hidden="true" />

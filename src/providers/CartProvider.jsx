@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef, useCallback } from "react";
 import api from "../api.js";
-import { useAuthLogic } from "../hooks/useAuthLogic.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useAuthModal } from '../hooks/useAuthModal.jsx';
 import { CartContext } from "../contexts/CartContext.jsx";
 
 export const CartProvider = ({ children }) => {
-    const { user } = useAuthLogic()
+    const { user } = useAuth()
     //const user = JSON.parse(window.localStorage.getItem('user'))
     //const [cartCount, setCartCount] = useState([])
     const [cart, setCart] = useState({items: [], total: 0, userId: null})

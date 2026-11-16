@@ -11,12 +11,8 @@ import { SiteNotice } from '../SiteNotice/SiteNotice.jsx'
 const MOBILE_QUERY = '(max-width: 1024px)'
 
 export default function Layout(props) {
-  const { user, loadingUser } = useAuth();
+  const { user } = useAuth();
   const isMobile = useMediaQuery({ query: MOBILE_QUERY });
-
-  if (loadingUser) {
-    return <></>;
-  }
 
   return (
     <>

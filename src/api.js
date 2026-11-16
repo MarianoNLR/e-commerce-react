@@ -63,6 +63,7 @@ api.interceptors.response.use(
             } catch (err) {
                 processQueue(err, null);
                 window.localStorage.removeItem('access_token');
+                window.localStorage.removeItem('user');
                 console.error('Error refreshing token:', err);
                 return Promise.reject(err);
             } finally {
